@@ -432,29 +432,7 @@ if (tourId) {
 }
 
 // Accessibility improvements
-function initializeAccessibility() {
-    // Skip link
-    const skipLink = document.createElement('a');
-    skipLink.href = '#overview';
-    skipLink.className = 'skip-link';
-    skipLink.textContent = 'İçeriğe git';
-    document.body.insertBefore(skipLink, document.body.firstChild);
-    
-    // Keyboard navigation for gallery
-    const galleryThumbs = document.querySelectorAll('.gallery-thumbs img');
-    galleryThumbs.forEach((thumb, index) => {
-        thumb.setAttribute('tabindex', '0');
-        thumb.setAttribute('role', 'button');
-        thumb.setAttribute('aria-label', `Galeri resmi ${index + 1}`);
-        
-        thumb.addEventListener('keydown', function(e) {
-            if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                changeMainImage(this);
-            }
-        });
-    });
-}
+
 
 // Initialize accessibility features
 initializeAccessibility();

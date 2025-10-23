@@ -65,6 +65,38 @@
         </div>
     </section>
 
+    <!-- Tour Detail Tabs -->
+    <section class="tour-detail-tabs">
+        <div class="container">
+            <div class="tab-navigation">
+                <button class="tab-btn active" data-tab="overview">
+                    <i class="fas fa-info-circle"></i>
+                    Genel Bakış
+                </button>
+                <button class="tab-btn" data-tab="itinerary">
+                    <i class="fas fa-route"></i>
+                    Program
+                </button>
+                <button class="tab-btn" data-tab="inclusions">
+                    <i class="fas fa-check-circle"></i>
+                    Dahil Olanlar
+                </button>
+                <button class="tab-btn" data-tab="photos">
+                    <i class="fas fa-images"></i>
+                    Fotoğraflar
+                </button>
+                <button class="tab-btn" data-tab="reviews">
+                    <i class="fas fa-star"></i>
+                    Yorumlar
+                </button>
+                <button class="tab-btn" data-tab="booking">
+                    <i class="fas fa-calendar-check"></i>
+                    Rezervasyon
+                </button>
+            </div>
+        </div>
+    </section>
+
     <!-- Tour Hero Section -->
     <section class="tour-hero">
         <div class="container">
@@ -153,20 +185,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <!-- Tour Navigation -->
-    <section class="tour-navigation">
-        <div class="container">
-            <nav class="tour-nav">
-                <a href="#overview" class="nav-link active">Genel Bakış</a>
-                <a href="#itinerary" class="nav-link">Program</a>
-                <a href="#includes" class="nav-link">Dahil Olanlar</a>
-                <a href="#hotels" class="nav-link">Oteller</a>
-                <a href="#reviews" class="nav-link">Yorumlar</a>
-                <a href="#booking" class="nav-link">Rezervasyon</a>
-            </nav>
         </div>
     </section>
 
@@ -360,6 +378,51 @@
                                     <li><i class="fas fa-pills"></i> Kişisel ilaç ve sağlık giderleri</li>
                                     <li><i class="fas fa-taxi"></i> Program dışı transferler</li>
                                 </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Photos -->
+                    <div id="photos" class="content-section">
+                        <h2>Tur Fotoğrafları</h2>
+                        <div class="photo-gallery">
+                            <div class="gallery-grid">
+                                <div class="gallery-item">
+                                    <img src="assets/1Çalışma Yüzeyi 2_1.png" alt="Kabe Tawaf">
+                                    <div class="gallery-overlay">
+                                        <i class="fas fa-expand"></i>
+                                    </div>
+                                </div>
+                                <div class="gallery-item">
+                                    <img src="assets/1Çalışma Yüzeyi 2_2.png" alt="Mescid-i Nebevi">
+                                    <div class="gallery-overlay">
+                                        <i class="fas fa-expand"></i>
+                                    </div>
+                                </div>
+                                <div class="gallery-item">
+                                    <img src="assets/1Çalışma Yüzeyi 2_3.png" alt="Medine Manzara">
+                                    <div class="gallery-overlay">
+                                        <i class="fas fa-expand"></i>
+                                    </div>
+                                </div>
+                                <div class="gallery-item">
+                                    <img src="assets/1Çalışma Yüzeyi 1.png" alt="Harem-i Şerif">
+                                    <div class="gallery-overlay">
+                                        <i class="fas fa-expand"></i>
+                                    </div>
+                                </div>
+                                <div class="gallery-item">
+                                    <img src="assets/1Çalışma Yüzeyi 2.png" alt="Arafat Dağı">
+                                    <div class="gallery-overlay">
+                                        <i class="fas fa-expand"></i>
+                                    </div>
+                                </div>
+                                <div class="gallery-item">
+                                    <img src="assets/1Çalışma Yüzeyi 2_1.png" alt="Grup Fotoğrafı">
+                                    <div class="gallery-overlay">
+                                        <i class="fas fa-expand"></i>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -801,6 +864,91 @@
             </div>
         </div>
     </footer>
+
+    <!-- Tab Navigation Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Tab navigation functionality
+            const tabButtons = document.querySelectorAll('.tab-btn');
+            const contentSections = document.querySelectorAll('.content-section');
+            const bookingSection = document.querySelector('#booking');
+
+            function showTabContent(targetTab) {
+                // Hide all content sections
+                contentSections.forEach(section => {
+                    section.style.display = 'none';
+                });
+                
+                // Hide booking section
+                if (bookingSection) {
+                    bookingSection.style.display = 'none';
+                }
+
+                // Remove active class from all tabs
+                tabButtons.forEach(btn => {
+                    btn.classList.remove('active');
+                });
+
+                // Show target content
+                if (targetTab === 'booking' && bookingSection) {
+                    bookingSection.style.display = 'block';
+                } else {
+                    const targetContent = document.querySelector(`#${targetTab}`);
+                    if (targetContent) {
+                        targetContent.style.display = 'block';
+                    }
+                }
+
+                // Add active class to clicked tab
+                const activeTab = document.querySelector(`[data-tab="${targetTab}"]`);
+                if (activeTab) {
+                    activeTab.classList.add('active');
+                }
+
+                // Smooth scroll to content
+                const targetElement = document.querySelector(`#${targetTab}`) || bookingSection;
+                if (targetElement) {
+                    targetElement.scrollIntoView({ 
+                        behavior: 'smooth', 
+                        block: 'start',
+                        inline: 'nearest'
+                    });
+                }
+            }
+
+            // Add click event listeners to tab buttons
+            tabButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetTab = this.getAttribute('data-tab');
+                    showTabContent(targetTab);
+                });
+            });
+
+            // Initialize - show overview by default
+            showTabContent('overview');
+
+            // Update tab sections mapping for correct navigation
+            const tabMapping = {
+                'overview': 'overview',
+                'itinerary': 'itinerary', 
+                'inclusions': 'includes',
+                'photos': 'photos',
+                'reviews': 'reviews',
+                'booking': 'booking'
+            };
+
+            // Update tab navigation with correct mapping
+            tabButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const tabKey = this.getAttribute('data-tab');
+                    const targetSection = tabMapping[tabKey] || tabKey;
+                    showTabContent(targetSection);
+                });
+            });
+        });
+    </script>
 
     <script src="js/script.js"></script>
     <script src="js/tour-detail.js"></script>
