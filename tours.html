@@ -1,12 +1,5 @@
 <!DOCTYPE html>
-<html                 <nav class="main-nav">
-                    <ul>
-                        <li><a href="index.html">Ana Sayfa</a></li>
-                        <li><a href="tours.html" class="active">Turlar</a></li>
-                        <li><a href="blog.html">Blog</a></li>
-                        <li><a href="index.html#contact">İletişim</a></li>
-                    </ul>
-                </nav>">
+<html lang="tr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -47,17 +40,23 @@
 
     <!-- Page Header -->
     <section class="page-header">
-        <div class="page-header-bg">
-            <div class="container">
-                <div class="page-header-content">
-                    <nav class="breadcrumb">
-                        <a href="index.html">Anasayfa</a>
-                        <span>/</span>
-                        <span>Turlarımız</span>
-                    </nav>
-                    <h1>Tüm Turlarımız</h1>
-                    <p>Hayalinizdeki seyahati bulun ve unutulmaz anılar yaşayın</p>
-                </div>
+        <style>
+          
+            @media (max-width: 768px) {
+                .page-header {
+                    margin-top: 0 !important;
+                }
+            }
+        </style>
+        <div class="container">
+            <div class="page-header-content">
+                <nav class="breadcrumb">
+                    <a href="index.html">Anasayfa</a>
+                    <span>/</span>
+                    <span>Turlarımız</span>
+                </nav>
+                <h1>Tüm Turlarımız</h1>
+                <p>Hayalinizdeki seyahati bulun ve unutulmaz anılar yaşayın</p>
             </div>
         </div>
     </section>
@@ -65,8 +64,8 @@
     <!-- Tours Filter Section -->
     <section class="tours-filter-section">
         <div class="container">
-            <div class="filter-controls">
-                <div class="filter-categories">
+            <div class="filter-controls" style="justify-content: center; align-items: center;">
+                <div class="filter-categories" style="justify-content: center;">
                     <button class="filter-btn active" data-category="all">Tümü</button>
                     <button class="filter-btn" data-category="umre">Umre Turları</button>
                     <button class="filter-btn" data-category="kudus">Kudüs Turları</button>
@@ -74,12 +73,12 @@
                     <button class="filter-btn" data-category="international">Uluslararası</button>
                 </div>
                 
-                <div class="filter-search">
+                <div class="filter-search" style="justify-content: center;">
                     <div class="search-box">
                         <input type="text" id="tourSearch" placeholder="Tur ara...">
                         <i class="fas fa-search"></i>
                     </div>
-                    <div class="filter-options">
+                    <div class="filter-options" style="justify-content: center;">
                         <select id="sortBy">
                             <option value="default">Sırala</option>
                             <option value="price-low">Fiyat: Düşük → Yüksek</option>
@@ -105,7 +104,7 @@
         <div class="container">
             <div class="tours-grid" id="toursGrid">
                 <!-- Umre Tours -->
-                <div class="tour-card" data-category="umre" data-price="1750" data-duration="8">
+                <div class="tour-card" data-category="umre" data-price="1750" data-duration="8" style="height: 650px;">
                     <div class="tour-image">
                         <img src="assets/1Çalışma Yüzeyi 2_1.png" alt="8 Günlük Lüks Umre">
                         <div class="tour-badge">Yeni</div>
@@ -151,7 +150,7 @@
                     </div>
                 </div>
 
-                <div class="tour-card" data-category="umre" data-price="2500" data-duration="10">
+                <div class="tour-card" data-category="umre" data-price="2500" data-duration="10" style="height: 650px;">
                     <div class="tour-image">
                         <img src="assets/1Çalışma Yüzeyi 2_2.png" alt="VIP Umre">
                         <div class="tour-badge vip">VIP</div>
@@ -196,7 +195,7 @@
                     </div>
                 </div>
 
-                <div class="tour-card" data-category="umre" data-price="1650" data-duration="7">
+                <div class="tour-card" data-category="umre" data-price="1650" data-duration="7" style="height: 650px;">
                     <div class="tour-image">
                         <img src="assets/1Çalışma Yüzeyi 2_3.png" alt="Aile Umresi">
                         <div class="tour-badge family">Aile</div>
@@ -243,7 +242,7 @@
                 </div>
 
                 <!-- Kudus Tours -->
-                <div class="tour-card" data-category="kudus" data-price="1250" data-duration="5">
+                <div class="tour-card" data-category="kudus" data-price="1250" data-duration="5" style="height: 650px;">
                     <div class="tour-image">
                         <img src="assets/1Çalışma Yüzeyi 2_4.png" alt="Kudüs Turu">
                         <div class="tour-badge popular">Popüler</div>
@@ -289,7 +288,7 @@
                     </div>
                 </div>
 
-                <div class="tour-card" data-category="kudus" data-price="1950" data-duration="11">
+                <div class="tour-card" data-category="kudus" data-price="1950" data-duration="11" style="height: 650px;">
                     <div class="tour-image">
                         <img src="assets/1Çalışma Yüzeyi 2_5.png" alt="Üç Mescit">
                         <div class="tour-badge special">Özel</div>
@@ -336,7 +335,7 @@
                 </div>
 
                 <!-- Turkey Tours -->
-                <div class="tour-card" data-category="turkey" data-price="450" data-duration="3">
+                <div class="tour-card" data-category="turkey" data-price="450" data-duration="3" style="height: 650px;">
                     <div class="tour-image">
                         <img src="assets/1Çalışma Yüzeyi 2_7.png" alt="İstanbul Turu">
                         <div class="tour-wishlist">
@@ -380,7 +379,7 @@
                     </div>
                 </div>
 
-                <div class="tour-card" data-category="turkey" data-price="650" data-duration="4">
+                <div class="tour-card" data-category="turkey" data-price="650" data-duration="4" style="height: 650px;">
                     <div class="tour-image">
                         <img src="assets/1Çalışma Yüzeyi 3_1.png" alt="Kapadokya">
                         <div class="tour-badge adventure">Macera</div>
@@ -426,7 +425,7 @@
                 </div>
 
                 <!-- International Tours -->
-                <div class="tour-card" data-category="international" data-price="2200" data-duration="8">
+                <div class="tour-card" data-category="international" data-price="2200" data-duration="8" style="height: 650px;">
                     <div class="tour-image">
                         <img src="assets/1Çalışma Yüzeyi 1_1.png" alt="Japonya">
                         <div class="tour-badge seasonal">Sezon</div>
@@ -471,7 +470,7 @@
                     </div>
                 </div>
 
-                <div class="tour-card" data-category="international" data-price="1800" data-duration="6">
+                <div class="tour-card" data-category="international" data-price="1800" data-duration="6" style="height: 650px;">
                     <div class="tour-image">
                         <img src="assets/1Çalışma Yüzeyi 1_1 (1).png" alt="Malezya">
                         <div class="tour-wishlist">

@@ -393,7 +393,9 @@ h4 { font-size: 1.4rem; }
 
 @media (max-width: 768px) {
     .tour-card {
-        flex: 0 0 100%;
+        flex: 0 0 100%; /* Full width - 1 card per row */
+        max-width: 100%;
+        width: 100%;
     }
 }
 
@@ -1278,7 +1280,7 @@ h4 { font-size: 1.4rem; }
     }
     
     .banner-slider {
-        margin-top: 140px;
+        margin-top: 70px; /* Reduced margin to match header */
         height: 70vh;
     }
     
@@ -1431,6 +1433,8 @@ h4 { font-size: 1.4rem; }
     .tour-card,
     .blog-card {
         margin: 0 10px;
+        flex: 0 0 100% !important; /* Force 1 card per row on mobile */
+        max-width: 100%;
     }
     
     .application-form,
