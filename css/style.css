@@ -1153,6 +1153,21 @@ h4 { font-size: 1.4rem; }
 .main-header .logo a {
     text-decoration: none;
     color: inherit;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.main-header .logo img {
+    height: 50px;
+    width: auto;
+}
+
+.main-header .logo span {
+    color: #1e3a8a;
+    font-size: 20px;
+    font-weight: 700;
+    margin: 0;
 }
 
 .main-header .logo h2 {
