@@ -42,131 +42,92 @@
         </div>
     </header>
 
-    <!-- Page Banner -->
-    <section class="page-banner">
-        <div class="banner-bg" style="background: linear-gradient(rgba(30, 58, 138, 0.8), rgba(16, 185, 129, 0.8)), url('images/blog-banner.jpg') center/cover;"></div>
+    <!-- Page Header -->
+    <section class="page-header">
         <div class="container">
-            <div class="banner-content">
-                <h1>Blog & Rehberler</h1>
-                <p>Seyahat deneyimleri, rehberler ve önerileri keşfedin</p>
+            <div class="page-header-content">
                 <nav class="breadcrumb">
-                    <a href="index.html">Ana Sayfa</a>
+                    <a href="index.html">Anasayfa</a>
                     <span>/</span>
                     <span>Blog</span>
                 </nav>
+                <h1>Blog & Rehberler</h1>
+                <p>Seyahat deneyimleri, rehberler ve önerileri keşfedin</p>
             </div>
         </div>
     </section>
 
-    <!-- Blog Content -->
-    <section class="blog-section">
+    <!-- Blog Filter Section -->
+    <section class="blog-filter-section">
         <div class="container">
-            <div class="page-layout">
-                <!-- Sidebar -->
-                <aside class="blog-sidebar">
-                    <div class="sidebar-widget">
-                        <h3>Blog Kategorileri</h3>
-                        <ul class="category-list">
-                            <li><a href="#" data-category="all" class="active">Tümü <span>(24)</span></a></li>
-                            <li><a href="#" data-category="umre">Umre Rehberi <span>(8)</span></a></li>
-                            <li><a href="#" data-category="kudus">Kudüs Seyahati <span>(6)</span></a></li>
-                            <li><a href="#" data-category="turkey">Türkiye Turları <span>(5)</span></a></li>
-                            <li><a href="#" data-category="tips">Seyahat İpuçları <span>(5)</span></a></li>
-                        </ul>
+            <div class="filter-controls" style="justify-content: center; align-items: center;">
+                <div class="filter-categories" style="justify-content: center;">
+                    <button class="filter-btn active" data-category="all">Tümü</button>
+                    <button class="filter-btn" data-category="umre">Umre Rehberi</button>
+                    <button class="filter-btn" data-category="kudus">Kudüs Seyahati</button>
+                    <button class="filter-btn" data-category="turkey">Türkiye Turları</button>
+                    <button class="filter-btn" data-category="tips">Seyahat İpuçları</button>
+                </div>
+                
+                <div class="filter-search" style="justify-content: center;">
+                    <div class="search-box">
+                        <input type="text" id="blogSearch" placeholder="Blog yazılarında ara...">
+                        <i class="fas fa-search"></i>
                     </div>
-
-                    <div class="sidebar-widget">
-                        <h3>Popüler Yazılar</h3>
-                        <div class="popular-posts">
-                            <article class="popular-post">
-                                <div class="post-thumb">
-                                    <img src="images/umre-guide-thumb.jpg" alt="Umre Rehberi">
-                                </div>
-                                <div class="post-info">
-                                    <h4><a href="blog-detail.html?id=umre-guide">İlk Umre Ziyaretiniz İçin Tam Rehber</a></h4>
-                                    <span class="post-date"><i class="fas fa-calendar"></i> 15 Aralık 2023</span>
-                                </div>
-                            </article>
-
-                            <article class="popular-post">
-                                <div class="post-thumb">
-                                    <img src="images/kudus-tips-thumb.jpg" alt="Kudüs İpuçları">
-                                </div>
-                                <div class="post-info">
-                                    <h4><a href="blog-detail.html?id=kudus-tips">Kudüs'te Gezilecek 10 Kutsal Mekan</a></h4>
-                                    <span class="post-date"><i class="fas fa-calendar"></i> 10 Aralık 2023</span>
-                                </div>
-                            </article>
-
-                            <article class="popular-post">
-                                <div class="post-thumb">
-                                    <img src="images/turkey-culture-thumb.jpg" alt="Türkiye Kültürü">
-                                </div>
-                                <div class="post-info">
-                                    <h4><a href="blog-detail.html?id=turkey-culture">Türkiye'nin Kültürel Hazineleri</a></h4>
-                                    <span class="post-date"><i class="fas fa-calendar"></i> 5 Aralık 2023</span>
-                                </div>
-                            </article>
-                        </div>
+                    <div class="filter-options" style="justify-content: center;">
+                        <select id="blogSort">
+                            <option value="newest">En Yeni</option>
+                            <option value="oldest">En Eski</option>
+                            <option value="popular">En Popüler</option>
+                            <option value="trending">Trend</option>
+                        </select>
                     </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-                    <div class="sidebar-widget">
-                        <h3>Etiketler</h3>
-                        <div class="tag-cloud">
-                            <a href="#" class="tag">Umre</a>
-                            <a href="#" class="tag">Kudüs</a>
-                            <a href="#" class="tag">Türkiye</a>
-                            <a href="#" class="tag">Seyahat</a>
-                            <a href="#" class="tag">Rehber</a>
-                            <a href="#" class="tag">İpuçları</a>
-                            <a href="#" class="tag">Kültür</a>
-                            <a href="#" class="tag">Tarih</a>
-                        </div>
-                    </div>
-                </aside>
-
-                <!-- Main Content -->
-                <main class="blog-main">
-                    <div class="blog-header">
-                        <div class="blog-controls">
-                            <div class="search-box">
-                                <input type="text" id="blogSearch" placeholder="Blog yazılarında ara...">
-                                <button type="button"><i class="fas fa-search"></i></button>
-                            </div>
-                            
-                            <div class="sort-options">
-                                <select id="blogSort">
-                                    <option value="newest">En Yeni</option>
-                                    <option value="oldest">En Eski</option>
-                                    <option value="popular">En Popüler</option>
-                                </select>
-                            </div>
-                        </div>
-                        
-                        <div class="results-info">
-                            <span id="blogCount">24 yazı bulundu</span>
-                        </div>
-                    </div>
-
-                    <div class="blog-grid" id="blogGrid">
+    <!-- Blog Grid Section -->
+    <section class="blog-grid-section">
+        <div class="container">
+            <div class="blog-grid" id="blogGrid">
                         <!-- Blog Post 1 -->
                         <article class="blog-card" data-category="umre">
                             <div class="blog-image">
-                                <img src="images/umre-guide.jpg" alt="Umre Rehberi">
-                                <div class="blog-category">Umre Rehberi</div>
+                                <img src="assets/1Çalışma Yüzeyi 2_1.png" alt="Umre Rehberi">
+                                <div class="blog-badge popular">Popüler</div>
+                                <div class="blog-wishlist">
+                                    <i class="far fa-heart"></i>
+                                </div>
                             </div>
                             <div class="blog-content">
-                                <h2><a href="blog-detail.html?id=umre-guide">İlk Umre Ziyaretiniz İçin Tam Rehber</a></h2>
-                                <p>Umre ibadeti için gerekli tüm bilgiler, hazırlık süreçleri ve ziyaret esnasında dikkat edilmesi gerekenler hakkında kapsamlı rehber.</p>
                                 <div class="blog-meta">
-                                    <span class="author"><i class="fas fa-user"></i> Ahmet Yılmaz</span>
-                                    <span class="date"><i class="fas fa-calendar"></i> 15 Aralık 2023</span>
-                                    <span class="reading-time"><i class="fas fa-clock"></i> 8 dk okuma</span>
+                                    <span class="blog-category">Umre Rehberi</span>
+                                    <div class="blog-rating">
+                                        <div class="stars">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                        </div>
+                                        <span>(42 yorum)</span>
+                                    </div>
                                 </div>
-                                <div class="blog-tags">
-                                    <span class="tag">Umre</span>
-                                    <span class="tag">Rehber</span>
-                                    <span class="tag">İbadet</span>
+                                <h3><a href="blog-detail.html?id=umre-guide">İlk Umre Ziyaretiniz İçin Tam Rehber</a></h3>
+                                <div class="blog-details">
+                                    <span><i class="fas fa-calendar"></i> 15 Aralık 2023</span>
+                                    <span><i class="fas fa-clock"></i> 8 dk okuma</span>
+                                    <span><i class="fas fa-user"></i> Ahmet Yılmaz</span>
+                                </div>
+                                <p>Umre ibadeti için gerekli tüm bilgiler, hazırlık süreçleri ve ziyaret esnasında dikkat edilmesi gerekenler hakkında kapsamlı rehber.</p>
+                                <div class="blog-highlights">
+                                    <span><i class="fas fa-check"></i> Hazırlık Süreci</span>
+                                    <span><i class="fas fa-check"></i> İbadet Adımları</span>
+                                    <span><i class="fas fa-check"></i> Pratik İpuçları</span>
+                                </div>
+                                <div class="blog-actions">
+                                    <a href="blog-detail.html?id=umre-guide" class="btn btn-primary">Yazıyı Oku</a>
                                 </div>
                             </div>
                         </article>
@@ -174,21 +135,40 @@
                         <!-- Blog Post 2 -->
                         <article class="blog-card" data-category="kudus">
                             <div class="blog-image">
-                                <img src="images/kudus-tips.jpg" alt="Kudüs İpuçları">
-                                <div class="blog-category">Kudüs Seyahati</div>
+                                <img src="assets/1Çalışma Yüzeyi 2_2.png" alt="Kudüs Rehberi">
+                                <div class="blog-badge trending">Trend</div>
+                                <div class="blog-wishlist">
+                                    <i class="far fa-heart"></i>
+                                </div>
                             </div>
                             <div class="blog-content">
-                                <h2><a href="blog-detail.html?id=kudus-tips">Kudüs'te Gezilecek 10 Kutsal Mekan</a></h2>
-                                <p>Kudüs'ün en önemli kutsal mekanları, tarihi ve ziyaret ipuçları. Üç semavi dinin buluştuğu bu kutsal şehirde mutlaka görülmesi gerekenler.</p>
                                 <div class="blog-meta">
-                                    <span class="author"><i class="fas fa-user"></i> Fatma Demir</span>
-                                    <span class="date"><i class="fas fa-calendar"></i> 10 Aralık 2023</span>
-                                    <span class="reading-time"><i class="fas fa-clock"></i> 6 dk okuma</span>
+                                    <span class="blog-category">Kudüs Seyahati</span>
+                                    <div class="blog-rating">
+                                        <div class="stars">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                        </div>
+                                        <span>(38 yorum)</span>
+                                    </div>
                                 </div>
-                                <div class="blog-tags">
-                                    <span class="tag">Kudüs</span>
-                                    <span class="tag">Kutsal Mekanlar</span>
-                                    <span class="tag">Tarih</span>
+                                <h3><a href="blog-detail.html?id=kudus-tips">Kudüs'te Gezilecek 10 Kutsal Mekan</a></h3>
+                                <div class="blog-details">
+                                    <span><i class="fas fa-calendar"></i> 10 Aralık 2023</span>
+                                    <span><i class="fas fa-clock"></i> 6 dk okuma</span>
+                                    <span><i class="fas fa-user"></i> Fatma Demir</span>
+                                </div>
+                                <p>Kudüs'ün en önemli kutsal mekanları, tarihi ve ziyaret ipuçları. Üç semavi dinin buluştuğu bu kutsal şehirde mutlaka görülmesi gerekenler.</p>
+                                <div class="blog-highlights">
+                                    <span><i class="fas fa-check"></i> Kutsal Mekanlar</span>
+                                    <span><i class="fas fa-check"></i> Tarihi Bilgiler</span>
+                                    <span><i class="fas fa-check"></i> Ziyaret İpuçları</span>
+                                </div>
+                                <div class="blog-actions">
+                                    <a href="blog-detail.html?id=kudus-tips" class="btn btn-primary">Yazıyı Oku</a>
                                 </div>
                             </div>
                         </article>
@@ -196,21 +176,40 @@
                         <!-- Blog Post 3 -->
                         <article class="blog-card" data-category="turkey">
                             <div class="blog-image">
-                                <img src="images/turkey-culture.jpg" alt="Türkiye Kültürü">
-                                <div class="blog-category">Türkiye Turları</div>
+                                <img src="assets/1Çalışma Yüzeyi 2_3.png" alt="Türkiye Kültürü">
+                                <div class="blog-badge new">Yeni</div>
+                                <div class="blog-wishlist">
+                                    <i class="far fa-heart"></i>
+                                </div>
                             </div>
                             <div class="blog-content">
-                                <h2><a href="blog-detail.html?id=turkey-culture">Türkiye'nin Kültürel Hazineleri</a></h2>
-                                <p>Anadolu'nun binlerce yıllık kültürel mirasını keşfedin. Antik şehirlerden modern metropollere uzanan büyüleyici yolculuk.</p>
                                 <div class="blog-meta">
-                                    <span class="author"><i class="fas fa-user"></i> Mehmet Öz</span>
-                                    <span class="date"><i class="fas fa-calendar"></i> 5 Aralık 2023</span>
-                                    <span class="reading-time"><i class="fas fa-clock"></i> 10 dk okuma</span>
+                                    <span class="blog-category">Türkiye Turları</span>
+                                    <div class="blog-rating">
+                                        <div class="stars">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                        </div>
+                                        <span>(29 yorum)</span>
+                                    </div>
                                 </div>
-                                <div class="blog-tags">
-                                    <span class="tag">Türkiye</span>
-                                    <span class="tag">Kültür</span>
-                                    <span class="tag">Tarih</span>
+                                <h3><a href="blog-detail.html?id=turkey-culture">Türkiye'nin Kültürel Hazineleri</a></h3>
+                                <div class="blog-details">
+                                    <span><i class="fas fa-calendar"></i> 5 Aralık 2023</span>
+                                    <span><i class="fas fa-clock"></i> 10 dk okuma</span>
+                                    <span><i class="fas fa-user"></i> Mehmet Öz</span>
+                                </div>
+                                <p>Anadolu'nun binlerce yıllık kültürel mirasını keşfedin. Antik şehirlerden modern metropollere uzanan büyüleyici yolculuk.</p>
+                                <div class="blog-highlights">
+                                    <span><i class="fas fa-check"></i> Antik Şehirler</span>
+                                    <span><i class="fas fa-check"></i> Kültürel Miras</span>
+                                    <span><i class="fas fa-check"></i> Modern Türkiye</span>
+                                </div>
+                                <div class="blog-actions">
+                                    <a href="blog-detail.html?id=turkey-culture" class="btn btn-primary">Yazıyı Oku</a>
                                 </div>
                             </div>
                         </article>
@@ -218,21 +217,40 @@
                         <!-- Blog Post 4 -->
                         <article class="blog-card" data-category="tips">
                             <div class="blog-image">
-                                <img src="images/travel-tips.jpg" alt="Seyahat İpuçları">
-                                <div class="blog-category">Seyahat İpuçları</div>
+                                <img src="assets/1Çalışma Yüzeyi 1.png" alt="Seyahat İpuçları">
+                                <div class="blog-badge guide">Rehber</div>
+                                <div class="blog-wishlist">
+                                    <i class="far fa-heart"></i>
+                                </div>
                             </div>
                             <div class="blog-content">
-                                <h2><a href="blog-detail.html?id=travel-tips">Seyahat Öncesi Hazırlık Rehberi</a></h2>
-                                <p>Seyahat öncesi yapılması gerekenler, bavul hazırlığı, dokümantasyon ve pratik ipuçları ile mükemmel bir seyahat deneyimi yaşayın.</p>
                                 <div class="blog-meta">
-                                    <span class="author"><i class="fas fa-user"></i> Ayşe Kaya</span>
-                                    <span class="date"><i class="fas fa-calendar"></i> 1 Aralık 2023</span>
-                                    <span class="reading-time"><i class="fas fa-clock"></i> 5 dk okuma</span>
+                                    <span class="blog-category">Seyahat İpuçları</span>
+                                    <div class="blog-rating">
+                                        <div class="stars">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                        </div>
+                                        <span>(51 yorum)</span>
+                                    </div>
                                 </div>
-                                <div class="blog-tags">
-                                    <span class="tag">Seyahat</span>
-                                    <span class="tag">İpuçları</span>
-                                    <span class="tag">Hazırlık</span>
+                                <h3><a href="blog-detail.html?id=travel-tips">Seyahat Öncesi Hazırlık Rehberi</a></h3>
+                                <div class="blog-details">
+                                    <span><i class="fas fa-calendar"></i> 1 Aralık 2023</span>
+                                    <span><i class="fas fa-clock"></i> 7 dk okuma</span>
+                                    <span><i class="fas fa-user"></i> Ayşe Kaya</span>
+                                </div>
+                                <p>Seyahat öncesi yapılması gerekenler, bavul hazırlığı, dokümantasyon ve pratik ipuçları ile mükemmel bir seyahat deneyimi yaşayın.</p>
+                                <div class="blog-highlights">
+                                    <span><i class="fas fa-check"></i> Bavul Hazırlığı</span>
+                                    <span><i class="fas fa-check"></i> Dokümantasyon</span>
+                                    <span><i class="fas fa-check"></i> Pratik İpuçları</span>
+                                </div>
+                                <div class="blog-actions">
+                                    <a href="blog-detail.html?id=travel-tips" class="btn btn-primary">Yazıyı Oku</a>
                                 </div>
                             </div>
                         </article>
@@ -240,157 +258,95 @@
                         <!-- Blog Post 5 -->
                         <article class="blog-card" data-category="umre">
                             <div class="blog-image">
-                                <img src="images/mecca-experience.jpg" alt="Mekke Deneyimi">
-                                <div class="blog-category">Umre Rehberi</div>
+                                <img src="assets/1Çalışma Yüzeyi 2.png" alt="Umre Detayları">
+                                <div class="blog-badge featured">Öne Çıkan</div>
+                                <div class="blog-wishlist">
+                                    <i class="far fa-heart"></i>
+                                </div>
                             </div>
                             <div class="blog-content">
-                                <h2><a href="blog-detail.html?id=mecca-experience">Mekke'deki Kutsal Anlar: Bir Ziyaretçi Deneyimi</a></h2>
-                                <p>Kabe'yi ilk kez görmenin heyecanı, tavaf ibadeti ve Mekke'deki manevi atmosferin kişisel bir anlatımı.</p>
                                 <div class="blog-meta">
-                                    <span class="author"><i class="fas fa-user"></i> Hasan Çelik</span>
-                                    <span class="date"><i class="fas fa-calendar"></i> 28 Kasım 2023</span>
-                                    <span class="reading-time"><i class="fas fa-clock"></i> 7 dk okuma</span>
+                                    <span class="blog-category">Umre Rehberi</span>
+                                    <div class="blog-rating">
+                                        <div class="stars">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                        </div>
+                                        <span>(67 yorum)</span>
+                                    </div>
                                 </div>
-                                <div class="blog-tags">
-                                    <span class="tag">Umre</span>
-                                    <span class="tag">Mekke</span>
-                                    <span class="tag">Deneyim</span>
+                                <h3><a href="blog-detail.html?id=umre-details">Mekke'deki Kutsal Anlar: Bir Ziyaretçi Deneyimi</a></h3>
+                                <div class="blog-details">
+                                    <span><i class="fas fa-calendar"></i> 25 Kasım 2023</span>
+                                    <span><i class="fas fa-clock"></i> 12 dk okuma</span>
+                                    <span><i class="fas fa-user"></i> Hasan Dağ</span>
+                                </div>
+                                <p>Kabe'yi ilk kez görmenin heyecanı, tavaf ibadeti ve Mekke'deki manevi atmosferin kişisel bir anlatımı.</p>
+                                <div class="blog-highlights">
+                                    <span><i class="fas fa-check"></i> Kişisel Deneyim</span>
+                                    <span><i class="fas fa-check"></i> Manevi Atmosfer</span>
+                                    <span><i class="fas fa-check"></i> İbadet Anları</span>
+                                </div>
+                                <div class="blog-actions">
+                                    <a href="blog-detail.html?id=umre-details" class="btn btn-primary">Yazıyı Oku</a>
                                 </div>
                             </div>
                         </article>
 
                         <!-- Blog Post 6 -->
-                        <article class="blog-card" data-category="kudus">
-                            <div class="blog-image">
-                                <img src="images/jerusalem-history.jpg" alt="Kudüs Tarihi">
-                                <div class="blog-category">Kudüs Seyahati</div>
-                            </div>
-                            <div class="blog-content">
-                                <h2><a href="blog-detail.html?id=jerusalem-history">Kudüs: Üç Dinin Kutsal Şehri</a></h2>
-                                <p>Yahudilik, Hristiyanlık ve İslam'ın ortak kutsal şehri Kudüs'ün tarihi ve bu dinler için taşıdığı önem.</p>
-                                <div class="blog-meta">
-                                    <span class="author"><i class="fas fa-user"></i> Dr. Ali Şahin</span>
-                                    <span class="date"><i class="fas fa-calendar"></i> 25 Kasım 2023</span>
-                                    <span class="reading-time"><i class="fas fa-clock"></i> 12 dk okuma</span>
-                                </div>
-                                <div class="blog-tags">
-                                    <span class="tag">Kudüs</span>
-                                    <span class="tag">Tarih</span>
-                                    <span class="tag">Din</span>
-                                </div>
-                            </div>
-                        </article>
-
-                        <!-- Blog Post 7 -->
-                        <article class="blog-card" data-category="turkey">
-                            <div class="blog-image">
-                                <img src="images/istanbul-guide.jpg" alt="İstanbul Rehberi">
-                                <div class="blog-category">Türkiye Turları</div>
-                            </div>
-                            <div class="blog-content">
-                                <h2><a href="blog-detail.html?id=istanbul-guide">İstanbul: İki Kıta Arasındaki Büyülü Şehir</a></h2>
-                                <p>Tarihi yarımada, Boğaz manzaraları ve eşsiz kültürel zenginliği ile İstanbul'un en güzel yerlerini keşfedin.</p>
-                                <div class="blog-meta">
-                                    <span class="author"><i class="fas fa-user"></i> Zeynep Arslan</span>
-                                    <span class="date"><i class="fas fa-calendar"></i> 20 Kasım 2023</span>
-                                    <span class="reading-time"><i class="fas fa-clock"></i> 9 dk okuma</span>
-                                </div>
-                                <div class="blog-tags">
-                                    <span class="tag">İstanbul</span>
-                                    <span class="tag">Türkiye</span>
-                                    <span class="tag">Şehir Rehberi</span>
-                                </div>
-                            </div>
-                        </article>
-
-                        <!-- Blog Post 8 -->
                         <article class="blog-card" data-category="tips">
                             <div class="blog-image">
-                                <img src="images/budget-travel.jpg" alt="Bütçe Seyahati">
-                                <div class="blog-category">Seyahat İpuçları</div>
+                                <img src="assets/1Çalışma Yüzeyi 2_1.png" alt="Fotoğrafçılık İpuçları">
+                                <div class="blog-badge photo">Fotoğraf</div>
+                                <div class="blog-wishlist">
+                                    <i class="far fa-heart"></i>
+                                </div>
                             </div>
                             <div class="blog-content">
-                                <h2><a href="blog-detail.html?id=budget-travel">Uygun Bütçeyle Kaliteli Seyahat</a></h2>
-                                <p>Az bütçeyle çok gezmenin püf noktaları, tasarruf yöntemleri ve kaliteli seyahat deneyimi yaşama rehberi.</p>
                                 <div class="blog-meta">
-                                    <span class="author"><i class="fas fa-user"></i> Oğuz Kaan</span>
-                                    <span class="date"><i class="fas fa-calendar"></i> 15 Kasım 2023</span>
-                                    <span class="reading-time"><i class="fas fa-clock"></i> 6 dk okuma</span>
+                                    <span class="blog-category">Seyahat İpuçları</span>
+                                    <div class="blog-rating">
+                                        <div class="stars">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                        </div>
+                                        <span>(33 yorum)</span>
+                                    </div>
                                 </div>
-                                <div class="blog-tags">
-                                    <span class="tag">Bütçe</span>
-                                    <span class="tag">Tasarruf</span>
-                                    <span class="tag">İpuçları</span>
+                                <h3><a href="blog-detail.html?id=photography-tips">Seyahat Fotoğrafçılığı İpuçları</a></h3>
+                                <div class="blog-details">
+                                    <span><i class="fas fa-calendar"></i> 20 Kasım 2023</span>
+                                    <span><i class="fas fa-clock"></i> 5 dk okuma</span>
+                                    <span><i class="fas fa-user"></i> Zeynep Aktaş</span>
+                                </div>
+                                <p>Seyahatlerinizde unutulmaz kareler yakalamak için profesyonel fotoğrafçılık ipuçları ve teknikleri.</p>
+                                <div class="blog-highlights">
+                                    <span><i class="fas fa-check"></i> Kompozisyon</span>
+                                    <span><i class="fas fa-check"></i> Işık Kullanımı</span>
+                                    <span><i class="fas fa-check"></i> Ekipman Seçimi</span>
+                                </div>
+                                <div class="blog-actions">
+                                    <a href="blog-detail.html?id=photography-tips" class="btn btn-primary">Yazıyı Oku</a>
                                 </div>
                             </div>
                         </article>
-
-                        <!-- Blog Post 9 -->
-                        <article class="blog-card" data-category="umre">
-                            <div class="blog-image">
-                                <img src="images/medina-guide.jpg" alt="Medine Rehberi">
-                                <div class="blog-category">Umre Rehberi</div>
-                            </div>
-                            <div class="blog-content">
-                                <h2><a href="blog-detail.html?id=medina-guide">Medine-i Münevvere Ziyaret Rehberi</a></h2>
-                                <p>Peygamberimizin şehri Medine'de ziyaret edilecek yerler, maneviyat dolu anlar ve praktik bilgiler.</p>
-                                <div class="blog-meta">
-                                    <span class="author"><i class="fas fa-user"></i> İmam Hüseyin</span>
-                                    <span class="date"><i class="fas fa-calendar"></i> 10 Kasım 2023</span>
-                                    <span class="reading-time"><i class="fas fa-clock"></i> 8 dk okuma</span>
-                                </div>
-                                <div class="blog-tags">
-                                    <span class="tag">Medine</span>
-                                    <span class="tag">Umre</span>
-                                    <span class="tag">Ziyaret</span>
-                                </div>
-                            </div>
-                        </article>
-                    </div>
-
-                    <!-- Pagination -->
-                    <div class="pagination-wrapper">
-                        <nav class="pagination">
-                            <button class="page-btn prev-btn" disabled>
-                                <i class="fas fa-chevron-left"></i>
-                                Önceki
-                            </button>
-                            
-                            <div class="page-numbers">
-                                <button class="page-number active">1</button>
-                                <button class="page-number">2</button>
-                                <button class="page-number">3</button>
-                                <span class="page-dots">...</span>
-                                <button class="page-number">8</button>
-                            </div>
-                            
-                            <button class="page-btn next-btn">
-                                Sonraki
-                                <i class="fas fa-chevron-right"></i>
-                            </button>
-                        </nav>
-                        
-                        <div class="page-info">
-                            Sayfa 1 / 3 (24 yazı)
-                        </div>
-                    </div>
-                </main>
             </div>
-        </div>
-    </section>
 
-    <!-- Newsletter Section -->
-    <section class="newsletter-section">
-        <div class="container">
-            <div class="newsletter-content">
-                <div class="newsletter-text">
-                    <h3>Blog Güncellemelerini Kaçırmayın</h3>
-                    <p>Yeni yazılarımızdan ve seyahat fırsatlarından haberdar olmak için e-bültenimize katılın</p>
+                        </article>
+            </div>
+
+            <!-- Load More Section -->
+            <div class="load-more-section">
+                <button class="btn btn-primary load-more-btn" id="loadMoreBtn">Daha Fazla Yükle</button>
+                <div class="loading-spinner" id="loadingSpinner" style="display: none;">
+                    <i class="fas fa-spinner fa-spin"></i> Yükleniyor...
                 </div>
-                <form class="newsletter-form">
-                    <input type="email" placeholder="E-posta adresiniz" required>
-                    <button type="submit">Abone Ol</button>
-                </form>
             </div>
         </div>
     </section>
@@ -457,6 +413,202 @@
 
     <!-- Scripts -->
     <script src="js/script.js"></script>
+    <script src="js/animations.js"></script>
     <script src="js/blog.js"></script>
+    
+    <!-- Load More Functionality -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const loadMoreBtn = document.getElementById('loadMoreBtn');
+            const loadingSpinner = document.getElementById('loadingSpinner');
+            const blogGrid = document.getElementById('blogGrid');
+            
+            // Additional blog posts data
+            const additionalPosts = [
+                {
+                    category: 'kudus',
+                    image: 'assets/1Çalışma Yüzeyi 2_2.png',
+                    badge: 'featured',
+                    badgeText: 'Özel',
+                    title: 'Kudüs: Üç Dinin Kutsal Şehri',
+                    rating: 5,
+                    comments: 45,
+                    date: '18 Kasım 2023',
+                    readTime: '9 dk okuma',
+                    author: 'Dr. Ali Şahin',
+                    description: 'Yahudilik, Hristiyanlık ve İslam\'ın ortak kutsal şehri Kudüs\'ün tarihi ve bu dinler için taşıdığı önem.',
+                    highlights: ['Dinler Tarihi', 'Kutsal Mekanlar', 'Kültürel Zenginlik'],
+                    link: 'blog-detail.html?id=jerusalem-history'
+                },
+                {
+                    category: 'turkey',
+                    image: 'assets/1Çalışma Yüzeyi 1.png',
+                    badge: 'trending',
+                    badgeText: 'Popüler',
+                    title: 'İstanbul: İki Kıta Arasındaki Büyülü Şehir',
+                    rating: 4,
+                    comments: 38,
+                    date: '15 Kasım 2023',
+                    readTime: '11 dk okuma',
+                    author: 'Zeynep Arslan',
+                    description: 'Tarihi yarımada, Boğaz manzaraları ve eşsiz kültürel zenginliği ile İstanbul\'un en güzel yerlerini keşfedin.',
+                    highlights: ['Tarihi Yerler', 'Boğaz Turu', 'Kültürel Miras'],
+                    link: 'blog-detail.html?id=istanbul-guide'
+                },
+                {
+                    category: 'tips',
+                    image: 'assets/1Çalışma Yüzeyi 2_3.png',
+                    badge: 'guide',
+                    badgeText: 'Kılavuz',
+                    title: 'Uygun Bütçeyle Kaliteli Seyahat',
+                    rating: 5,
+                    comments: 52,
+                    date: '12 Kasım 2023',
+                    readTime: '7 dk okuma',
+                    author: 'Oğuz Kaan',
+                    description: 'Az bütçeyle çok gezmenin püf noktaları, tasarruf yöntemleri ve kaliteli seyahat deneyimi yaşama rehberi.',
+                    highlights: ['Bütçe Planı', 'Tasarruf İpuçları', 'Kaliteli Konaklama'],
+                    link: 'blog-detail.html?id=budget-travel'
+                },
+                {
+                    category: 'umre',
+                    image: 'assets/1Çalışma Yüzeyi 2.png',
+                    badge: 'new',
+                    badgeText: 'Yeni',
+                    title: 'Medine-i Münevvere Ziyaret Rehberi',
+                    rating: 5,
+                    comments: 41,
+                    date: '8 Kasım 2023',
+                    readTime: '10 dk okuma',
+                    author: 'İmam Hüseyin',
+                    description: 'Peygamberimizin şehri Medine\'de ziyaret edilecek yerler, maneviyat dolu anlar ve praktik bilgiler.',
+                    highlights: ['Mescid-i Nebevi', 'Ziyaret Yerleri', 'Manevi Deneyim'],
+                    link: 'blog-detail.html?id=medina-guide'
+                },
+                {
+                    category: 'tips',
+                    image: 'assets/1Çalışma Yüzeyi 2_1.png',
+                    badge: 'popular',
+                    badgeText: 'En Çok Okunan',
+                    title: 'Seyahat Güvenliği ve Sağlık İpuçları',
+                    rating: 4,
+                    comments: 36,
+                    date: '5 Kasım 2023',
+                    readTime: '6 dk okuma',
+                    author: 'Dr. Ayşe Demir',
+                    description: 'Seyahat öncesi sağlık hazırlıkları, güvenlik önlemleri ve yolculuk sırasında dikkat edilmesi gerekenler.',
+                    highlights: ['Sağlık Hazırlığı', 'Güvenlik', 'Acil Durumlar'],
+                    link: 'blog-detail.html?id=travel-safety'
+                },
+                {
+                    category: 'kudus',
+                    image: 'assets/1Çalışma Yüzeyi 2_2.png',
+                    badge: 'guide',
+                    badgeText: 'Rehber',
+                    title: 'Kudüs\'te Yemek Kültürü ve Lezzetler',
+                    rating: 4,
+                    comments: 29,
+                    date: '2 Kasım 2023',
+                    readTime: '8 dk okuma',
+                    author: 'Fatma Özkan',
+                    description: 'Kudüs\'ün zengin mutfak kültürü, geleneksel lezzetler ve en iyi restoranlar hakkında kapsamlı rehber.',
+                    highlights: ['Geleneksel Yemekler', 'Lokantalar', 'Kültürel Deneyim'],
+                    link: 'blog-detail.html?id=jerusalem-food'
+                }
+            ];
+            
+            function createBlogCard(post) {
+                const starsHtml = Array(5).fill(0).map((_, i) => 
+                    i < post.rating 
+                        ? '<i class="fas fa-star"></i>' 
+                        : '<i class="far fa-star"></i>'
+                ).join('');
+                
+                const highlightsHtml = post.highlights.map(highlight => 
+                    `<span><i class="fas fa-check"></i> ${highlight}</span>`
+                ).join('');
+                
+                return `
+                    <article class="blog-card" data-category="${post.category}">
+                        <div class="blog-image">
+                            <img src="${post.image}" alt="${post.title}">
+                            <div class="blog-badge ${post.badge}">${post.badgeText}</div>
+                            <div class="blog-wishlist">
+                                <i class="far fa-heart"></i>
+                            </div>
+                        </div>
+                        <div class="blog-content">
+                            <div class="blog-meta">
+                                <span class="blog-category">${post.category.charAt(0).toUpperCase() + post.category.slice(1)}</span>
+                                <div class="blog-rating">
+                                    <div class="stars">
+                                        ${starsHtml}
+                                    </div>
+                                    <span>(${post.comments} yorum)</span>
+                                </div>
+                            </div>
+                            <h3><a href="${post.link}">${post.title}</a></h3>
+                            <div class="blog-details">
+                                <span><i class="fas fa-calendar"></i> ${post.date}</span>
+                                <span><i class="fas fa-clock"></i> ${post.readTime}</span>
+                                <span><i class="fas fa-user"></i> ${post.author}</span>
+                            </div>
+                            <p>${post.description}</p>
+                            <div class="blog-highlights">
+                                ${highlightsHtml}
+                            </div>
+                            <div class="blog-actions">
+                                <a href="${post.link}" class="btn btn-primary">Yazıyı Oku</a>
+                            </div>
+                        </div>
+                    </article>
+                `;
+            }
+            
+            loadMoreBtn.addEventListener('click', function() {
+                // Show loading spinner
+                loadingSpinner.style.display = 'block';
+                loadMoreBtn.style.display = 'none';
+                
+                // Simulate loading delay
+                setTimeout(() => {
+                    // Load all remaining posts (3 posts)
+                    for (let i = 0; i < 3; i++) {
+                        const postIndex = i;
+                        if (postIndex < additionalPosts.length) {
+                            const post = additionalPosts[postIndex];
+                            const cardHtml = createBlogCard(post);
+                            blogGrid.insertAdjacentHTML('beforeend', cardHtml);
+                        }
+                    }
+                    
+                    // Hide loading spinner
+                    loadingSpinner.style.display = 'none';
+                    
+                    // Don't show the button again - remove it completely
+                    loadMoreBtn.remove();
+                    
+                    // Show "All posts loaded" message
+                    const allLoadedMsg = document.createElement('div');
+                    allLoadedMsg.className = 'all-loaded-message';
+                    allLoadedMsg.innerHTML = '<p style="color: #666; font-style: italic; margin-top: 20px;">Tüm yazılar yüklendi</p>';
+                    document.querySelector('.load-more-section').appendChild(allLoadedMsg);
+                    
+                    // Add animation to new cards
+                    const newCards = blogGrid.querySelectorAll('.blog-card:nth-last-child(-n+3)');
+                    newCards.forEach((card, index) => {
+                        card.style.opacity = '0';
+                        card.style.transform = 'translateY(30px)';
+                        setTimeout(() => {
+                            card.style.transition = 'all 0.6s ease';
+                            card.style.opacity = '1';
+                            card.style.transform = 'translateY(0)';
+                        }, index * 200);
+                    });
+                    
+                }, 1500); // 1.5 second loading delay
+            });
+        });
+    </script>
 </body>
 </html>
