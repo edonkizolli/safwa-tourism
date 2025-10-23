@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>8 Günlük Lüks Umre Programı - Safwa Tourism</title>
+    <meta name="description" content="Mekke ve Medine'yi ziyaret edin. 5 yıldızlı otellerde konaklama ile lüks Umre deneyimi.">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/pages.css">
+    <link rel="stylesheet" href="css/tour-detail.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="main-header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <a href="index.html">
+                        <h2><i class="fas fa-mosque"></i> Safwa</h2>
+                    </a>
+                </div>
+                
+                <nav class="main-nav">
+                    <ul>
+                        <li><a href="index.html">Ana Sayfa</a></li>
+                        <li><a href="tours.html" class="active">Turlar</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="index.html#contact">İletişim</a></li>
+                    </ul>
+                </nav>
+                
+                <div class="header-actions">
+                    <button class="search-btn"><i class="fas fa-search"></i></button>
+                    <button class="menu-btn"><i class="fas fa-bars"></i></button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Tour Detail Header -->
+    <section class="tour-detail-header">
+        <div class="container">
+            <div class="tour-detail-nav">
+                <a href="tours.html" class="back-link">
+                    <i class="fas fa-arrow-left"></i>
+                    Tüm Turlara Dön
+                </a>
+                <div class="share-buttons">
+                    <button class="share-btn facebook" onclick="shareOnFacebook()">
+                        <i class="fab fa-facebook-f"></i>
+                    </button>
+                    <button class="share-btn twitter" onclick="shareOnTwitter()">
+                        <i class="fab fa-twitter"></i>
+                    </button>
+                    <button class="share-btn whatsapp" onclick="openWhatsApp('Bu harika Umre turuna göz atın!')">
+                        <i class="fab fa-whatsapp"></i>
+                    </button>
+                    <button class="share-btn copy" onclick="copyToClipboard()">
+                        <i class="fas fa-link"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tour Hero Section -->
+    <section class="tour-hero">
+        <div class="container">
+            <div class="tour-hero-content">
+                <div class="tour-hero-left">
+                    <div class="tour-badges">
+                        <span class="tour-badge new">Yeni</span>
+                        <span class="tour-badge bestseller">En Çok Satan</span>
+                    </div>
+                    <h1>8 Günlük Lüks Umre Programı</h1>
+                    <div class="tour-meta">
+                        <div class="tour-rating">
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <span class="rating-text">4.9 (48 değerlendirme)</span>
+                        </div>
+                        <div class="tour-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Mekke - Medine</span>
+                        </div>
+                    </div>
+                    <p class="tour-description">Kutsal topraklarda unutulmaz bir manevi yolculuk. 5 yıldızlı otellerde konaklama, özel rehber eşliğinde Harem-i Şerif ve Mescid-i Nebevi ziyaretleri.</p>
+                </div>
+                <div class="tour-hero-right">
+                    <div class="tour-price-card">
+                        <div class="price-header">
+                            <span class="price-label">Kişi başı başlangıç fiyatı</span>
+                            <div class="price-main">
+                                <span class="old-price">$2000</span>
+                                <span class="current-price">$1750</span>
+                            </div>
+                        </div>
+                        <div class="price-details">
+                            <div class="price-item">
+                                <i class="fas fa-check"></i>
+                                <span>Tüm vergiler dahil</span>
+                            </div>
+                            <div class="price-item">
+                                <i class="fas fa-check"></i>
+                                <span>Ücretsiz iptal</span>
+                            </div>
+                            <div class="price-item">
+                                <i class="fas fa-check"></i>
+                                <span>24/7 destek</span>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary btn-large" onclick="scrollToBooking()">
+                            Şimdi Rezerve Et
+                        </button>
+                        <button class="btn btn-outline btn-large" onclick="openWhatsApp('8 Günlük Lüks Umre Programı hakkında bilgi almak istiyorum.')">
+                            <i class="fab fa-whatsapp"></i>
+                            WhatsApp ile İletişim
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tour Gallery -->
+    <section class="tour-gallery">
+        <div class="container">
+            <div class="gallery-grid">
+                <div class="gallery-main">
+                    <img src="assets/1Çalışma Yüzeyi 2_1.png" alt="Kabe Tawaf" id="mainGalleryImage">
+                    <div class="gallery-overlay">
+                        <button class="gallery-fullscreen" onclick="openGalleryModal()">
+                            <i class="fas fa-expand"></i>
+                            Tüm Fotoğrafları Gör
+                        </button>
+                    </div>
+                </div>
+                <div class="gallery-thumbs">
+                    <img src="assets/1Çalışma Yüzeyi 2_2.png" alt="Mescid-i Nebevi" onclick="changeMainImage(this)">
+                    <img src="assets/1Çalışma Yüzeyi 2_3.png" alt="Otel" onclick="changeMainImage(this)">
+                    <img src="assets/1Çalışma Yüzeyi 2_4.png" alt="Grup Fotoğrafı" onclick="changeMainImage(this)">
+                    <img src="assets/1Çalışma Yüzeyi 2_5.png" alt="Ziyaret" onclick="changeMainImage(this)">
+                    <div class="gallery-more" onclick="openGalleryModal()">
+                        <span>+12</span>
+                        <span>Daha Fazla</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tour Navigation -->
+    <section class="tour-navigation">
+        <div class="container">
+            <nav class="tour-nav">
+                <a href="#overview" class="nav-link active">Genel Bakış</a>
+                <a href="#itinerary" class="nav-link">Program</a>
+                <a href="#includes" class="nav-link">Dahil Olanlar</a>
+                <a href="#hotels" class="nav-link">Oteller</a>
+                <a href="#reviews" class="nav-link">Yorumlar</a>
+                <a href="#booking" class="nav-link">Rezervasyon</a>
+            </nav>
+        </div>
+    </section>
+
+    <!-- Tour Content -->
+    <section class="tour-content">
+        <div class="container">
+            <div class="tour-content-grid">
+                <!-- Main Content -->
+                <div class="tour-main">
+                    <!-- Overview -->
+                    <div id="overview" class="content-section">
+                        <h2>Tur Hakkında</h2>
+                        <div class="tour-highlights-grid">
+                            <div class="highlight-item">
+                                <i class="fas fa-clock"></i>
+                                <div>
+                                    <h4>8 Gün 7 Gece</h4>
+                                    <p>Konforlu süre</p>
+                                </div>
+                            </div>
+                            <div class="highlight-item">
+                                <i class="fas fa-users"></i>
+                                <div>
+                                    <h4>Max 40 Kişi</h4>
+                                    <p>Küçük grup</p>
+                                </div>
+                            </div>
+                            <div class="highlight-item">
+                                <i class="fas fa-star"></i>
+                                <div>
+                                    <h4>5 Yıldızlı Otel</h4>
+                                    <p>Lüks konaklama</p>
+                                </div>
+                            </div>
+                            <div class="highlight-item">
+                                <i class="fas fa-user-tie"></i>
+                                <div>
+                                    <h4>Özel Rehber</h4>
+                                    <p>Deneyimli rehber</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="tour-description-full">
+                            <p>8 günlük lüks Umre programımız, manevi yolculuğunuzu en konforlu şekilde tamamlamanız için özenle hazırlanmıştır. İstanbul'dan direkt uçuşlarla Cidde'ye varış yapacak, oradan VIP transferlerle Mekke'ye geçiş yapacaksınız.</p>
+                            
+                            <p>Mekke'de Kabe'ye en yakın 5 yıldızlı otellerde konaklayacak, rahat ve huzurlu bir ortamda ibadetlerinizi yerine getirebileceksiniz. Deneyimli rehberlerimiz eşliğinde tüm ziyaret ve ibadetleriniz için detaylı bilgi ve rehberlik alacaksınız.</p>
+                            
+                            <p>Program süresince Mescid-i Haram, Mina, Arafat ve Müzdelife bölgelerini ziyaret edecek, İslam tarihinin önemli mekânlarını göreceksiniz. Medine'de ise Mescid-i Nebevi ziyareti ve Hz. Peygamber'in (SAV) blessed mekanlarını ziyaret etme fırsatı bulacaksınız.</p>
+                        </div>
+                    </div>
+
+                    <!-- Itinerary -->
+                    <div id="itinerary" class="content-section">
+                        <h2>Günlük Program</h2>
+                        <div class="itinerary-timeline">
+                            <div class="timeline-item">
+                                <div class="timeline-date">
+                                    <span class="day">1. Gün</span>
+                                    <span class="date">Cumartesi</span>
+                                </div>
+                                <div class="timeline-content">
+                                    <h4>İstanbul'dan Hareket</h4>
+                                    <p>Atatürk Havalimanı'ndan saat 14:30'da kalkış. Cidde'ye varış ve VIP transferle Mekke'ye geçiş. Otel check-in işlemleri.</p>
+                                    <ul>
+                                        <li>Havalimanında karşılama</li>
+                                        <li>VIP transfer hizmeti</li>
+                                        <li>Otel yerleşimi</li>
+                                        <li>Oryantasyon toplantısı</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <div class="timeline-item">
+                                <div class="timeline-date">
+                                    <span class="day">2. Gün</span>
+                                    <span class="date">Pazar</span>
+                                </div>
+                                <div class="timeline-content">
+                                    <h4>Mekke Ziyaretleri</h4>
+                                    <p>Mescid-i Haram ve Kabe ziyareti. Tawaf ve Sa'y ibadetleri. Rehber eşliğinde tarhi mekanların gezilmesi.</p>
+                                    <ul>
+                                        <li>Sabah kahvaltısı</li>
+                                        <li>Mescid-i Haram girişi</li>
+                                        <li>Tawaf ibadeti</li>
+                                        <li>Safa-Merve arası Sa'y</li>
+                                        <li>Rehberli tarihi tur</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <div class="timeline-item">
+                                <div class="timeline-date">
+                                    <span class="day">3. Gün</span>
+                                    <span class="date">Pazartesi</span>
+                                </div>
+                                <div class="timeline-content">
+                                    <h4>Mina ve Arafat Ziyareti</h4>
+                                    <p>Mina, Arafat ve Müzdelife bölgelerinin ziyareti. İslami tarihin önemli olaylarının geçtiği mekanları görme.</p>
+                                    <ul>
+                                        <li>Erken kahvaltı</li>
+                                        <li>Mina bölgesi ziyareti</li>
+                                        <li>Arafat Dağı</li>
+                                        <li>Müzdelife ziyareti</li>
+                                        <li>Öğle yemeği</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <div class="timeline-item">
+                                <div class="timeline-date">
+                                    <span class="day">4-6. Gün</span>
+                                    <span class="date">Salı-Perşembe</span>
+                                </div>
+                                <div class="timeline-content">
+                                    <h4>Mekke'de Serbest Zaman</h4>
+                                    <p>İbadet ve ziyaret için serbest zamanlar. İsteğe bağlı ek ziyaretler ve alışveriş imkanı.</p>
+                                    <ul>
+                                        <li>Günlük ibadetler</li>
+                                        <li>Ek Tawaf ve Umre</li>
+                                        <li>Alışveriş zamanı</li>
+                                        <li>Dinlenme ve ibaadet</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <div class="timeline-item">
+                                <div class="timeline-date">
+                                    <span class="day">7. Gün</span>
+                                    <span class="date">Cuma</span>
+                                </div>
+                                <div class="timeline-content">
+                                    <h4>Medine'ye Hareket</h4>
+                                    <p>Mekke'den Medine'ye hareket. Mescid-i Nebevi ziyareti ve Hz. Peygamber'in kabrini ziyaret.</p>
+                                    <ul>
+                                        <li>Otel çıkışı</li>
+                                        <li>Medine'ye yolculuk</li>
+                                        <li>Mescid-i Nebevi girişi</li>
+                                        <li>Ravza-i Mutahhara ziyareti</li>
+                                        <li>Otel yerleşimi</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <div class="timeline-item">
+                                <div class="timeline-date">
+                                    <span class="day">8. Gün</span>
+                                    <span class="date">Cumartesi</span>
+                                </div>
+                                <div class="timeline-content">
+                                    <h4>Medine Ziyaret ve Dönüş</h4>
+                                    <p>Medine'deki tarihi mekanların ziyareti ve İstanbul'a dönüş için havalimanına hareket.</p>
+                                    <ul>
+                                        <li>Uhud Dağı ziyareti</li>
+                                        <li>Kuba Camii</li>
+                                        <li>Kıbleteyn Camii</li>
+                                        <li>Havalimanına transfer</li>
+                                        <li>İstanbul'a dönüş</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Includes -->
+                    <div id="includes" class="content-section">
+                        <h2>Paket Kapsamı</h2>
+                        <div class="includes-grid">
+                            <div class="includes-section">
+                                <h3><i class="fas fa-check-circle"></i> Dahil Olanlar</h3>
+                                <ul class="includes-list">
+                                    <li><i class="fas fa-plane"></i> İstanbul-Cidde gidiş-dönüş uçak bileti</li>
+                                    <li><i class="fas fa-bed"></i> 5 yıldızlı otellerde konaklama (7 gece)</li>
+                                    <li><i class="fas fa-utensils"></i> Açık büfe kahvaltı ve akşam yemeği</li>
+                                    <li><i class="fas fa-bus"></i> Tüm şehiriçi transferler</li>
+                                    <li><i class="fas fa-user-tie"></i> Deneyimli Türkçe rehber</li>
+                                    <li><i class="fas fa-route"></i> Program dahilindeki tüm ziyaretler</li>
+                                    <li><i class="fas fa-headset"></i> 24 saat acil durum hattı</li>
+                                    <li><i class="fas fa-gift"></i> Zemzem suyu hediyesi</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="includes-section">
+                                <h3><i class="fas fa-times-circle"></i> Dahil Olmayanlar</h3>
+                                <ul class="excludes-list">
+                                    <li><i class="fas fa-utensils"></i> Öğle yemekleri</li>
+                                    <li><i class="fas fa-shopping-bag"></i> Kişisel harcamalar</li>
+                                    <li><i class="fas fa-phone"></i> Telefon görüşme ücretleri</li>
+                                    <li><i class="fas fa-spa"></i> Ekstra hizmetler (SPA, masaj vb.)</li>
+                                    <li><i class="fas fa-suitcase"></i> Fazla bagaj ücretleri</li>
+                                    <li><i class="fas fa-pills"></i> Kişisel ilaç ve sağlık giderleri</li>
+                                    <li><i class="fas fa-taxi"></i> Program dışı transferler</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Hotels -->
+                    <div id="hotels" class="content-section">
+                        <h2>Konaklama Otelleri</h2>
+                        <div class="hotels-grid">
+                            <div class="hotel-card">
+                                <div class="hotel-image">
+                                    <img src="assets/1Çalışma Yüzeyi 2_1.png" alt="Mekke Otel">
+                                </div>
+                                <div class="hotel-content">
+                                    <h3>Pullman Zamzam Makkah Hotel</h3>
+                                    <div class="hotel-rating">
+                                        <div class="stars">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                        </div>
+                                        <span>5 Yıldız</span>
+                                    </div>
+                                    <div class="hotel-location">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                        <span>Mekke - Harem'e 50m mesafe</span>
+                                    </div>
+                                    <p>Modern tasarımı ve üstün hizmet kalitesi ile Kabe'ye yürüme mesafesinde. Klimalı odalar, 24 saat room service ve panoramik Harem manzarası.</p>
+                                    <div class="hotel-features">
+                                        <span><i class="fas fa-wifi"></i> Ücretsiz WiFi</span>
+                                        <span><i class="fas fa-car"></i> Vale Hizmeti</span>
+                                        <span><i class="fas fa-utensils"></i> 3 Restoran</span>
+                                        <span><i class="fas fa-dumbbell"></i> Fitness Center</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="hotel-card">
+                                <div class="hotel-image">
+                                    <img src="assets/1Çalışma Yüzeyi 2_2.png" alt="Medine Otel">
+                                </div>
+                                <div class="hotel-content">
+                                    <h3>Anwar Al Madinah Mövenpick Hotel</h3>
+                                    <div class="hotel-rating">
+                                        <div class="stars">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                        </div>
+                                        <span>5 Yıldız</span>
+                                    </div>
+                                    <div class="hotel-location">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                        <span>Medine - Mescid-i Nebevi'ye 100m</span>
+                                    </div>
+                                    <p>Mescid-i Nebevi'ye çok yakın konumu ile ideal bir konaklama. Geniş odalar, uluslararası mutfak ve huzurlu ortam.</p>
+                                    <div class="hotel-features">
+                                        <span><i class="fas fa-wifi"></i> Ücretsiz WiFi</span>
+                                        <span><i class="fas fa-swimming-pool"></i> Kapalı Havuz</span>
+                                        <span><i class="fas fa-utensils"></i> Halal Restoran</span>
+                                        <span><i class="fas fa-concierge-bell"></i> Konsiyerj Hizmeti</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Reviews -->
+                    <div id="reviews" class="content-section">
+                        <h2>Misafir Yorumları</h2>
+                        <div class="reviews-summary">
+                            <div class="overall-rating">
+                                <div class="rating-score">4.9</div>
+                                <div class="rating-stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <div class="rating-text">48 değerlendirmeye göre mükemmel</div>
+                            </div>
+                            <div class="rating-breakdown">
+                                <div class="rating-row">
+                                    <span>Hizmet Kalitesi</span>
+                                    <div class="rating-bar">
+                                        <div class="rating-fill" style="width: 98%"></div>
+                                    </div>
+                                    <span>4.9</span>
+                                </div>
+                                <div class="rating-row">
+                                    <span>Konaklama</span>
+                                    <div class="rating-bar">
+                                        <div class="rating-fill" style="width: 96%"></div>
+                                    </div>
+                                    <span>4.8</span>
+                                </div>
+                                <div class="rating-row">
+                                    <span>Rehber</span>
+                                    <div class="rating-bar">
+                                        <div class="rating-fill" style="width: 100%"></div>
+                                    </div>
+                                    <span>5.0</span>
+                                </div>
+                                <div class="rating-row">
+                                    <span>Yemekler</span>
+                                    <div class="rating-bar">
+                                        <div class="rating-fill" style="width: 94%"></div>
+                                    </div>
+                                    <span>4.7</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="reviews-list">
+                            <div class="review-item">
+                                <div class="review-header">
+                                    <div class="reviewer-info">
+                                        <div class="reviewer-avatar">A</div>
+                                        <div class="reviewer-details">
+                                            <h4>Ahmet Y.</h4>
+                                            <span>İstanbul</span>
+                                        </div>
+                                    </div>
+                                    <div class="review-rating">
+                                        <div class="stars">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                        </div>
+                                        <span>2 hafta önce</span>
+                                    </div>
+                                </div>
+                                <p class="review-text">Mükemmel bir Umre deneyimi yaşadık. Organizasyon kusursuzdu, rehberimiz çok bilgiliydi. Oteller gerçekten Harem'e çok yakındı. Kesinlikle tavsiye ederim.</p>
+                                <div class="review-helpful">
+                                    <button><i class="fas fa-thumbs-up"></i> Faydalı (12)</button>
+                                </div>
+                            </div>
+                            
+                            <div class="review-item">
+                                <div class="review-header">
+                                    <div class="reviewer-info">
+                                        <div class="reviewer-avatar">F</div>
+                                        <div class="reviewer-details">
+                                            <h4>Fatma K.</h4>
+                                            <span>Ankara</span>
+                                        </div>
+                                    </div>
+                                    <div class="review-rating">
+                                        <div class="stars">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                        </div>
+                                        <span>1 ay önce</span>
+                                    </div>
+                                </div>
+                                <p class="review-text">Ailecek katıldığımız bu Umre turunda herkes çok memnun kaldı. Özellikle çocuklarımız için gösterilen özen takdire şayan. Teşekkürler Safwa Tourism.</p>
+                                <div class="review-helpful">
+                                    <button><i class="fas fa-thumbs-up"></i> Faydalı (8)</button>
+                                </div>
+                            </div>
+                            
+                            <div class="review-item">
+                                <div class="review-header">
+                                    <div class="reviewer-info">
+                                        <div class="reviewer-avatar">M</div>
+                                        <div class="reviewer-details">
+                                            <h4>Mehmet S.</h4>
+                                            <span>İzmir</span>
+                                        </div>
+                                    </div>
+                                    <div class="review-rating">
+                                        <div class="stars">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                        </div>
+                                        <span>2 ay önce</span>
+                                    </div>
+                                </div>
+                                <p class="review-text">Genel olarak çok güzel bir deneyimdi. Sadece yemek konusunda biraz daha çeşitlilik olabilirdi. Ama hizmet kalitesi gerçekten yüksekti.</p>
+                                <div class="review-helpful">
+                                    <button><i class="fas fa-thumbs-up"></i> Faydalı (5)</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sidebar -->
+                <div class="tour-sidebar">
+                    <!-- Booking Form -->
+                    <div id="booking" class="booking-card sticky">
+                        <div class="booking-header">
+                            <h3>Tur Rezervasyonu</h3>
+                            <div class="booking-price">
+                                <span class="old-price">$2000</span>
+                                <span class="current-price">$1750</span>
+                                <span class="price-note">kişi başı</span>
+                            </div>
+                        </div>
+                        
+                        <form class="booking-form" id="tourBookingForm">
+                            <div class="form-group">
+                                <label for="bookingDate">Tarih Seçin</label>
+                                <select id="bookingDate" name="bookingDate" required>
+                                    <option value="">Tarih seçiniz</option>
+                                    <option value="2024-11-15">15 Kasım 2024</option>
+                                    <option value="2024-11-22">22 Kasım 2024</option>
+                                    <option value="2024-11-29">29 Kasım 2024</option>
+                                    <option value="2024-12-06">6 Aralık 2024</option>
+                                    <option value="2024-12-13">13 Aralık 2024</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="adults">Yetişkin</label>
+                                    <select id="adults" name="adults" required>
+                                        <option value="1">1 Kişi</option>
+                                        <option value="2">2 Kişi</option>
+                                        <option value="3">3 Kişi</option>
+                                        <option value="4">4 Kişi</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="children">Çocuk</label>
+                                    <select id="children" name="children">
+                                        <option value="0">0 Çocuk</option>
+                                        <option value="1">1 Çocuk</option>
+                                        <option value="2">2 Çocuk</option>
+                                        <option value="3">3 Çocuk</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="price-breakdown">
+                                <div class="price-item">
+                                    <span>Yetişkin (2 x $1750)</span>
+                                    <span id="adultTotal">$3500</span>
+                                </div>
+                                <div class="price-item">
+                                    <span>Çocuk (0 x $875)</span>
+                                    <span id="childTotal">$0</span>
+                                </div>
+                                <div class="price-item taxes">
+                                    <span>Vergiler ve ücretler</span>
+                                    <span>Dahil</span>
+                                </div>
+                                <div class="price-total">
+                                    <span>Toplam</span>
+                                    <span id="grandTotal">$3500</span>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="fullName">Ad Soyad *</label>
+                                <input type="text" id="fullName" name="fullName" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="email">E-posta *</label>
+                                <input type="email" id="email" name="email" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="phone">Telefon *</label>
+                                <input type="tel" id="phone" name="phone" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="specialRequests">Özel İstekler</label>
+                                <textarea id="specialRequests" name="specialRequests" rows="3" placeholder="Özel istekleriniz, diyet gereksinimleri vb."></textarea>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary btn-large">
+                                Rezervasyon Yap
+                            </button>
+                        </form>
+                        
+                        <div class="booking-features">
+                            <div class="feature-item">
+                                <i class="fas fa-shield-alt"></i>
+                                <span>Güvenli Ödeme</span>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-phone"></i>
+                                <span>24/7 Destek</span>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-undo"></i>
+                                <span>Ücretsiz İptal</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Contact Card -->
+                    <div class="contact-card">
+                        <h3>Sorularınız mı var?</h3>
+                        <p>Uzman ekibimiz size yardımcı olmaya hazır.</p>
+                        <div class="contact-methods">
+                            <a href="tel:+902165945458" class="contact-method">
+                                <i class="fas fa-phone"></i>
+                                <span>+90 216 594 54 58</span>
+                            </a>
+                            <a href="#" onclick="openWhatsApp()" class="contact-method">
+                                <i class="fab fa-whatsapp"></i>
+                                <span>WhatsApp</span>
+                            </a>
+                            <a href="mailto:info@safwaturism.com" class="contact-method">
+                                <i class="fas fa-envelope"></i>
+                                <span>E-posta Gönder</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Related Tours -->
+    <section class="related-tours">
+        <div class="container">
+            <h2>Benzer Turlar</h2>
+            <div class="related-tours-grid">
+                <div class="tour-card">
+                    <div class="tour-image">
+                        <img src="assets/1Çalışma Yüzeyi 2_2.png" alt="VIP Umre">
+                        <div class="tour-badge vip">VIP</div>
+                    </div>
+                    <div class="tour-content">
+                        <h3>10 Günlük VIP Umre Programı</h3>
+                        <div class="tour-price">
+                            <span class="current-price">$2500</span>
+                        </div>
+                        <a href="tour-detail.html?id=umre-vip-10" class="btn btn-outline">Detayları Gör</a>
+                    </div>
+                </div>
+                
+                <div class="tour-card">
+                    <div class="tour-image">
+                        <img src="assets/1Çalışma Yüzeyi 2_5.png" alt="Üç Mescit">
+                        <div class="tour-badge special">Özel</div>
+                    </div>
+                    <div class="tour-content">
+                        <h3>Üç Mescit Ziyareti</h3>
+                        <div class="tour-price">
+                            <span class="old-price">$2300</span>
+                            <span class="current-price">$1950</span>
+                        </div>
+                        <a href="tour-detail.html?id=uc-mescit-11" class="btn btn-outline">Detayları Gör</a>
+                    </div>
+                </div>
+                
+                <div class="tour-card">
+                    <div class="tour-image">
+                        <img src="assets/1Çalışma Yüzeyi 2_3.png" alt="Aile Umresi">
+                        <div class="tour-badge family">Aile</div>
+                    </div>
+                    <div class="tour-content">
+                        <h3>Aile Umre Paketi</h3>
+                        <div class="tour-price">
+                            <span class="old-price">$1900</span>
+                            <span class="current-price">$1650</span>
+                        </div>
+                        <a href="tour-detail.html?id=umre-aile-7" class="btn btn-outline">Detayları Gör</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <img src="assets/logo.png" alt="Safwa Tourism">
+                        <span>Safwa Tourism</span>
+                    </div>
+                    <p>Güvenilir ve kaliteli turizm hizmetleri ile unutulmaz seyahat deneyimleri sunuyoruz.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Hızlı Linkler</h4>
+                    <ul>
+                        <li><a href="index.html">Anasayfa</a></li>
+                        <li><a href="tours.html">Turlarımız</a></li>
+                        <li><a href="index.html#about">Hakkımızda</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="index.html#contact">İletişim</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Tur Kategorileri</h4>
+                    <ul>
+                        <li><a href="tours.html?category=umre">Umre Turları</a></li>
+                        <li><a href="tours.html?category=kudus">Kudüs Turları</a></li>
+                        <li><a href="tours.html?category=turkey">Türkiye Turları</a></li>
+                        <li><a href="tours.html?category=international">Uluslararası Turlar</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>İletişim</h4>
+                    <div class="footer-contact">
+                        <p><i class="fas fa-map-marker-alt"></i> İstiklal Cad. No:62/57, Taksim, İstanbul</p>
+                        <p><i class="fas fa-phone"></i> +90 216 594 54 58</p>
+                        <p><i class="fas fa-envelope"></i> info@safwaturism.com</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 Safwa Tourism. Tüm hakları saklıdır.</p>
+                <div class="footer-links">
+                    <a href="#">Gizlilik Politikası</a>
+                    <a href="#">Kullanım Şartları</a>
+                    <a href="#">TURSAB</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+    <script src="js/tour-detail.js"></script>
+</body>
+</html>

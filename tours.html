@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html                 <nav class="main-nav">
+                    <ul>
+                        <li><a href="index.html">Ana Sayfa</a></li>
+                        <li><a href="tours.html" class="active">Turlar</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="index.html#contact">İletişim</a></li>
+                    </ul>
+                </nav>">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Turlarımız - Safwa Tourism</title>
+    <meta name="description" content="Safwa Tourism'un tüm tur seçeneklerini keşfedin. Umre, Kudüs, Türkiye ve uluslararası turlar.">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/pages.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="main-header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <a href="index.html">
+                        <h2><i class="fas fa-mosque"></i> Safwa</h2>
+                    </a>
+                </div>
+                
+                <nav class="main-nav">
+                    <ul>
+                        <li><a href="index.html">Ana Sayfa</a></li>
+                        <li><a href="tours.html" class="active">Turlar</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="#contact">İletişim</a></li>
+                    </ul>
+                </nav>
+                
+                <div class="header-actions">
+                    <button class="search-btn"><i class="fas fa-search"></i></button>
+                    <button class="menu-btn"><i class="fas fa-bars"></i></button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="page-header-bg">
+            <div class="container">
+                <div class="page-header-content">
+                    <nav class="breadcrumb">
+                        <a href="index.html">Anasayfa</a>
+                        <span>/</span>
+                        <span>Turlarımız</span>
+                    </nav>
+                    <h1>Tüm Turlarımız</h1>
+                    <p>Hayalinizdeki seyahati bulun ve unutulmaz anılar yaşayın</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tours Filter Section -->
+    <section class="tours-filter-section">
+        <div class="container">
+            <div class="filter-controls">
+                <div class="filter-categories">
+                    <button class="filter-btn active" data-category="all">Tümü</button>
+                    <button class="filter-btn" data-category="umre">Umre Turları</button>
+                    <button class="filter-btn" data-category="kudus">Kudüs Turları</button>
+                    <button class="filter-btn" data-category="turkey">Türkiye Turları</button>
+                    <button class="filter-btn" data-category="international">Uluslararası</button>
+                </div>
+                
+                <div class="filter-search">
+                    <div class="search-box">
+                        <input type="text" id="tourSearch" placeholder="Tur ara...">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <div class="filter-options">
+                        <select id="sortBy">
+                            <option value="default">Sırala</option>
+                            <option value="price-low">Fiyat: Düşük → Yüksek</option>
+                            <option value="price-high">Fiyat: Yüksek → Düşük</option>
+                            <option value="duration">Süre</option>
+                            <option value="popular">Popülerlik</option>
+                        </select>
+                        <select id="priceRange">
+                            <option value="all">Tüm Fiyatlar</option>
+                            <option value="0-1000">$0 - $1000</option>
+                            <option value="1000-2000">$1000 - $2000</option>
+                            <option value="2000-3000">$2000 - $3000</option>
+                            <option value="3000+">$3000+</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tours Grid -->
+    <section class="tours-grid-section">
+        <div class="container">
+            <div class="tours-grid" id="toursGrid">
+                <!-- Umre Tours -->
+                <div class="tour-card" data-category="umre" data-price="1750" data-duration="8">
+                    <div class="tour-image">
+                        <img src="assets/1Çalışma Yüzeyi 2_1.png" alt="8 Günlük Lüks Umre">
+                        <div class="tour-badge">Yeni</div>
+                        <div class="tour-wishlist">
+                            <i class="far fa-heart"></i>
+                        </div>
+                    </div>
+                    <div class="tour-content">
+                        <div class="tour-meta">
+                            <span class="tour-category">Umre Turları</span>
+                            <div class="tour-rating">
+                                <div class="stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <span>(48 değerlendirme)</span>
+                            </div>
+                        </div>
+                        <h3>8 Günlük Lüks Umre Programı</h3>
+                        <div class="tour-details">
+                            <span><i class="fas fa-calendar"></i> 8 Gün 7 Gece</span>
+                            <span><i class="fas fa-plane"></i> İstanbul Çıkışlı</span>
+                            <span><i class="fas fa-users"></i> Max 40 Kişi</span>
+                        </div>
+                        <p>Mekke ve Medine'yi ziyaret edin. 5 yıldızlı otellerde konaklama, özel rehber eşliğinde kutsal mekanları gezin.</p>
+                        <div class="tour-highlights">
+                            <span><i class="fas fa-check"></i> 5 Yıldızlı Otel</span>
+                            <span><i class="fas fa-check"></i> Özel Rehber</span>
+                            <span><i class="fas fa-check"></i> Haram'a Yakın Konaklama</span>
+                        </div>
+                        <div class="tour-price">
+                            <span class="old-price">$2000</span>
+                            <span class="current-price">$1750</span>
+                            <span class="price-note">Kişi başı</span>
+                        </div>
+                        <div class="tour-actions">
+                            <a href="tour-detail.html?id=umre-8-gun" class="btn btn-outline">Detayları Gör</a>
+                            <button class="btn btn-primary quick-book" data-tour="umre-8-gun">Hemen Rezerve Et</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tour-card" data-category="umre" data-price="2500" data-duration="10">
+                    <div class="tour-image">
+                        <img src="assets/1Çalışma Yüzeyi 2_2.png" alt="VIP Umre">
+                        <div class="tour-badge vip">VIP</div>
+                        <div class="tour-wishlist">
+                            <i class="far fa-heart"></i>
+                        </div>
+                    </div>
+                    <div class="tour-content">
+                        <div class="tour-meta">
+                            <span class="tour-category">Umre Turları</span>
+                            <div class="tour-rating">
+                                <div class="stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <span>(62 değerlendirme)</span>
+                            </div>
+                        </div>
+                        <h3>10 Günlük VIP Umre Programı</h3>
+                        <div class="tour-details">
+                            <span><i class="fas fa-calendar"></i> 10 Gün 9 Gece</span>
+                            <span><i class="fas fa-star"></i> VIP Hizmet</span>
+                            <span><i class="fas fa-users"></i> Max 20 Kişi</span>
+                        </div>
+                        <p>Özel rehber eşliğinde VIP Umre deneyimi. Lüks oteller, özel transfer hizmetleri ve kişisel asistan desteği.</p>
+                        <div class="tour-highlights">
+                            <span><i class="fas fa-check"></i> VIP Transfer</span>
+                            <span><i class="fas fa-check"></i> Özel Asistan</span>
+                            <span><i class="fas fa-check"></i> Suite Odalar</span>
+                        </div>
+                        <div class="tour-price">
+                            <span class="current-price">$2500</span>
+                            <span class="price-note">Kişi başı</span>
+                        </div>
+                        <div class="tour-actions">
+                            <a href="tour-detail.html?id=umre-vip-10" class="btn btn-outline">Detayları Gör</a>
+                            <button class="btn btn-primary quick-book" data-tour="umre-vip-10">Hemen Rezerve Et</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tour-card" data-category="umre" data-price="1650" data-duration="7">
+                    <div class="tour-image">
+                        <img src="assets/1Çalışma Yüzeyi 2_3.png" alt="Aile Umresi">
+                        <div class="tour-badge family">Aile</div>
+                        <div class="tour-wishlist">
+                            <i class="far fa-heart"></i>
+                        </div>
+                    </div>
+                    <div class="tour-content">
+                        <div class="tour-meta">
+                            <span class="tour-category">Umre Turları</span>
+                            <div class="tour-rating">
+                                <div class="stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <span>(35 değerlendirme)</span>
+                            </div>
+                        </div>
+                        <h3>Aile Umre Paketi</h3>
+                        <div class="tour-details">
+                            <span><i class="fas fa-calendar"></i> 7 Gün 6 Gece</span>
+                            <span><i class="fas fa-users"></i> Aile Dostu</span>
+                            <span><i class="fas fa-child"></i> Çocuk İndirimi</span>
+                        </div>
+                        <p>Çocuklu aileler için özel düzenlenmiş Umre programı. Aile odaları ve çocuk dostu aktiviteler dahil.</p>
+                        <div class="tour-highlights">
+                            <span><i class="fas fa-check"></i> Aile Odaları</span>
+                            <span><i class="fas fa-check"></i> Çocuk Menüsü</span>
+                            <span><i class="fas fa-check"></i> Oyun Alanları</span>
+                        </div>
+                        <div class="tour-price">
+                            <span class="old-price">$1900</span>
+                            <span class="current-price">$1650</span>
+                            <span class="price-note">Kişi başı</span>
+                        </div>
+                        <div class="tour-actions">
+                            <a href="tour-detail.html?id=umre-aile-7" class="btn btn-outline">Detayları Gör</a>
+                            <button class="btn btn-primary quick-book" data-tour="umre-aile-7">Hemen Rezerve Et</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Kudus Tours -->
+                <div class="tour-card" data-category="kudus" data-price="1250" data-duration="5">
+                    <div class="tour-image">
+                        <img src="assets/1Çalışma Yüzeyi 2_4.png" alt="Kudüs Turu">
+                        <div class="tour-badge popular">Popüler</div>
+                        <div class="tour-wishlist">
+                            <i class="far fa-heart"></i>
+                        </div>
+                    </div>
+                    <div class="tour-content">
+                        <div class="tour-meta">
+                            <span class="tour-category">Kudüs Turları</span>
+                            <div class="tour-rating">
+                                <div class="stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <span>(89 değerlendirme)</span>
+                            </div>
+                        </div>
+                        <h3>5 Günlük Kudüs Ziyareti</h3>
+                        <div class="tour-details">
+                            <span><i class="fas fa-calendar"></i> 5 Gün 4 Gece</span>
+                            <span><i class="fas fa-map-marker"></i> İlk Kıble</span>
+                            <span><i class="fas fa-mosque"></i> Mescid-i Aksa</span>
+                        </div>
+                        <p>Mescid-i Aksa ve Kubbet-üs Sahra ziyareti. Kudüs'ün tarihi ve dini mekanlarını keşfedin.</p>
+                        <div class="tour-highlights">
+                            <span><i class="fas fa-check"></i> Mescid-i Aksa</span>
+                            <span><i class="fas fa-check"></i> Kubbet-üs Sahra</span>
+                            <span><i class="fas fa-check"></i> Eski Şehir Turu</span>
+                        </div>
+                        <div class="tour-price">
+                            <span class="old-price">$1450</span>
+                            <span class="current-price">$1250</span>
+                            <span class="price-note">Kişi başı</span>
+                        </div>
+                        <div class="tour-actions">
+                            <a href="tour-detail.html?id=kudus-5-gun" class="btn btn-outline">Detayları Gör</a>
+                            <button class="btn btn-primary quick-book" data-tour="kudus-5-gun">Hemen Rezerve Et</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tour-card" data-category="kudus" data-price="1950" data-duration="11">
+                    <div class="tour-image">
+                        <img src="assets/1Çalışma Yüzeyi 2_5.png" alt="Üç Mescit">
+                        <div class="tour-badge special">Özel</div>
+                        <div class="tour-wishlist">
+                            <i class="far fa-heart"></i>
+                        </div>
+                    </div>
+                    <div class="tour-content">
+                        <div class="tour-meta">
+                            <span class="tour-category">Kudüs Turları</span>
+                            <div class="tour-rating">
+                                <div class="stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <span>(41 değerlendirme)</span>
+                            </div>
+                        </div>
+                        <h3>Üç Mescit Ziyareti</h3>
+                        <div class="tour-details">
+                            <span><i class="fas fa-calendar"></i> 11 Gün 10 Gece</span>
+                            <span><i class="fas fa-mosque"></i> 3 Mescit</span>
+                            <span><i class="fas fa-route"></i> Kombi Tur</span>
+                        </div>
+                        <p>Mekke, Medine ve Kudüs'ü birlikte ziyaret edin. İslam'ın en kutsal üç mescidini tek seferde görme fırsatı.</p>
+                        <div class="tour-highlights">
+                            <span><i class="fas fa-check"></i> Mekke Ziyareti</span>
+                            <span><i class="fas fa-check"></i> Medine Ziyareti</span>
+                            <span><i class="fas fa-check"></i> Kudüs Turu</span>
+                        </div>
+                        <div class="tour-price">
+                            <span class="old-price">$2300</span>
+                            <span class="current-price">$1950</span>
+                            <span class="price-note">Kişi başı</span>
+                        </div>
+                        <div class="tour-actions">
+                            <a href="tour-detail.html?id=uc-mescit-11" class="btn btn-outline">Detayları Gör</a>
+                            <button class="btn btn-primary quick-book" data-tour="uc-mescit-11">Hemen Rezerve Et</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Turkey Tours -->
+                <div class="tour-card" data-category="turkey" data-price="450" data-duration="3">
+                    <div class="tour-image">
+                        <img src="assets/1Çalışma Yüzeyi 2_7.png" alt="İstanbul Turu">
+                        <div class="tour-wishlist">
+                            <i class="far fa-heart"></i>
+                        </div>
+                    </div>
+                    <div class="tour-content">
+                        <div class="tour-meta">
+                            <span class="tour-category">Türkiye Turları</span>
+                            <div class="tour-rating">
+                                <div class="stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                </div>
+                                <span>(156 değerlendirme)</span>
+                            </div>
+                        </div>
+                        <h3>İstanbul Kültür Turu</h3>
+                        <div class="tour-details">
+                            <span><i class="fas fa-calendar"></i> 3 Gün 2 Gece</span>
+                            <span><i class="fas fa-city"></i> Tarihi Yarımada</span>
+                            <span><i class="fas fa-camera"></i> Fotoğraf Turu</span>
+                        </div>
+                        <p>Sultanahmet, Galata ve Boğaz turu dahil. İstanbul'un tarihi ve kültürel zenginliklerini keşfedin.</p>
+                        <div class="tour-highlights">
+                            <span><i class="fas fa-check"></i> Ayasofya</span>
+                            <span><i class="fas fa-check"></i> Sultanahmet</span>
+                            <span><i class="fas fa-check"></i> Boğaz Turu</span>
+                        </div>
+                        <div class="tour-price">
+                            <span class="current-price">$450</span>
+                            <span class="price-note">Kişi başı</span>
+                        </div>
+                        <div class="tour-actions">
+                            <a href="tour-detail.html?id=istanbul-kultur-3" class="btn btn-outline">Detayları Gör</a>
+                            <button class="btn btn-primary quick-book" data-tour="istanbul-kultur-3">Hemen Rezerve Et</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tour-card" data-category="turkey" data-price="650" data-duration="4">
+                    <div class="tour-image">
+                        <img src="assets/1Çalışma Yüzeyi 3_1.png" alt="Kapadokya">
+                        <div class="tour-badge adventure">Macera</div>
+                        <div class="tour-wishlist">
+                            <i class="far fa-heart"></i>
+                        </div>
+                    </div>
+                    <div class="tour-content">
+                        <div class="tour-meta">
+                            <span class="tour-category">Türkiye Turları</span>
+                            <div class="tour-rating">
+                                <div class="stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <span>(203 değerlendirme)</span>
+                            </div>
+                        </div>
+                        <h3>Kapadokya Balon Turu</h3>
+                        <div class="tour-details">
+                            <span><i class="fas fa-calendar"></i> 4 Gün 3 Gece</span>
+                            <span><i class="fas fa-hot-air-balloon"></i> Balon Dahil</span>
+                            <span><i class="fas fa-mountain"></i> Yeraltı Şehri</span>
+                        </div>
+                        <p>Sıcak hava balonu ve yeraltı şehri ziyareti. Kapadokya'nın büyülü peribacaları ve tarihi dokusu.</p>
+                        <div class="tour-highlights">
+                            <span><i class="fas fa-check"></i> Balon Turu</span>
+                            <span><i class="fas fa-check"></i> Yeraltı Şehri</span>
+                            <span><i class="fas fa-check"></i> Açık Hava Müzesi</span>
+                        </div>
+                        <div class="tour-price">
+                            <span class="current-price">$650</span>
+                            <span class="price-note">Kişi başı</span>
+                        </div>
+                        <div class="tour-actions">
+                            <a href="tour-detail.html?id=kapadokya-balon-4" class="btn btn-outline">Detayları Gör</a>
+                            <button class="btn btn-primary quick-book" data-tour="kapadokya-balon-4">Hemen Rezerve Et</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- International Tours -->
+                <div class="tour-card" data-category="international" data-price="2200" data-duration="8">
+                    <div class="tour-image">
+                        <img src="assets/1Çalışma Yüzeyi 1_1.png" alt="Japonya">
+                        <div class="tour-badge seasonal">Sezon</div>
+                        <div class="tour-wishlist">
+                            <i class="far fa-heart"></i>
+                        </div>
+                    </div>
+                    <div class="tour-content">
+                        <div class="tour-meta">
+                            <span class="tour-category">Uluslararası</span>
+                            <div class="tour-rating">
+                                <div class="stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <span>(27 değerlendirme)</span>
+                            </div>
+                        </div>
+                        <h3>Japonya Kültür Turu</h3>
+                        <div class="tour-details">
+                            <span><i class="fas fa-calendar"></i> 8 Gün 7 Gece</span>
+                            <span><i class="fas fa-torii-gate"></i> Tokyo-Osaka</span>
+                            <span><i class="fas fa-train"></i> Shinkansen</span>
+                        </div>
+                        <p>Kiraz çiçekleri sezonu ve geleneksel kültür. Tokyo, Kyoto ve Osaka şehirlerini keşfedin.</p>
+                        <div class="tour-highlights">
+                            <span><i class="fas fa-check"></i> Kiraz Çiçekleri</span>
+                            <span><i class="fas fa-check"></i> Geleneksel Tapınaklar</span>
+                            <span><i class="fas fa-check"></i> Kültürel Deneyimler</span>
+                        </div>
+                        <div class="tour-price">
+                            <span class="current-price">$2200</span>
+                            <span class="price-note">Kişi başı</span>
+                        </div>
+                        <div class="tour-actions">
+                            <a href="tour-detail.html?id=japonya-kultur-8" class="btn btn-outline">Detayları Gör</a>
+                            <button class="btn btn-primary quick-book" data-tour="japonya-kultur-8">Hemen Rezerve Et</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tour-card" data-category="international" data-price="1800" data-duration="6">
+                    <div class="tour-image">
+                        <img src="assets/1Çalışma Yüzeyi 1_1 (1).png" alt="Malezya">
+                        <div class="tour-wishlist">
+                            <i class="far fa-heart"></i>
+                        </div>
+                    </div>
+                    <div class="tour-content">
+                        <div class="tour-meta">
+                            <span class="tour-category">Uluslararası</span>
+                            <div class="tour-rating">
+                                <div class="stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                </div>
+                                <span>(19 değerlendirme)</span>
+                            </div>
+                        </div>
+                        <h3>Malezya-Singapur Turu</h3>
+                        <div class="tour-details">
+                            <span><i class="fas fa-calendar"></i> 6 Gün 5 Gece</span>
+                            <span><i class="fas fa-city"></i> İki Ülke</span>
+                            <span><i class="fas fa-shopping-bag"></i> Alışveriş</span>
+                        </div>
+                        <p>Kuala Lumpur ve Singapur şehir turları. Modern Asya'nın kalbinde unutulmaz bir deneyim.</p>
+                        <div class="tour-highlights">
+                            <span><i class="fas fa-check"></i> Petronas Kuleleri</span>
+                            <span><i class="fas fa-check"></i> Marina Bay</span>
+                            <span><i class="fas fa-check"></i> Alışveriş Merkezleri</span>
+                        </div>
+                        <div class="tour-price">
+                            <span class="current-price">$1800</span>
+                            <span class="price-note">Kişi başı</span>
+                        </div>
+                        <div class="tour-actions">
+                            <a href="tour-detail.html?id=malezya-singapur-6" class="btn btn-outline">Detayları Gör</a>
+                            <button class="btn btn-primary quick-book" data-tour="malezya-singapur-6">Hemen Rezerve Et</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Load More Button -->
+            <div class="load-more-section">
+                <button class="btn btn-outline" id="loadMore">Daha Fazla Tur Göster</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Booking Modal -->
+    <div class="modal-overlay" id="quickBookModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Hızlı Rezervasyon</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="quickBookingForm">
+                    <input type="hidden" id="selectedTour" name="selectedTour">
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="quickName">Ad Soyad *</label>
+                            <input type="text" id="quickName" name="quickName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="quickPhone">Telefon *</label>
+                            <input type="tel" id="quickPhone" name="quickPhone" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="quickEmail">E-posta *</label>
+                            <input type="email" id="quickEmail" name="quickEmail" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="quickParticipants">Katılımcı Sayısı *</label>
+                            <select id="quickParticipants" name="quickParticipants" required>
+                                <option value="">Seçiniz</option>
+                                <option value="1">1 Kişi</option>
+                                <option value="2">2 Kişi</option>
+                                <option value="3">3 Kişi</option>
+                                <option value="4">4 Kişi</option>
+                                <option value="5+">5+ Kişi</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="quickMessage">Mesajınız</label>
+                        <textarea id="quickMessage" name="quickMessage" rows="3" placeholder="Ek bilgiler, özel istekleriniz..."></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">Rezervasyon Talebini Gönder</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <img src="assets/logo.png" alt="Safwa Tourism">
+                        <span>Safwa Tourism</span>
+                    </div>
+                    <p>Güvenilir ve kaliteli turizm hizmetleri ile unutulmaz seyahat deneyimleri sunuyoruz.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Hızlı Linkler</h4>
+                    <ul>
+                        <li><a href="index.html">Anasayfa</a></li>
+                        <li><a href="tours.html">Turlarımız</a></li>
+                        <li><a href="index.html#about">Hakkımızda</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="index.html#contact">İletişim</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Tur Kategorileri</h4>
+                    <ul>
+                        <li><a href="tours.html?category=umre">Umre Turları</a></li>
+                        <li><a href="tours.html?category=kudus">Kudüs Turları</a></li>
+                        <li><a href="tours.html?category=turkey">Türkiye Turları</a></li>
+                        <li><a href="tours.html?category=international">Uluslararası Turlar</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>İletişim</h4>
+                    <div class="footer-contact">
+                        <p><i class="fas fa-map-marker-alt"></i> İstiklal Cad. No:62/57, Taksim, İstanbul</p>
+                        <p><i class="fas fa-phone"></i> +90 216 594 54 58</p>
+                        <p><i class="fas fa-envelope"></i> info@safwaturism.com</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 Safwa Tourism. Tüm hakları saklıdır.</p>
+                <div class="footer-links">
+                    <a href="#">Gizlilik Politikası</a>
+                    <a href="#">Kullanım Şartları</a>
+                    <a href="#">TURSAB</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+    <script src="js/tours.js"></script>
+</body>
+</html>
