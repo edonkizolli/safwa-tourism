@@ -10,6 +10,57 @@
     <link rel="stylesheet" href="css/tour-detail.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Force mobile menu styles -->
+    <style>
+        /* Mobile menu styles */
+        @media (max-width: 768px) {
+            .main-header .menu-btn {
+                display: block !important;
+                z-index: 9999;
+            }
+            
+            .main-header .main-nav {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 280px;
+                height: calc(100vh - 70px);
+                background: white;
+                transition: left 0.3s ease;
+                z-index: 9998;
+                box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+            }
+            
+            .main-header .main-nav.active {
+                left: 0 !important;
+            }
+            
+            .main-header .main-nav ul {
+                flex-direction: column;
+                gap: 0;
+                padding: 20px 0;
+                height: 100%;
+            }
+            
+            .main-header .main-nav li {
+                width: 100%;
+            }
+            
+            .main-header .main-nav a {
+                display: block;
+                padding: 15px 25px;
+                font-size: 16px;
+                border-bottom: 1px solid #f0f0f0;
+                transition: all 0.3s ease;
+            }
+            
+            .main-header .main-nav a:hover {
+                background: #f8f9fa;
+                color: #1e3a8a;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- Header -->
@@ -33,7 +84,6 @@
                 </nav>
                 
                 <div class="header-actions">
-                    <button class="search-btn"><i class="fas fa-search"></i></button>
                     <button class="menu-btn"><i class="fas fa-bars"></i></button>
                 </div>
             </div>
@@ -755,15 +805,15 @@
                         <h3>Sorularınız mı var?</h3>
                         <p>Uzman ekibimiz size yardımcı olmaya hazır.</p>
                         <div class="contact-methods">
-                            <a href="tel:+902165945458" class="contact-method">
+                            <a href="tel:+38349319299" class="contact-method">
                                 <i class="fas fa-phone"></i>
-                                <span>+90 216 594 54 58</span>
+                                <span>+383 49 319 299</span>
                             </a>
                             <a href="#" onclick="openWhatsApp()" class="contact-method">
                                 <i class="fab fa-whatsapp"></i>
                                 <span>WhatsApp</span>
                             </a>
-                            <a href="mailto:info@safwaturism.com" class="contact-method">
+                            <a href="mailto:info@safwaturizm.com" class="contact-method">
                                 <i class="fas fa-envelope"></i>
                                 <span>E-posta Gönder</span>
                             </a>
@@ -868,9 +918,9 @@
                 <div class="footer-section">
                     <h4>İletişim</h4>
                     <div class="footer-contact">
-                        <p><i class="fas fa-map-marker-alt"></i> Prizren, Kosova</p>
+                        <p><i class="fas fa-map-marker-alt"></i> Prizren/ Kosova</p>
                         <p><i class="fas fa-phone"></i> +383 49 319 299</p>
-                        <p><i class="fas fa-envelope"></i> info@safwaturism.com</p>
+                        <p><i class="fas fa-envelope"></i> info@safwaturizm.com</p>
                     </div>
                 </div>
             </div>
@@ -968,6 +1018,49 @@
 
     <script src="js/script.js"></script>
     <script src="js/tour-detail.js"></script>
+    
+    <!-- Force mobile menu to work -->
+    <script>
+        // Ensure mobile menu works properly
+        document.addEventListener('DOMContentLoaded', function() {
+            // Force mobile menu to work
+            const menuBtn = document.querySelector('.menu-btn');
+            const mainNav = document.querySelector('.main-nav');
+            
+            if (menuBtn && mainNav) {
+                // Remove any existing listeners and add new one
+                menuBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    console.log('Menu button clicked'); // Debug
+                    mainNav.classList.toggle('active');
+                    this.classList.toggle('active');
+                }, true);
+                
+                // Close menu when clicking outside
+                document.addEventListener('click', function(e) {
+                    if (!e.target.closest('.main-header')) {
+                        mainNav.classList.remove('active');
+                        menuBtn.classList.remove('active');
+                    }
+                });
+                
+                // Close menu when clicking on menu items
+                const menuLinks = mainNav.querySelectorAll('a');
+                menuLinks.forEach(link => {
+                    link.addEventListener('click', function() {
+                        mainNav.classList.remove('active');
+                        menuBtn.classList.remove('active');
+                    });
+                });
+                
+                // Debug: Log when elements are found
+                console.log('Menu elements found:', { menuBtn, mainNav });
+            } else {
+                console.log('Menu elements not found:', { menuBtn, mainNav });
+            }
+        });
+    </script>
     
     <!-- Enhanced Gallery Script -->
     <script>

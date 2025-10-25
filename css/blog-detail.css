@@ -823,6 +823,12 @@ blockquote cite {
     margin: 0 0 15px;
     font-size: 18px;
     line-height: 1.4;
+    height: 50.4px; /* Fixed height for 2 lines (18px * 1.4 * 2 = 50.4px) */
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
 }
 
 .article-card h4 a {
