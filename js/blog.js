@@ -16,6 +16,7 @@ function initializeBlogPage() {
 // Category Filters
 function initializeCategoryFilters() {
     const categoryLinks = document.querySelectorAll('.category-list a');
+    if (categoryLinks.length === 0) return; // Exit if no category links exist
     
     categoryLinks.forEach(link => {
         link.addEventListener('click', function(e) {
@@ -63,6 +64,8 @@ function filterBlogPosts(category) {
 // Search Functionality
 function initializeSearch() {
     const searchInput = document.getElementById('blogSearch');
+    if (!searchInput) return; // Exit if search input doesn't exist
+    
     const searchButton = searchInput.nextElementSibling;
     
     let searchTimeout;
@@ -74,9 +77,11 @@ function initializeSearch() {
         }, 300);
     });
     
-    searchButton.addEventListener('click', function() {
-        performSearch(searchInput.value);
-    });
+    if (searchButton) {
+        searchButton.addEventListener('click', function() {
+            performSearch(searchInput.value);
+        });
+    }
     
     searchInput.addEventListener('keypress', function(e) {
         if (e.key === 'Enter') {
@@ -140,6 +145,7 @@ function highlightSearchTerm(card, searchTerm) {
 // Sorting
 function initializeSorting() {
     const sortSelect = document.getElementById('blogSort');
+    if (!sortSelect) return; // Exit if sort select doesn't exist
     
     sortSelect.addEventListener('change', function() {
         sortBlogPosts(this.value);
@@ -198,26 +204,32 @@ function initializePagination() {
     const prevBtn = document.querySelector('.prev-btn');
     const nextBtn = document.querySelector('.next-btn');
     
+    if (pageNumbers.length === 0) return; // Exit if no pagination exists
+    
     pageNumbers.forEach((btn, index) => {
         btn.addEventListener('click', function() {
             goToPage(index + 1);
         });
     });
     
-    prevBtn.addEventListener('click', function() {
-        const currentPage = getCurrentPage();
-        if (currentPage > 1) {
-            goToPage(currentPage - 1);
-        }
-    });
+    if (prevBtn) {
+        prevBtn.addEventListener('click', function() {
+            const currentPage = getCurrentPage();
+            if (currentPage > 1) {
+                goToPage(currentPage - 1);
+            }
+        });
+    }
     
-    nextBtn.addEventListener('click', function() {
-        const currentPage = getCurrentPage();
-        const totalPages = getTotalPages();
-        if (currentPage < totalPages) {
-            goToPage(currentPage + 1);
-        }
-    });
+    if (nextBtn) {
+        nextBtn.addEventListener('click', function() {
+            const currentPage = getCurrentPage();
+            const totalPages = getTotalPages();
+            if (currentPage < totalPages) {
+                goToPage(currentPage + 1);
+            }
+        });
+    }
 }
 
 function getCurrentPage() {
@@ -263,6 +275,7 @@ function updatePagination() {
 // Newsletter Form
 function initializeNewsletterForm() {
     const newsletterForm = document.querySelector('.newsletter-form');
+    if (!newsletterForm) return; // Exit if newsletter form doesn't exist
     
     newsletterForm.addEventListener('submit', function(e) {
         e.preventDefault();
@@ -318,6 +331,8 @@ function showNewsletterMessage(message, type) {
 // Blog Count Update
 function updateBlogCount(count) {
     const blogCountElement = document.getElementById('blogCount');
+    if (!blogCountElement) return; // Exit if element doesn't exist
+    
     const totalPosts = document.querySelectorAll('.blog-card').length;
     
     if (count !== undefined) {
@@ -419,6 +434,7 @@ function calculateReadingTime(text) {
 // Search Suggestions (Enhanced Feature)
 function initializeSearchSuggestions() {
     const searchInput = document.getElementById('blogSearch');
+    if (!searchInput) return; // Exit if search input doesn't exist
     
     const suggestions = [
         'Umre rehberi', 'Kudüs seyahati', 'Türkiye turları',

@@ -58,36 +58,6 @@
         </div>
     </section>
 
-    <!-- Blog Filter Section -->
-    <section class="blog-filter-section">
-        <div class="container">
-            <div class="filter-controls" style="justify-content: center; align-items: center;">
-                <div class="filter-categories" style="justify-content: center;">
-                    <button class="filter-btn active" data-category="all">Tümü</button>
-                    <button class="filter-btn" data-category="umre">Umre Rehberi</button>
-                    <button class="filter-btn" data-category="kudus">Kudüs Seyahati</button>
-                    <button class="filter-btn" data-category="turkey">Türkiye Turları</button>
-                    <button class="filter-btn" data-category="tips">Seyahat İpuçları</button>
-                </div>
-                
-                <div class="filter-search" style="justify-content: center;">
-                    <div class="search-box">
-                        <input type="text" id="blogSearch" placeholder="Blog yazılarında ara...">
-                        <i class="fas fa-search"></i>
-                    </div>
-                    <div class="filter-options" style="justify-content: center;">
-                        <select id="blogSort">
-                            <option value="newest">En Yeni</option>
-                            <option value="oldest">En Eski</option>
-                            <option value="popular">En Popüler</option>
-                            <option value="trending">Trend</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- Blog Grid Section -->
     <section class="blog-grid-section">
         <div class="container">
@@ -391,8 +361,8 @@
                 <div class="footer-section">
                     <h4>İletişim</h4>
                     <div class="footer-contact">
-                        <p><i class="fas fa-map-marker-alt"></i> İstiklal Cad. No:62/57, Taksim, İstanbul</p>
-                        <p><i class="fas fa-phone"></i> +90 216 594 54 58</p>
+                        <p><i class="fas fa-map-marker-alt"></i> Prizren, Kosova</p>
+                        <p><i class="fas fa-phone"></i> +383 49 319 299</p>
                         <p><i class="fas fa-envelope"></i> info@safwaturism.com</p>
                     </div>
                 </div>
@@ -400,18 +370,12 @@
             
             <div class="footer-bottom">
                 <p>&copy; 2024 Safwa Tourism. Tüm hakları saklıdır.</p>
-                <div class="footer-links">
-                    <a href="#">Gizlilik Politikası</a>
-                    <a href="#">Kullanım Şartları</a>
-                    <a href="#">TURSAB</a>
-                </div>
             </div>
         </div>
     </footer>
 
     <!-- Scripts -->
     <script src="js/script.js"></script>
-    <script src="js/animations.js"></script>
     <script src="js/blog.js"></script>
     
     <!-- Load More Functionality -->
@@ -425,7 +389,7 @@
             const additionalPosts = [
                 {
                     category: 'kudus',
-                    image: 'images/2.jpg',
+                    image: 'images/1.jpg',
                     badge: 'featured',
                     badgeText: 'Özel',
                     title: 'Kudüs: Üç Dinin Kutsal Şehri',
@@ -440,7 +404,7 @@
                 },
                 {
                     category: 'turkey',
-                    image: 'images/1.jpg',
+                    image: 'images/2.jpg',
                     badge: 'trending',
                     badgeText: 'Popüler',
                     title: 'İstanbul: İki Kıta Arasındaki Büyülü Şehir',
@@ -455,7 +419,7 @@
                 },
                 {
                     category: 'tips',
-                    image: 'images/2.jpg',
+                    image: 'images/1.jpg',
                     badge: 'guide',
                     badgeText: 'Kılavuz',
                     title: 'Uygun Bütçeyle Kaliteli Seyahat',
@@ -470,7 +434,7 @@
                 },
                 {
                     category: 'umre',
-                    image: 'images/1.jpg',
+                    image: 'images/2.jpg',
                     badge: 'new',
                     badgeText: 'Yeni',
                     title: 'Medine-i Münevvere Ziyaret Rehberi',
@@ -485,7 +449,7 @@
                 },
                 {
                     category: 'tips',
-                    image: 'images/2.jpg',
+                    image: 'images/1.jpg',
                     badge: 'popular',
                     badgeText: 'En Çok Okunan',
                     title: 'Seyahat Güvenliği ve Sağlık İpuçları',
@@ -500,7 +464,7 @@
                 },
                 {
                     category: 'kudus',
-                    image: 'images/1.jpg',
+                    image: 'images/2.jpg',
                     badge: 'guide',
                     badgeText: 'Rehber',
                     title: 'Kudüs\'te Yemek Kültürü ve Lezzetler',
@@ -568,43 +532,32 @@
                 loadingSpinner.style.display = 'block';
                 loadMoreBtn.style.display = 'none';
                 
-                // Simulate loading delay
-                setTimeout(() => {
-                    // Load all remaining posts (3 posts)
-                    for (let i = 0; i < 3; i++) {
-                        const postIndex = i;
-                        if (postIndex < additionalPosts.length) {
-                            const post = additionalPosts[postIndex];
-                            const cardHtml = createBlogCard(post);
-                            blogGrid.insertAdjacentHTML('beforeend', cardHtml);
-                        }
+                // Load all remaining posts immediately (no artificial delay)
+                // Load all remaining posts (3 posts)
+                for (let i = 0; i < 3; i++) {
+                    const postIndex = i;
+                    if (postIndex < additionalPosts.length) {
+                        const post = additionalPosts[postIndex];
+                        const cardHtml = createBlogCard(post);
+                        blogGrid.insertAdjacentHTML('beforeend', cardHtml);
                     }
-                    
-                    // Hide loading spinner
-                    loadingSpinner.style.display = 'none';
-                    
-                    // Don't show the button again - remove it completely
-                    loadMoreBtn.remove();
-                    
-                    // Show "All posts loaded" message
-                    const allLoadedMsg = document.createElement('div');
-                    allLoadedMsg.className = 'all-loaded-message';
-                    allLoadedMsg.innerHTML = '<p style="color: #666; font-style: italic; margin-top: 20px;">Tüm yazılar yüklendi</p>';
-                    document.querySelector('.load-more-section').appendChild(allLoadedMsg);
-                    
-                    // Add animation to new cards
-                    const newCards = blogGrid.querySelectorAll('.blog-card:nth-last-child(-n+3)');
-                    newCards.forEach((card, index) => {
-                        card.style.opacity = '0';
-                        card.style.transform = 'translateY(30px)';
-                        setTimeout(() => {
-                            card.style.transition = 'all 0.6s ease';
-                            card.style.opacity = '1';
-                            card.style.transform = 'translateY(0)';
-                        }, index * 200);
-                    });
-                    
-                }, 1500); // 1.5 second loading delay
+                }
+                
+                // Hide loading spinner immediately
+                loadingSpinner.style.display = 'none';
+                
+                // Don't show the button again - remove it completely
+                loadMoreBtn.remove();
+                
+                // Show "All posts loaded" message
+                const allLoadedMsg = document.createElement('div');
+                allLoadedMsg.className = 'all-loaded-message';
+                allLoadedMsg.innerHTML = '<p style="color: #666; font-style: italic; margin-top: 20px;">Tüm yazılar yüklendi</p>';
+                document.querySelector('.load-more-section').appendChild(allLoadedMsg);
+                
+                // Show new cards immediately - no opacity manipulation
+                const newCards = blogGrid.querySelectorAll('.blog-card:nth-last-child(-n+3)');
+                // Cards will display normally with their default CSS - no JavaScript styling needed
             });
         });
     </script>

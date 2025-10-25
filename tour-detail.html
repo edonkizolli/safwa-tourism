@@ -165,24 +165,44 @@
     <!-- Tour Gallery -->
     <section class="tour-gallery">
         <div class="container">
-            <div class="gallery-grid">
-                <div class="gallery-main">
-                    <img src="images/1.jpg" alt="Kabe Tawaf" id="mainGalleryImage">
-                    <div class="gallery-overlay">
-                        <button class="gallery-fullscreen" onclick="openGalleryModal()">
+            <div class="gallery-container">
+                <div class="gallery-main-wrapper">
+                    <div class="gallery-main">
+                        <img src="images/1.jpg" alt="Kabe Tawaf" id="mainGalleryImage">
+                        <div class="gallery-controls">
+                            <button class="gallery-nav prev" onclick="previousImage()">
+                                <i class="fas fa-chevron-left"></i>
+                            </button>
+                            <button class="gallery-nav next" onclick="nextImage()">
+                                <i class="fas fa-chevron-right"></i>
+                            </button>
+                        </div>
+                        <button class="gallery-fullscreen-btn" onclick="openGalleryModal()">
                             <i class="fas fa-expand"></i>
-                            Tüm Fotoğrafları Gör
                         </button>
+                        <div class="gallery-counter">
+                            <span id="currentImageIndex">1</span> / <span id="totalImages">6</span>
+                        </div>
                     </div>
                 </div>
-                <div class="gallery-thumbs">
-                    <img src="images/2.jpg" alt="Mescid-i Nebevi" onclick="changeMainImage(this)">
-                    <img src="images/1.jpg" alt="Otel" onclick="changeMainImage(this)">
-                    <img src="images/2.jpg" alt="Grup Fotoğrafı" onclick="changeMainImage(this)">
-                    <img src="images/1.jpg" alt="Ziyaret" onclick="changeMainImage(this)">
-                    <div class="gallery-more" onclick="openGalleryModal()">
-                        <span>+12</span>
-                        <span>Daha Fazla</span>
+                <div class="gallery-thumbnails">
+                    <div class="gallery-thumb active" onclick="changeMainImage(this, 0)">
+                        <img src="images/1.jpg" alt="Kabe Tawaf">
+                    </div>
+                    <div class="gallery-thumb" onclick="changeMainImage(this, 1)">
+                        <img src="images/2.jpg" alt="Mescid-i Nebevi">
+                    </div>
+                    <div class="gallery-thumb" onclick="changeMainImage(this, 2)">
+                        <img src="images/1.jpg" alt="Otel Görünümü">
+                    </div>
+                    <div class="gallery-thumb" onclick="changeMainImage(this, 3)">
+                        <img src="images/2.jpg" alt="Grup Fotoğrafı">
+                    </div>
+                    <div class="gallery-thumb" onclick="changeMainImage(this, 4)">
+                        <img src="images/1.jpg" alt="Ziyaret Alanı">
+                    </div>
+                    <div class="gallery-thumb" onclick="changeMainImage(this, 5)">
+                        <img src="images/2.jpg" alt="Medine Manzara">
                     </div>
                 </div>
             </div>
@@ -761,7 +781,7 @@
             <div class="related-tours-grid">
                 <div class="tour-card">
                     <div class="tour-image">
-                        <img src="assets/1Çalışma Yüzeyi 2_2.png" alt="VIP Umre">
+                        <img src="images/1.jpg" alt="VIP Umre">
                         <div class="tour-badge vip">VIP</div>
                     </div>
                     <div class="tour-content">
@@ -775,7 +795,7 @@
                 
                 <div class="tour-card">
                     <div class="tour-image">
-                        <img src="assets/1Çalışma Yüzeyi 2_5.png" alt="Üç Mescit">
+                        <img src="images/2.jpg" alt="Üç Mescit">
                         <div class="tour-badge special">Özel</div>
                     </div>
                     <div class="tour-content">
@@ -790,7 +810,7 @@
                 
                 <div class="tour-card">
                     <div class="tour-image">
-                        <img src="assets/1Çalışma Yüzeyi 2_3.png" alt="Aile Umresi">
+                        <img src="images/1.jpg" alt="Aile Umresi">
                         <div class="tour-badge family">Aile</div>
                     </div>
                     <div class="tour-content">
@@ -848,8 +868,8 @@
                 <div class="footer-section">
                     <h4>İletişim</h4>
                     <div class="footer-contact">
-                        <p><i class="fas fa-map-marker-alt"></i> İstiklal Cad. No:62/57, Taksim, İstanbul</p>
-                        <p><i class="fas fa-phone"></i> +90 216 594 54 58</p>
+                        <p><i class="fas fa-map-marker-alt"></i> Prizren, Kosova</p>
+                        <p><i class="fas fa-phone"></i> +383 49 319 299</p>
                         <p><i class="fas fa-envelope"></i> info@safwaturism.com</p>
                     </div>
                 </div>
@@ -857,11 +877,6 @@
             
             <div class="footer-bottom">
                 <p>&copy; 2024 Safwa Tourism. Tüm hakları saklıdır.</p>
-                <div class="footer-links">
-                    <a href="#">Gizlilik Politikası</a>
-                    <a href="#">Kullanım Şartları</a>
-                    <a href="#">TURSAB</a>
-                </div>
             </div>
         </div>
     </footer>
@@ -953,5 +968,481 @@
 
     <script src="js/script.js"></script>
     <script src="js/tour-detail.js"></script>
+    
+    <!-- Enhanced Gallery Script -->
+    <script>
+        // Gallery functionality
+        let currentImageIndex = 0;
+        const galleryImages = [
+            { src: 'images/1.jpg', alt: 'Kabe Tawaf' },
+            { src: 'images/2.jpg', alt: 'Mescid-i Nebevi' },
+            { src: 'images/1.jpg', alt: 'Otel Görünümü' },
+            { src: 'images/2.jpg', alt: 'Grup Fotoğrafı' },
+            { src: 'images/1.jpg', alt: 'Ziyaret Alanı' },
+            { src: 'images/2.jpg', alt: 'Medine Manzara' }
+        ];
+
+        function changeMainImage(thumbElement, index) {
+            // Update current index
+            currentImageIndex = index;
+            
+            // Get the thumbnail image
+            const thumbImg = thumbElement.querySelector('img');
+            const mainImage = document.getElementById('mainGalleryImage');
+            
+            // Change main image with fade effect
+            mainImage.style.opacity = '0';
+            setTimeout(() => {
+                mainImage.src = thumbImg.src;
+                mainImage.alt = thumbImg.alt;
+                mainImage.style.opacity = '1';
+            }, 200);
+            
+            // Update active thumbnail
+            document.querySelectorAll('.gallery-thumb').forEach(thumb => {
+                thumb.classList.remove('active');
+            });
+            thumbElement.classList.add('active');
+            
+            // Update counter
+            updateGalleryCounter();
+        }
+
+        function nextImage() {
+            currentImageIndex = (currentImageIndex + 1) % galleryImages.length;
+            const thumbnails = document.querySelectorAll('.gallery-thumb');
+            changeMainImage(thumbnails[currentImageIndex], currentImageIndex);
+        }
+
+        function previousImage() {
+            currentImageIndex = (currentImageIndex - 1 + galleryImages.length) % galleryImages.length;
+            const thumbnails = document.querySelectorAll('.gallery-thumb');
+            changeMainImage(thumbnails[currentImageIndex], currentImageIndex);
+        }
+
+        function updateGalleryCounter() {
+            document.getElementById('currentImageIndex').textContent = currentImageIndex + 1;
+            document.getElementById('totalImages').textContent = galleryImages.length;
+        }
+
+        function openGalleryModal() {
+            // Create modal overlay
+            const modal = document.createElement('div');
+            modal.className = 'gallery-modal';
+            modal.innerHTML = `
+                <div class="gallery-modal-content">
+                    <button class="gallery-modal-close" onclick="closeGalleryModal()">
+                        <i class="fas fa-times"></i>
+                    </button>
+                    <div class="gallery-modal-image-wrapper">
+                        <button class="gallery-modal-nav prev" onclick="modalPreviousImage()">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <img id="modalImage" src="${galleryImages[currentImageIndex].src}" alt="${galleryImages[currentImageIndex].alt}">
+                        <button class="gallery-modal-nav next" onclick="modalNextImage()">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                    <div class="gallery-modal-counter">
+                        <span id="modalCurrentIndex">${currentImageIndex + 1}</span> / ${galleryImages.length}
+                    </div>
+                    <div class="gallery-modal-thumbnails">
+                        ${galleryImages.map((img, idx) => `
+                            <img src="${img.src}" alt="${img.alt}" 
+                                 class="${idx === currentImageIndex ? 'active' : ''}"
+                                 onclick="selectModalImage(${idx})">
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+            document.body.style.overflow = 'hidden';
+            
+            // Fade in animation
+            setTimeout(() => modal.classList.add('active'), 10);
+        }
+
+        function closeGalleryModal() {
+            const modal = document.querySelector('.gallery-modal');
+            if (modal) {
+                modal.classList.remove('active');
+                setTimeout(() => {
+                    modal.remove();
+                    document.body.style.overflow = '';
+                }, 300);
+            }
+        }
+
+        function modalNextImage() {
+            currentImageIndex = (currentImageIndex + 1) % galleryImages.length;
+            updateModalImage();
+        }
+
+        function modalPreviousImage() {
+            currentImageIndex = (currentImageIndex - 1 + galleryImages.length) % galleryImages.length;
+            updateModalImage();
+        }
+
+        function selectModalImage(index) {
+            currentImageIndex = index;
+            updateModalImage();
+        }
+
+        function updateModalImage() {
+            const modalImage = document.getElementById('modalImage');
+            const modalCounter = document.getElementById('modalCurrentIndex');
+            const modalThumbs = document.querySelectorAll('.gallery-modal-thumbnails img');
+            
+            if (modalImage) {
+                modalImage.style.opacity = '0';
+                setTimeout(() => {
+                    modalImage.src = galleryImages[currentImageIndex].src;
+                    modalImage.alt = galleryImages[currentImageIndex].alt;
+                    modalImage.style.opacity = '1';
+                }, 200);
+            }
+            
+            if (modalCounter) {
+                modalCounter.textContent = currentImageIndex + 1;
+            }
+            
+            // Update active thumbnail in modal
+            modalThumbs.forEach((thumb, idx) => {
+                thumb.classList.toggle('active', idx === currentImageIndex);
+            });
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            const modal = document.querySelector('.gallery-modal');
+            if (modal) {
+                if (e.key === 'ArrowRight') modalNextImage();
+                if (e.key === 'ArrowLeft') modalPreviousImage();
+                if (e.key === 'Escape') closeGalleryModal();
+            }
+        });
+
+        // Initialize gallery counter on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            updateGalleryCounter();
+        });
+    </script>
+    
+    <!-- Gallery Modal Styles -->
+    <style>
+        .gallery-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .gallery-modal.active {
+            opacity: 1;
+        }
+
+        .gallery-modal-content {
+            width: 90%;
+            max-width: 1200px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .gallery-modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid white;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 24px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .gallery-modal-close:hover {
+            background: white;
+            color: #1e3a8a;
+            transform: rotate(90deg);
+        }
+
+        .gallery-modal-image-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 500px;
+        }
+
+        .gallery-modal-image-wrapper img {
+            max-width: 100%;
+            max-height: 70vh;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            transition: opacity 0.3s ease;
+        }
+
+        .gallery-modal-nav {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid white;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            font-size: 24px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .gallery-modal-nav:hover {
+            background: white;
+            color: #1e3a8a;
+            transform: scale(1.1);
+        }
+
+        .gallery-modal-nav.prev {
+            left: 20px;
+        }
+
+        .gallery-modal-nav.next {
+            right: 20px;
+        }
+
+        .gallery-modal-counter {
+            text-align: center;
+            color: white;
+            font-size: 18px;
+            font-weight: 500;
+        }
+
+        .gallery-modal-thumbnails {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+            padding: 0 20px;
+        }
+
+        .gallery-modal-thumbnails img {
+            width: 100px;
+            height: 70px;
+            object-fit: cover;
+            border-radius: 8px;
+            cursor: pointer;
+            opacity: 0.5;
+            transition: all 0.3s ease;
+            border: 3px solid transparent;
+        }
+
+        .gallery-modal-thumbnails img:hover {
+            opacity: 0.8;
+            transform: translateY(-5px);
+        }
+
+        .gallery-modal-thumbnails img.active {
+            opacity: 1;
+            border-color: white;
+            transform: scale(1.05);
+        }
+
+        /* Enhanced Gallery Container Styles */
+        .gallery-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .gallery-main-wrapper {
+            position: relative;
+            width: 100%;
+        }
+
+        .gallery-main {
+            position: relative;
+            width: 100%;
+            height: 500px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+        }
+
+        .gallery-main img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: opacity 0.3s ease;
+        }
+
+        .gallery-controls {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            transform: translateY(-50%);
+            display: flex;
+            justify-content: space-between;
+            padding: 0 20px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .gallery-main:hover .gallery-controls {
+            opacity: 1;
+        }
+
+        .gallery-nav {
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            color: #1e3a8a;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .gallery-nav:hover {
+            background: #1e3a8a;
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .gallery-fullscreen-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            color: #1e3a8a;
+            padding: 12px 20px;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .gallery-fullscreen-btn:hover {
+            background: #1e3a8a;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .gallery-counter {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            backdrop-filter: blur(10px);
+        }
+
+        .gallery-thumbnails {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+        }
+
+        .gallery-thumb {
+            position: relative;
+            height: 120px;
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 3px solid transparent;
+        }
+
+        .gallery-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-thumb:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .gallery-thumb:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-thumb.active {
+            border-color: #1e3a8a;
+            box-shadow: 0 10px 30px rgba(30, 58, 138, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .gallery-main {
+                height: 300px;
+            }
+
+            .gallery-nav {
+                width: 40px;
+                height: 40px;
+                font-size: 16px;
+            }
+
+            .gallery-thumbnails {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .gallery-thumb {
+                height: 80px;
+            }
+
+            .gallery-modal-image-wrapper {
+                min-height: 300px;
+            }
+
+            .gallery-modal-nav {
+                width: 40px;
+                height: 40px;
+                font-size: 18px;
+            }
+
+            .gallery-modal-thumbnails img {
+                width: 60px;
+                height: 45px;
+            }
+        }
+    </style>
 </body>
 </html>

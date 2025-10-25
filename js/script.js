@@ -16,9 +16,9 @@ const totalSlides = slides.length;
 
 // Initialize Website
 document.addEventListener('DOMContentLoaded', function() {
-    initializeSlider();
+    if (slides.length > 0) initializeSlider();
     initializeNavigation();
-    initializeTourCategories();
+    if (categoryTabs.length > 0) initializeTourCategories();
     initializeForms();
     initializeScrollEffects();
     initializeAnimations();
@@ -82,7 +82,7 @@ function initializeNavigation() {
     }
     
     // Legacy mobile menu toggle
-    if (navToggle) {
+    if (navToggle && navMenu) {
         navToggle.addEventListener('click', toggleMobileMenu);
     }
     
@@ -105,6 +105,8 @@ function initializeNavigation() {
 }
 
 function toggleMobileMenu() {
+    if (!navMenu || !navToggle) return;
+    
     navMenu.classList.toggle('active');
     navToggle.classList.toggle('active');
     
@@ -119,7 +121,8 @@ function smoothScroll(e) {
     const targetElement = document.querySelector(targetId);
     
     if (targetElement) {
-        const headerHeight = document.querySelector('.header').offsetHeight;
+        const header = document.querySelector('.header') || document.querySelector('.main-header');
+        const headerHeight = header ? header.offsetHeight : 70;
         const targetPosition = targetElement.offsetTop - headerHeight;
         
         window.scrollTo({
@@ -129,17 +132,19 @@ function smoothScroll(e) {
     }
     
     // Close mobile menu if open
-    if (navMenu.classList.contains('active')) {
+    if (navMenu && navMenu.classList.contains('active')) {
         toggleMobileMenu();
     }
 }
 
 function handleHeaderScroll() {
     const header = document.querySelector('.header');
-    if (window.scrollY > 100) {
-        header.classList.add('scrolled');
-    } else {
-        header.classList.remove('scrolled');
+    if (header) {
+        if (window.scrollY > 100) {
+            header.classList.add('scrolled');
+        } else {
+            header.classList.remove('scrolled');
+        }
     }
 }
 
@@ -576,7 +581,9 @@ function lazyLoadImages() {
 
 // Error Handling
 window.addEventListener('error', function(e) {
-    console.error('JavaScript Error:', e.error);
+    if (e.error) {
+        console.error('JavaScript Error:', e.error);
+    }
     // Could send error to analytics service
 });
 
