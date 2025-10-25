@@ -66,95 +66,142 @@
 
 /* Tours Filter Section */
 .tours-filter-section {
-    padding: 40px 0;
-    background: white;
-    border-bottom: 1px solid #e5e7eb;
+    padding: 50px 0;
+    background: linear-gradient(135deg, #f8fafc 0%, #e0e7ff 100%);
+    border-bottom: 1px solid #e2e8f0;
 }
 
 .filter-controls {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 30px;
-    flex-wrap: wrap;
+    flex-direction: column;
+    gap: 24px;
 }
 
 .filter-categories {
     display: flex;
-    gap: 15px;
+    gap: 12px;
     flex-wrap: wrap;
+    justify-content: center;
 }
 
 .filter-btn {
-    padding: 10px 20px;
+    padding: 12px 28px;
     background: white;
-    color: #666;
-    border: 2px solid #e5e7eb;
-    border-radius: 25px;
+    color: #64748b;
+    border: 2px solid #e2e8f0;
+    border-radius: 30px;
     cursor: pointer;
-    font-weight: 500;
+    font-weight: 600;
     transition: all 0.3s ease;
     font-size: 14px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
 }
 
-.filter-btn.active,
-.filter-btn:hover {
-    background: #1e3a8a;
+.filter-btn.active {
+    background: linear-gradient(135deg, #1e3a8a, #3b82f6);
     color: white;
     border-color: #1e3a8a;
+    box-shadow: 0 4px 12px rgba(30, 58, 138, 0.3);
+    transform: translateY(-2px);
+}
+
+.filter-btn:hover:not(.active) {
+    background: #f8fafc;
+    border-color: #1e3a8a;
+    color: #1e3a8a;
+    transform: translateY(-2px);
 }
 
 .filter-search {
     display: flex;
     align-items: center;
-    gap: 15px;
+    justify-content: center;
+    gap: 16px;
     flex-wrap: wrap;
 }
 
 .search-box {
     position: relative;
+    flex: 1;
+    width: 100%;
+    max-width: 100%;
 }
 
 .search-box input {
-    padding: 12px 45px 12px 20px;
-    border: 2px solid #e5e7eb;
-    border-radius: 25px;
-    width: 250px;
-    font-size: 14px;
-    transition: border-color 0.3s ease;
+    width: 100%;
+    padding: 14px 50px 14px 24px;
+    border: 2px solid #e2e8f0;
+    border-radius: 30px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    background: white;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
 }
 
 .search-box input:focus {
     outline: none;
     border-color: #1e3a8a;
+    box-shadow: 0 4px 12px rgba(30, 58, 138, 0.15);
+}
+
+.search-box input::placeholder {
+    color: #94a3b8;
 }
 
 .search-box i {
     position: absolute;
-    right: 18px;
+    right: 22px;
     top: 50%;
     transform: translateY(-50%);
-    color: #666;
+    color: #64748b;
+    font-size: 16px;
+    pointer-events: none;
 }
 
 .filter-options {
     display: flex;
-    gap: 10px;
+    gap: 12px;
+    flex-wrap: wrap;
 }
 
+/* Custom Select Styling */
 .filter-options select {
-    padding: 12px 15px;
-    border: 2px solid #e5e7eb;
-    border-radius: 25px;
+    padding: 14px 45px 14px 24px;
+    border: 2px solid #e2e8f0;
+    border-radius: 30px;
     background: white;
-    font-size: 14px;
+    font-size: 16px;
+    font-weight: 500;
     cursor: pointer;
-    transition: border-color 0.3s ease;
+    transition: all 0.3s ease;
+    color: #475569;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23475569' d='M1.41 0L6 4.58 10.59 0 12 1.41l-6 6-6-6z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 20px center;
+    background-size: 12px;
+    min-width: 180px;
+}
+
+.filter-options select:hover {
+    border-color: #1e3a8a;
+    box-shadow: 0 4px 12px rgba(30, 58, 138, 0.15);
 }
 
 .filter-options select:focus {
     outline: none;
     border-color: #1e3a8a;
+    box-shadow: 0 4px 12px rgba(30, 58, 138, 0.2);
+}
+
+.filter-options select option {
+    padding: 12px;
+    background: white;
+    color: #475569;
+    font-weight: 500;
 }
 
 /* Tours Grid Section */
@@ -529,6 +576,71 @@
 
 .modal-body {
     padding: 30px;
+}
+
+/* Modal Form Styles */
+.modal-body .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+.modal-body .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.modal-body .form-group label {
+    font-weight: 500;
+    color: #475569;
+    font-size: 14px;
+}
+
+.modal-body .form-group input,
+.modal-body .form-group textarea {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    font-family: inherit;
+}
+
+.modal-body .form-group select {
+    width: 100%;
+    padding: 12px 40px 12px 16px;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: #475569;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background: white url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23475569' d='M1.41 0L6 4.58 10.59 0 12 1.41l-6 6-6-6z'/%3E%3C/svg%3E") no-repeat right 16px center;
+    background-size: 12px;
+}
+
+.modal-body .form-group input:focus,
+.modal-body .form-group textarea:focus,
+.modal-body .form-group select:focus {
+    outline: none;
+    border-color: #1e3a8a;
+}
+
+.modal-body .form-group textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+.modal-body button[type="submit"] {
+    width: 100%;
+    margin-top: 15px;
 }
 
 /* Detail Page Styles */
@@ -1265,34 +1377,59 @@
         padding: 20px;
     }
     
+    .modal-body .form-row {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+    
     .tour-detail-nav {
         flex-direction: column;
         gap: 15px;
         align-items: flex-start;
     }
     
+    .tours-filter-section {
+        padding: 30px 0;
+    }
+    
+    .filter-controls {
+        gap: 20px;
+    }
+    
     .filter-search {
         flex-direction: column;
         gap: 15px;
+        width: 100%;
+    }
+    
+    .search-box {
+        max-width: 100%;
+        min-width: auto;
     }
     
     .filter-options {
         flex-direction: column;
         width: 100%;
+        gap: 12px;
     }
     
     .filter-options select {
         width: 100%;
+        min-width: auto;
     }
 }
 
 @media (max-width: 480px) {
     .tours-filter-section {
-        padding: 20px 0;
+        padding: 24px 0;
     }
     
     .page-header {
         margin-top: 0 !important; /* Override inline styles on small mobile */
+    }
+    
+    .filter-controls {
+        gap: 16px;
     }
     
     .filter-categories {
@@ -1300,8 +1437,20 @@
     }
     
     .filter-btn {
-        padding: 8px 15px;
+        padding: 9px 18px;
         font-size: 12px;
+        border-radius: 20px;
+    }
+    
+    .search-box input {
+        padding: 12px 45px 12px 20px;
+        font-size: 14px;
+    }
+    
+    .filter-options select {
+        padding: 12px 40px 12px 20px;
+        font-size: 13px;
+        background-position: right 16px center;
     }
     
     .tour-card {
