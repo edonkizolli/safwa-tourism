@@ -11,6 +11,13 @@ function initializeBlogPage() {
     initializePagination();
     initializeNewsletterForm();
     updateBlogCount();
+    
+    // Ensure all blog cards are visible on load
+    const blogCards = document.querySelectorAll('.blog-card');
+    blogCards.forEach(card => {
+        card.style.opacity = '1';
+        card.style.display = 'block';
+    });
 }
 
 // Category Filters
@@ -46,11 +53,7 @@ function filterBlogPosts(category) {
         
         if (category === 'all' || cardCategory === category) {
             card.style.display = 'block';
-            // Add animation
-            card.style.opacity = '0';
-            setTimeout(() => {
-                card.style.opacity = '1';
-            }, 50);
+            card.style.opacity = '1';
             visibleCount++;
         } else {
             card.style.display = 'none';

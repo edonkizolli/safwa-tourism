@@ -561,63 +561,8 @@ function printArticle() {
     printWindow.print();
 }
 
-// Initialize font size control
-function initializeFontSizeControl() {
-    const fontControls = document.createElement('div');
-    fontControls.className = 'font-controls';
-    fontControls.innerHTML = `
-        <button onclick="changeFontSize(-1)">A-</button>
-        <button onclick="changeFontSize(0)">A</button>
-        <button onclick="changeFontSize(1)">A+</button>
-    `;
-    
-    fontControls.style.cssText = `
-        position: fixed;
-        top: 50%;
-        right: 20px;
-        transform: translateY(-50%);
-        background: white;
-        border-radius: 10px;
-        box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-        padding: 10px;
-        display: flex;
-        flex-direction: column;
-        gap: 5px;
-        z-index: 1000;
-    `;
-    
-    document.body.appendChild(fontControls);
-}
-
-function changeFontSize(change) {
-    const articleText = document.querySelector('.article-text');
-    const currentSize = parseFloat(getComputedStyle(articleText).fontSize);
-    
-    let newSize;
-    if (change === 0) {
-        newSize = 18; // Reset to default
-    } else {
-        newSize = currentSize + (change * 2);
-        newSize = Math.max(14, Math.min(24, newSize)); // Limit between 14px and 24px
-    }
-    
-    articleText.style.fontSize = newSize + 'px';
-    
-    // Store preference
-    localStorage.setItem('articleFontSize', newSize);
-}
-
-// Apply saved font size
-function applySavedFontSize() {
-    const savedSize = localStorage.getItem('articleFontSize');
-    if (savedSize) {
-        document.querySelector('.article-text').style.fontSize = savedSize + 'px';
-    }
-}
-
 // Initialize font size features
-applySavedFontSize();
-initializeFontSizeControl();
+// Font size controls removed
 
 // Export functions for external use
 if (typeof module !== 'undefined' && module.exports) {
@@ -626,7 +571,6 @@ if (typeof module !== 'undefined' && module.exports) {
         shareOnTwitter,
         shareOnWhatsApp,
         copyToClipboard,
-        printArticle,
-        changeFontSize
+        printArticle
     };
 }

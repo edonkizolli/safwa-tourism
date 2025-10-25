@@ -840,6 +840,12 @@ blockquote cite {
     font-size: 14px;
     line-height: 1.5;
     margin-bottom: 20px;
+    height: 63px; /* Fixed height for 3 lines (14px * 1.5 * 3 = 63px) */
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
 }
 
 .article-card .article-meta {

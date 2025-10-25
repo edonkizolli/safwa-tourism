@@ -13,6 +13,41 @@
     <!-- Stylesheets -->
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/pages.css">
+    
+    <!-- Force blog elements to be visible -->
+    <style>
+        .blog-card {
+            opacity: 1 !important;
+            display: block !important;
+        }
+        .blog-image img {
+            opacity: 1 !important;
+            display: block !important;
+        }
+        
+        /* Mobile menu styles */
+        @media (max-width: 768px) {
+            .main-header .menu-btn {
+                display: block !important;
+                z-index: 9999;
+            }
+            
+            .main-header .main-nav {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 280px;
+                height: calc(100vh - 70px);
+                background: white;
+                transition: left 0.3s ease;
+                z-index: 9998;
+            }
+            
+            .main-header .main-nav.active {
+                left: 0 !important;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- Header -->
@@ -377,6 +412,53 @@
     <!-- Scripts -->
     <script src="js/script.js"></script>
     <script src="js/blog.js"></script>
+    
+    <!-- Force elements to be visible immediately -->
+    <script>
+        // Ensure everything is visible immediately
+        document.addEventListener('DOMContentLoaded', function() {
+            // Force all blog cards and images to be visible
+            const blogCards = document.querySelectorAll('.blog-card');
+            const blogImages = document.querySelectorAll('.blog-image img');
+            
+            blogCards.forEach(card => {
+                card.style.opacity = '1';
+                card.style.display = 'block';
+            });
+            
+            blogImages.forEach(img => {
+                img.style.opacity = '1';
+                img.style.display = 'block';
+                img.onload = function() {
+                    this.style.opacity = '1';
+                };
+                // Force image to reload if needed
+                if (!img.complete) {
+                    img.src = img.src;
+                }
+            });
+            
+            // Force mobile menu to work
+            const menuBtn = document.querySelector('.menu-btn');
+            const mainNav = document.querySelector('.main-nav');
+            
+            if (menuBtn && mainNav) {
+                // Remove any existing listeners and add new one
+                menuBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    console.log('Menu button clicked'); // Debug
+                    mainNav.classList.toggle('active');
+                    this.classList.toggle('active');
+                }, true);
+                
+                // Debug: Log when elements are found
+                console.log('Menu elements found:', { menuBtn, mainNav });
+            } else {
+                console.log('Menu elements not found:', { menuBtn, mainNav });
+            }
+        });
+    </script>
     
     <!-- Load More Functionality -->
     <script>
