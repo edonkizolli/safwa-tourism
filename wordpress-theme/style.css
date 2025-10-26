@@ -1,0 +1,96 @@
+/*
+Theme Name: Safwa Tourism
+Theme URI: https://safwaturizm.com
+Author: Safwa Tourism
+Author URI: https://safwaturizm.com
+Description: A professional tourism WordPress theme for travel agencies and tour operators
+Version: 1.0.0
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: safwa-tourism
+Tags: tourism, travel, tours, blog, booking
+*/
+
+/* 
+ * Main stylesheet for Safwa Tourism WordPress Theme
+ * Styles are loaded from functions.php in the following order:
+ * 1. Font Awesome (CDN)
+ * 2. Google Fonts - Poppins (CDN)
+ * 3. css/style.css (main styles)
+ * 4. css/pages.css (tours, blog styles)
+ * 5. css/tour-detail.css (conditional - tour pages)
+ * 6. css/blog-detail.css (conditional - blog posts)
+ */
+
+/* Reset & Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.6;
+    color: #333;
+    overflow-x: hidden;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+ul {
+    list-style: none;
+}
+
+/* WordPress Core Styles */
+.alignleft {
+    float: left;
+    margin-right: 1.5em;
+}
+
+.alignright {
+    float: right;
+    margin-left: 1.5em;
+}
+
+.aligncenter {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.wp-caption {
+    max-width: 100%;
+}
+
+.wp-caption-text {
+    text-align: center;
+    padding: 0.5em 0;
+}
+
+.sticky {
+    /* Add styles for sticky posts */
+}
+
+.bypostauthor {
+    /* Add styles for post author comments */
+}
+
+/* Screen reader text */
+.screen-reader-text {
+    clip: rect(1px, 1px, 1px, 1px);
+    position: absolute !important;
+    height: 1px;
+    width: 1px;
+    overflow: hidden;
+}
+
