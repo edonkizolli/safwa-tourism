@@ -26,26 +26,30 @@ function initializeToursPage() {
 function initializeFilters() {
     const filterButtons = document.querySelectorAll('.filter-btn');
     
+    // Remove click handlers if they're links (will use href navigation)
     filterButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            const category = this.dataset.category;
-            
-            // Update active button
-            filterButtons.forEach(btn => btn.classList.remove('active'));
-            this.classList.add('active');
-            
-            // Filter tours
-            filterToursByCategory(category);
-            
-            // Update URL
-            const url = new URL(window.location);
-            if (category === 'all') {
-                url.searchParams.delete('category');
-            } else {
-                url.searchParams.set('category', category);
-            }
-            window.history.pushState({}, '', url);
-        });
+        // Only add click handler if it's a button element
+        if (button.tagName === 'BUTTON') {
+            button.addEventListener('click', function() {
+                const category = this.dataset.category;
+                
+                // Update active button
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Filter tours
+                filterToursByCategory(category);
+                
+                // Update URL
+                const url = new URL(window.location);
+                if (category === 'all') {
+                    url.searchParams.delete('category');
+                } else {
+                    url.searchParams.set('category', category);
+                }
+                window.history.pushState({}, '', url);
+            });
+        }
     });
 }
 
@@ -186,30 +190,43 @@ function filterByPriceRange(range) {
 function initializeQuickBooking() {
     const quickBookButtons = document.querySelectorAll('.quick-book');
     const modal = document.getElementById('quickBookModal');
+    
+    if (!modal) return;
+    
     const modalClose = modal.querySelector('.modal-close');
     const form = document.getElementById('quickBookingForm');
     
     quickBookButtons.forEach(button => {
-        button.addEventListener('click', function() {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
             const tourId = this.dataset.tour;
-            const tourTitle = this.closest('.tour-card').querySelector('h3').textContent;
+            const tourCard = this.closest('.tour-card');
+            const tourTitle = tourCard.querySelector('h3').textContent;
             
             document.getElementById('selectedTour').value = tourId;
             modal.querySelector('.modal-header h3').textContent = `${tourTitle} - Hızlı Rezervasyon`;
+            
+            // Fetch available dates for this tour
+            fetchTourDates(tourId);
             
             modal.classList.add('active');
             document.body.style.overflow = 'hidden';
         });
     });
     
-    modalClose.addEventListener('click', closeQuickBookModal);
+    if (modalClose) {
+        modalClose.addEventListener('click', closeQuickBookModal);
+    }
+    
     modal.addEventListener('click', function(e) {
         if (e.target === modal) {
             closeQuickBookModal();
         }
     });
     
-    form.addEventListener('submit', handleQuickBookingSubmit);
+    if (form) {
+        form.addEventListener('submit', handleQuickBookingSubmit);
+    }
     
     // ESC key to close modal
     document.addEventListener('keydown', function(e) {
@@ -219,34 +236,125 @@ function initializeQuickBooking() {
     });
 }
 
+function fetchTourDates(tourId) {
+    const dateSelect = document.getElementById('qbDate');
+    const dateIndexInput = document.getElementById('qbDateIndex');
+    const availabilityDiv = document.getElementById('qbDateAvailability');
+    const availabilityText = document.getElementById('availabilityText');
+    
+    // Show loading state
+    dateSelect.innerHTML = '<option value="">Tarihler yükleniyor...</option>';
+    dateSelect.disabled = true;
+    availabilityDiv.style.display = 'none';
+    
+    // Fetch dates via AJAX
+    const formData = new FormData();
+    formData.append('action', 'safwa_get_tour_dates');
+    formData.append('tour_id', tourId);
+    formData.append('nonce', safwa_ajax.nonce);
+    
+    fetch(safwa_ajax.ajax_url, {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success && data.data.dates && data.data.dates.length > 0) {
+            dateSelect.innerHTML = '<option value="">Tarih seçiniz...</option>';
+            
+            data.data.dates.forEach(date => {
+                const option = document.createElement('option');
+                option.value = date.start_date;
+                option.dataset.index = date.index;
+                option.dataset.endDate = date.end_date;
+                option.dataset.availableSeats = date.available_seats;
+                option.textContent = date.formatted;
+                dateSelect.appendChild(option);
+            });
+            
+            // Update availability info when date is selected
+            dateSelect.addEventListener('change', function() {
+                const selectedOption = this.options[this.selectedIndex];
+                if (selectedOption.dataset.index) {
+                    dateIndexInput.value = selectedOption.dataset.index;
+                    const seats = selectedOption.dataset.availableSeats;
+                    availabilityText.textContent = `${seats} kişilik kontenjan kaldı`;
+                    availabilityDiv.style.display = 'block';
+                } else {
+                    dateIndexInput.value = '';
+                    availabilityDiv.style.display = 'none';
+                }
+            });
+            
+            dateSelect.disabled = false;
+        } else {
+            dateSelect.innerHTML = '<option value="">Müsait tarih yok</option>';
+            dateSelect.disabled = true;
+        }
+    })
+    .catch(error => {
+        console.error('Error fetching tour dates:', error);
+        dateSelect.innerHTML = '<option value="">Tarih yüklenemedi</option>';
+        dateSelect.disabled = true;
+    });
+}
+
 function closeQuickBookModal() {
     const modal = document.getElementById('quickBookModal');
-    modal.classList.remove('active');
-    document.body.style.overflow = '';
+    if (modal) {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
 }
 
 function handleQuickBookingSubmit(e) {
     e.preventDefault();
     
     const formData = new FormData(this);
-    const formValid = validateQuickBookingForm(this);
+    const messageDiv = this.querySelector('.form-message');
+    const submitBtn = this.querySelector('button[type="submit"]');
+    const originalText = submitBtn.textContent;
     
-    if (formValid) {
-        const submitBtn = this.querySelector('button[type="submit"]');
-        const originalText = submitBtn.textContent;
-        
-        submitBtn.textContent = 'Gönderiliyor...';
-        submitBtn.disabled = true;
-        
-        // Simulate form submission
-        setTimeout(() => {
-            alert('Rezervasyon talebiniz başarıyla gönderildi! Size en kısa sürede dönüş yapılacaktır.');
-            closeQuickBookModal();
+    // Clear previous messages
+    messageDiv.style.display = 'none';
+    messageDiv.className = 'form-message';
+    
+    submitBtn.textContent = 'Gönderiliyor...';
+    submitBtn.disabled = true;
+    
+    // Use WordPress AJAX
+    fetch(safwa_ajax.ajax_url, {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            messageDiv.className = 'form-message success';
+            messageDiv.textContent = data.data.message || 'Rezervasyon talebiniz başarıyla gönderildi!';
+            messageDiv.style.display = 'block';
             this.reset();
-            submitBtn.textContent = originalText;
-            submitBtn.disabled = false;
-        }, 2000);
-    }
+            
+            // Close modal after 2 seconds
+            setTimeout(() => {
+                closeQuickBookModal();
+                messageDiv.style.display = 'none';
+            }, 2000);
+        } else {
+            messageDiv.className = 'form-message error';
+            messageDiv.textContent = 'Bir hata oluştu. Lütfen tekrar deneyin.';
+            messageDiv.style.display = 'block';
+        }
+    })
+    .catch(error => {
+        messageDiv.className = 'form-message error';
+        messageDiv.textContent = 'Bağlantı hatası. Lütfen tekrar deneyin.';
+        messageDiv.style.display = 'block';
+    })
+    .finally(() => {
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
+    });
 }
 
 function validateQuickBookingForm(form) {

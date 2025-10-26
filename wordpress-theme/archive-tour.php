@@ -37,24 +37,16 @@ get_header(); ?>
                         'taxonomy' => 'tour_category',
                         'hide_empty' => false,
                     ));
-                    
-                    $current_term = get_queried_object();
                     ?>
-                    <button class="filter-btn <?php echo !is_tax() ? 'active' : ''; ?>" data-category="all">Tümü</button>
+                    <button class="filter-btn active" data-category="all">Tümü</button>
                     <?php 
                     if (!empty($terms)) :
                         foreach ($terms as $term) : ?>
-                            <button class="filter-btn <?php echo (is_tax() && $current_term->term_id === $term->term_id) ? 'active' : ''; ?>" 
-                                    data-category="<?php echo esc_attr($term->slug); ?>">
+                            <button class="filter-btn" data-category="<?php echo esc_attr($term->slug); ?>">
                                 <?php echo esc_html($term->name); ?>
                             </button>
                         <?php endforeach;
-                    else : ?>
-                        <button class="filter-btn" data-category="umre">Umre Turları</button>
-                        <button class="filter-btn" data-category="kudus">Kudüs Turları</button>
-                        <button class="filter-btn" data-category="turkey">Türkiye Turları</button>
-                        <button class="filter-btn" data-category="international">Uluslararası</button>
-                    <?php endif; ?>
+                    endif; ?>
                 </div>
                 
                 <div class="filter-search" style="justify-content: center;">

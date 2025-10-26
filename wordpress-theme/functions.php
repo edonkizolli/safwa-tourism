@@ -32,9 +32,9 @@ function safwa_enqueue_scripts() {
     // Google Fonts
     wp_enqueue_style('google-fonts', 'https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap', array(), null);
     
-    // Main CSS Files (in correct order)
-    wp_enqueue_style('safwa-main-style', get_template_directory_uri() . '/css/style.css', array(), '1.0.0');
-    wp_enqueue_style('safwa-pages-style', get_template_directory_uri() . '/css/pages.css', array('safwa-main-style'), '1.0.0');
+    // Main CSS Files (in correct order) - with cache busting
+    wp_enqueue_style('safwa-main-style', get_template_directory_uri() . '/css/style.css', array(), '2.1.0');
+    wp_enqueue_style('safwa-pages-style', get_template_directory_uri() . '/css/pages.css', array('safwa-main-style'), '2.1.0');
     
     // Conditional CSS for specific pages
     if (is_singular('tour')) {
@@ -51,8 +51,8 @@ function safwa_enqueue_scripts() {
         wp_enqueue_script('safwa-blog-detail-js', get_template_directory_uri() . '/js/blog-detail.js', array('jquery'), '1.0.0', true);
     }
     
-    if (is_home() || is_archive() && !is_post_type_archive('tour')) {
-        wp_enqueue_script('safwa-blog-js', get_template_directory_uri() . '/js/blog.js', array('jquery'), '1.0.0', true);
+    if (is_home() || (is_archive() && !is_post_type_archive('tour'))) {
+        wp_enqueue_script('safwa-blog-js', get_template_directory_uri() . '/js/blog.js', array('jquery'), '2.1.0', true);
     }
     
     // Main JavaScript
@@ -125,7 +125,7 @@ function safwa_register_tour_taxonomy() {
         'show_ui' => true,
         'show_admin_column' => true,
         'query_var' => true,
-        'rewrite' => array('slug' => 'tur-kategorisi'),
+        'rewrite' => array('slug' => 'tur-kategorisi', 'with_front' => false),
         'show_in_rest' => true,
     ));
 }
@@ -779,6 +779,35 @@ function safwa_handle_contact_form() {
 add_action('wp_ajax_safwa_contact_form', 'safwa_handle_contact_form');
 add_action('wp_ajax_nopriv_safwa_contact_form', 'safwa_handle_contact_form');
 
+// Get Available Tour Dates (AJAX)
+function safwa_get_tour_dates() {
+    check_ajax_referer('safwa_nonce', 'nonce');
+    
+    $tour_id = intval($_POST['tour_id']);
+    $tour_dates = get_post_meta($tour_id, '_tour_dates', true);
+    
+    $available_dates = array();
+    
+    if (!empty($tour_dates)) {
+        foreach ($tour_dates as $index => $date) {
+            // Only include dates with available seats
+            if (isset($date['available_seats']) && $date['available_seats'] > 0) {
+                $available_dates[] = array(
+                    'index' => $index,
+                    'start_date' => $date['start_date'],
+                    'end_date' => $date['end_date'],
+                    'available_seats' => $date['available_seats'],
+                    'formatted' => date('d.m.Y', strtotime($date['start_date'])) . ' - ' . date('d.m.Y', strtotime($date['end_date']))
+                );
+            }
+        }
+    }
+    
+    wp_send_json_success(array('dates' => $available_dates));
+}
+add_action('wp_ajax_safwa_get_tour_dates', 'safwa_get_tour_dates');
+add_action('wp_ajax_nopriv_safwa_get_tour_dates', 'safwa_get_tour_dates');
+
 // Handle Reservation Form Submission
 function safwa_handle_reservation_form() {
     check_ajax_referer('safwa_nonce', 'nonce');
@@ -1037,7 +1066,18 @@ function safwa_default_menu() {
     echo '<ul class="menu-list">';
     echo '<li><a href="' . home_url('/') . '">Ana Sayfa</a></li>';
     echo '<li><a href="' . get_post_type_archive_link('tour') . '">Turlar</a></li>';
-    echo '<li><a href="' . get_permalink(get_option('page_for_posts')) . '">Blog</a></li>';
+    // Try multiple blog URL options
+    $blog_page_id = get_option('page_for_posts');
+    if ($blog_page_id) {
+        $blog_url = get_permalink($blog_page_id);
+    } else {
+        // If no blog page set, check if any posts exist and link to first post's archive
+        $blog_url = get_post_type_archive_link('post');
+        if (!$blog_url) {
+            $blog_url = home_url('/?post_type=post');
+        }
+    }
+    echo '<li><a href="' . $blog_url . '">Blog</a></li>';
     echo '</ul>';
 }
 
@@ -1046,7 +1086,9 @@ function safwa_default_footer_menu() {
     echo '<ul class="footer-links">';
     echo '<li><a href="' . home_url('/') . '">Ana Sayfa</a></li>';
     echo '<li><a href="' . get_post_type_archive_link('tour') . '">Turlar</a></li>';
-    echo '<li><a href="' . get_permalink(get_option('page_for_posts')) . '">Blog</a></li>';
+    $blog_page_id = get_option('page_for_posts');
+    $blog_url = $blog_page_id ? get_permalink($blog_page_id) : home_url('/blog/');
+    echo '<li><a href="' . $blog_url . '">Blog</a></li>';
     
     // Get all pages
     $pages = get_pages(array('sort_column' => 'menu_order'));

@@ -463,10 +463,16 @@ h4 { font-size: 1.4rem; }
     margin-right: 5px;
 }
 
-.tour-content p {
+.tour-content p,
+.tour-description-2lines {
     color: #666;
     margin-bottom: 20px;
-    line-height: 1.6;
+    line-height: 1.4;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    max-height: 2.8em;
 }
 
 .tour-price {

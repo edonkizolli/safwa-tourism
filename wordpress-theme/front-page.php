@@ -161,7 +161,7 @@ get_header(); ?>
                                                 <span><i class="fas fa-map-marker-alt"></i> <?php echo esc_html($location); ?></span>
                                             <?php endif; ?>
                                         </div>
-                                        <p><?php echo wp_trim_words(get_the_excerpt(), 15); ?></p>
+                                        <p class="tour-description-2lines"><?php echo wp_trim_words(get_the_excerpt() ?: get_the_content(), 15, '...'); ?></p>
                                         <div class="tour-price">
                                             <?php if ($sale_price && $regular_price && $sale_price < $regular_price) : ?>
                                                 <span class="old-price">$<?php echo number_format($regular_price, 0); ?></span>
@@ -241,29 +241,53 @@ get_header(); ?>
                 
                 if ($blog_posts->have_posts()) :
                     while ($blog_posts->have_posts()) : $blog_posts->the_post();
+                        $categories = get_the_category();
+                        $category_slug = !empty($categories) ? $categories[0]->slug : '';
+                        $category_name = !empty($categories) ? $categories[0]->name : 'Genel';
+                        $comment_count = get_comments_number();
+                        $content = get_post_field('post_content', get_the_ID());
+                        $word_count = str_word_count(strip_tags($content));
+                        $reading_time = ceil($word_count / 200);
+                        $author_name = get_the_author();
+                        $excerpt = has_excerpt() ? wp_trim_words(get_the_excerpt(), 15, '...') : wp_trim_words(get_the_content(), 15, '...');
                         ?>
-                        <div class="blog-card">
+                        <article class="blog-card" data-category="<?php echo esc_attr($category_slug); ?>">
                             <div class="blog-image">
                                 <a href="<?php the_permalink(); ?>">
                                     <?php 
                                     if (has_post_thumbnail()) {
-                                        the_post_thumbnail('blog-thumbnail');
+                                        the_post_thumbnail('large', array('alt' => get_the_title()));
                                     } else {
-                                        echo '<img src="' . get_template_directory_uri() . '/images/1.jpg" alt="' . get_the_title() . '">';
+                                        echo '<img src="' . get_template_directory_uri() . '/images/1.jpg" alt="' . esc_attr(get_the_title()) . '">';
                                     }
                                     ?>
                                 </a>
+                                <div class="blog-badge popular">Popüler</div>
                             </div>
                             <div class="blog-content">
                                 <div class="blog-meta">
-                                    <span><i class="fas fa-calendar"></i> <?php echo get_the_date(); ?></span>
-                                    <span><i class="fas fa-user"></i> <?php the_author(); ?></span>
+                                    <span class="blog-category"><?php echo esc_html($category_name); ?></span>
+                                    <div class="blog-rating">
+                                        <span>(<?php echo $comment_count; ?> yorum)</span>
+                                    </div>
                                 </div>
                                 <h3><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
-                                <p><?php echo wp_trim_words(get_the_excerpt(), 20); ?></p>
-                                <a href="<?php the_permalink(); ?>" class="read-more">Devamını Oku <i class="fas fa-arrow-right"></i></a>
+                                <div class="blog-details">
+                                    <span><i class="fas fa-calendar"></i> <?php echo get_the_date('d M Y'); ?></span>
+                                    <span><i class="fas fa-clock"></i> <?php echo $reading_time; ?> dk okuma</span>
+                                    <span><i class="fas fa-user"></i> <?php echo esc_html($author_name); ?></span>
+                                </div>
+                                <p><?php echo esc_html($excerpt); ?></p>
+                                <div class="blog-highlights">
+                                    <span><i class="fas fa-check"></i> Kapsamlı Bilgi</span>
+                                    <span><i class="fas fa-check"></i> Pratik İpuçları</span>
+                                    <span><i class="fas fa-check"></i> Deneyimler</span>
+                                </div>
+                                <div class="blog-actions">
+                                    <a href="<?php the_permalink(); ?>" class="btn btn-primary">Yazıyı Oku</a>
+                                </div>
                             </div>
-                        </div>
+                        </article>
                     <?php endwhile;
                     wp_reset_postdata();
                 endif;

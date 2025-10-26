@@ -406,11 +406,9 @@ function initializeLazyLoading() {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 const img = entry.target;
-                img.style.opacity = '0';
-                img.onload = () => {
-                    img.style.transition = 'opacity 0.3s';
-                    img.style.opacity = '1';
-                };
+                // Don't set opacity to 0, images should be visible immediately
+                img.style.transition = 'opacity 0.3s';
+                img.style.opacity = '1';
                 observer.unobserve(img);
             }
         });
