@@ -33,7 +33,7 @@ function safwa_enqueue_scripts() {
     wp_enqueue_style('google-fonts', 'https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap', array(), null);
     
     // Main CSS Files (in correct order) - with cache busting
-    wp_enqueue_style('safwa-main-style', get_template_directory_uri() . '/css/style.css', array(), '2.1.0');
+    wp_enqueue_style('safwa-main-style', get_template_directory_uri() . '/css/style.css', array(), '2.3.0');
     wp_enqueue_style('safwa-pages-style', get_template_directory_uri() . '/css/pages.css', array('safwa-main-style'), '2.1.0');
     
     // Conditional CSS for specific pages
@@ -56,12 +56,25 @@ function safwa_enqueue_scripts() {
     }
     
     // Main JavaScript
-    wp_enqueue_script('safwa-main-script', get_template_directory_uri() . '/js/script.js', array('jquery'), '1.0.0', true);
+    wp_enqueue_script('safwa-main-script', get_template_directory_uri() . '/js/script.js', array('jquery'), '2.2.0', true);
+    
+    // Get partner count for JavaScript
+    $partner_count = 0;
+    if (is_front_page()) {
+        $partners_query = new WP_Query(array(
+            'post_type' => 'partner',
+            'posts_per_page' => -1,
+            'fields' => 'ids'
+        ));
+        $partner_count = $partners_query->found_posts;
+        wp_reset_postdata();
+    }
     
     // Localize script for AJAX
     wp_localize_script('safwa-main-script', 'safwa_ajax', array(
         'ajax_url' => admin_url('admin-ajax.php'),
-        'nonce' => wp_create_nonce('safwa_nonce')
+        'nonce' => wp_create_nonce('safwa_nonce'),
+        'partner_count' => $partner_count
     ));
 }
 add_action('wp_enqueue_scripts', 'safwa_enqueue_scripts');
@@ -667,6 +680,37 @@ function safwa_register_banner_post_type() {
 }
 add_action('init', 'safwa_register_banner_post_type');
 
+// Register Custom Post Type: Partners
+function safwa_register_partner_post_type() {
+    $labels = array(
+        'name' => 'Partnerler',
+        'singular_name' => 'Partner',
+        'add_new' => 'Yeni Partner Ekle',
+        'add_new_item' => 'Yeni Partner Ekle',
+        'edit_item' => 'Partner Düzenle',
+        'new_item' => 'Yeni Partner',
+        'view_item' => 'Partner Görüntüle',
+        'search_items' => 'Partner Ara',
+        'not_found' => 'Partner bulunamadı',
+    );
+    
+    $args = array(
+        'labels' => $labels,
+        'public' => false,
+        'show_ui' => true,
+        'show_in_menu' => true,
+        'capability_type' => 'post',
+        'hierarchical' => false,
+        'menu_position' => 7,
+        'menu_icon' => 'dashicons-groups',
+        'supports' => array('title', 'thumbnail'),
+        'show_in_rest' => true,
+    );
+    
+    register_post_type('partner', $args);
+}
+add_action('init', 'safwa_register_partner_post_type');
+
 // Add Banner Meta Boxes
 function safwa_add_banner_meta_boxes() {
     add_meta_box(
@@ -679,6 +723,42 @@ function safwa_add_banner_meta_boxes() {
     );
 }
 add_action('add_meta_boxes', 'safwa_add_banner_meta_boxes');
+
+// Add Partner Meta Boxes
+function safwa_add_partner_meta_boxes() {
+    add_meta_box(
+        'partner_details',
+        'Partner Detayları',
+        'safwa_partner_details_callback',
+        'partner',
+        'normal',
+        'high'
+    );
+}
+add_action('add_meta_boxes', 'safwa_add_partner_meta_boxes');
+
+// Partner Details Meta Box Callback
+function safwa_partner_details_callback($post) {
+    wp_nonce_field('safwa_partner_meta_box', 'safwa_partner_meta_box_nonce');
+    
+    $website_url = get_post_meta($post->ID, '_partner_website_url', true);
+    $order = get_post_meta($post->ID, '_partner_order', true);
+    ?>
+    <p>
+        <label for="partner_website_url">Partner Web Sitesi (Opsiyonel)</label>
+        <input type="url" id="partner_website_url" name="partner_website_url" value="<?php echo esc_attr($website_url); ?>" class="widefat" placeholder="https://ornek.com">
+        <small>Partner logosuna tıklandığında açılacak web sitesi</small>
+    </p>
+    <p>
+        <label for="partner_order">Sıralama (Opsiyonel)</label>
+        <input type="number" id="partner_order" name="partner_order" value="<?php echo esc_attr($order); ?>" class="small-text" min="0">
+        <small>Küçük numaralar önce gösterilir</small>
+    </p>
+    <p>
+        <strong>Not:</strong> Partner logosunu "Öne Çıkan Görsel" olarak yükleyin.
+    </p>
+    <?php
+}
 
 // Banner Details Meta Box Callback
 function safwa_banner_details_callback($post) {
@@ -737,21 +817,60 @@ function safwa_save_banner_meta($post_id) {
 }
 add_action('save_post_banner', 'safwa_save_banner_meta');
 
+// Save Partner Meta Data
+function safwa_save_partner_meta($post_id) {
+    if (!isset($_POST['safwa_partner_meta_box_nonce']) || !wp_verify_nonce($_POST['safwa_partner_meta_box_nonce'], 'safwa_partner_meta_box')) {
+        return;
+    }
+    
+    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
+        return;
+    }
+    
+    if (!current_user_can('edit_post', $post_id)) {
+        return;
+    }
+    
+    if (isset($_POST['partner_website_url'])) {
+        update_post_meta($post_id, '_partner_website_url', esc_url_raw($_POST['partner_website_url']));
+    }
+    if (isset($_POST['partner_order'])) {
+        update_post_meta($post_id, '_partner_order', intval($_POST['partner_order']));
+    }
+}
+add_action('save_post_partner', 'safwa_save_partner_meta');
+
 // Handle Contact Form Submission
 function safwa_handle_contact_form() {
-    check_ajax_referer('safwa_nonce', 'nonce');
+    // Verify nonce but don't die on failure
+    if (!check_ajax_referer('safwa_nonce', 'nonce', false)) {
+        wp_send_json_error(array('message' => 'Güvenlik doğrulaması başarısız. Lütfen sayfayı yenileyin.'));
+        return;
+    }
+    
+    // Validate required fields
+    if (empty($_POST['name']) || empty($_POST['email']) || empty($_POST['message'])) {
+        wp_send_json_error(array('message' => 'Lütfen tüm gerekli alanları doldurun.'));
+        return;
+    }
     
     $name = sanitize_text_field($_POST['name']);
     $email = sanitize_email($_POST['email']);
-    $phone = sanitize_text_field($_POST['phone']);
-    $subject = sanitize_text_field($_POST['subject']);
+    $phone = sanitize_text_field($_POST['phone'] ?? '');
+    $subject = sanitize_text_field($_POST['subject'] ?? 'Genel İletişim');
     $message = sanitize_textarea_field($_POST['message']);
+    
+    // Validate email
+    if (!is_email($email)) {
+        wp_send_json_error(array('message' => 'Geçerli bir e-posta adresi girin.'));
+        return;
+    }
     
     // Save to database
     global $wpdb;
     $table_name = $wpdb->prefix . 'safwa_contacts';
     
-    $wpdb->insert(
+    $result = $wpdb->insert(
         $table_name,
         array(
             'name' => $name,
@@ -760,8 +879,14 @@ function safwa_handle_contact_form() {
             'subject' => $subject,
             'message' => $message,
             'created_at' => current_time('mysql')
-        )
+        ),
+        array('%s', '%s', '%s', '%s', '%s', '%s')
     );
+    
+    if ($result === false) {
+        wp_send_json_error(array('message' => 'Mesaj kaydedilemedi. Lütfen tekrar deneyin.'));
+        return;
+    }
     
     // Send email notification
     $to = get_option('admin_email');
@@ -1051,15 +1176,44 @@ add_filter('comments_open', function($open, $post_id) {
     return $open;
 }, 10, 2);
 
+// Force comments to be open for blog posts too
+add_filter('comments_open', function($open, $post_id) {
+    $post = get_post($post_id);
+    if ($post && ($post->post_type === 'tour' || $post->post_type === 'post')) {
+        return true;
+    }
+    return $open;
+}, 10, 2);
+
+// Auto-approve comments for blog posts so they appear immediately
+add_filter('pre_comment_approved', function($approved, $commentdata) {
+    if (!empty($commentdata['comment_post_ID'])) {
+        $post = get_post($commentdata['comment_post_ID']);
+        if ($post && ($post->post_type === 'tour' || $post->post_type === 'post')) {
+            // auto-approve
+            return 1;
+        }
+    }
+    return $approved;
+}, 10, 2);
+
 // Open comments by default for new tours
 function safwa_open_tour_comments($data) {
-    if ($data['post_type'] == 'tour') {
+    if ($data['post_type'] == 'tour' || $data['post_type'] == 'post') {
         $data['comment_status'] = 'open';
         $data['ping_status'] = 'open';
     }
     return $data;
 }
 add_filter('wp_insert_post_data', 'safwa_open_tour_comments');
+
+// Force all existing posts to have comments open
+function safwa_enable_all_comments() {
+    global $wpdb;
+    // Enable comments for all posts and tours
+    $wpdb->query("UPDATE {$wpdb->posts} SET comment_status = 'open' WHERE post_type IN ('post', 'tour') AND post_status = 'publish'");
+}
+add_action('after_switch_theme', 'safwa_enable_all_comments');
 
 // Default menu fallback
 function safwa_default_menu() {
@@ -1097,6 +1251,60 @@ function safwa_default_footer_menu() {
     }
     echo '</ul>';
 }
+
+// Custom comment callback for blog detail page
+function safwa_custom_comment($comment, $args, $depth) {
+    ?>
+    <div class="comment" id="comment-<?php comment_ID(); ?>">
+        <div class="comment-avatar">
+            <?php echo get_avatar($comment, 60); ?>
+        </div>
+        <div class="comment-content">
+            <div class="comment-header">
+                <h5><?php comment_author(); ?></h5>
+                <span class="comment-date"><?php comment_date('j F Y'); ?></span>
+            </div>
+            <div class="comment-text">
+                <?php comment_text(); ?>
+            </div>
+            <div class="comment-actions">
+                <?php 
+                comment_reply_link(array_merge($args, array(
+                    'depth' => $depth,
+                    'max_depth' => $args['max_depth'],
+                    'before' => '',
+                    'after' => '',
+                    'reply_text' => 'Yanıtla'
+                )));
+                ?>
+            </div>
+        </div>
+    </div>
+    <?php
+}
+
+// Track post views for blog posts
+function safwa_track_post_views($post_id) {
+    if (!is_single()) return;
+    if (empty($post_id)) {
+        global $post;
+        $post_id = $post->ID;
+    }
+    $count = get_post_meta($post_id, 'post_views_count', true);
+    if ($count == '') {
+        $count = 0;
+        delete_post_meta($post_id, 'post_views_count');
+        add_post_meta($post_id, 'post_views_count', '0');
+    } else {
+        $count++;
+        update_post_meta($post_id, 'post_views_count', $count);
+    }
+}
+add_action('wp_head', function() {
+    if (is_single()) {
+        safwa_track_post_views(get_the_ID());
+    }
+});
 
 // Comment reply email notification
 add_action('comment_post', 'safwa_comment_reply_notification', 10, 3);

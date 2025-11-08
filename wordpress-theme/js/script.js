@@ -8,7 +8,7 @@ const tourGrids = document.querySelectorAll('.tour-grid');
 const navToggle = document.querySelector('.nav-toggle');
 const navMenu = document.querySelector('.nav-menu');
 const tourApplicationForm = document.getElementById('tourApplicationForm');
-const contactForm = document.getElementById('contactForm');
+const contactForm = document.getElementById('contact-form');
 
 // Global Variables
 let currentSlide = 0;
@@ -22,6 +22,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeForms();
     initializeScrollEffects();
     initializeAnimations();
+    initializePartnersSlider();
 });
 
 // Banner Slider Functionality
@@ -251,23 +252,43 @@ function handleTourApplicationSubmit(e) {
 function handleContactFormSubmit(e) {
     e.preventDefault();
     
-    const formData = new FormData(this);
-    const formValid = validateForm(this);
+    const form = this;
+    const formValid = validateForm(form);
     
     if (formValid) {
         // Show loading state
-        const submitBtn = this.querySelector('button[type="submit"]');
+        const submitBtn = form.querySelector('button[type="submit"]');
         const originalText = submitBtn.textContent;
         submitBtn.textContent = 'Gönderiliyor...';
         submitBtn.disabled = true;
         
-        // Simulate form submission
-        setTimeout(() => {
-            showSuccessMessage(this, 'Mesajınız başarıyla gönderildi! Size en kısa sürede dönüş yapılacaktır.');
-            this.reset();
+        // Prepare form data for AJAX
+        const formData = new FormData(form);
+        formData.append('action', 'safwa_contact_form');
+        formData.append('nonce', safwa_ajax.nonce);
+        
+        // Send AJAX request to WordPress
+        fetch(safwa_ajax.ajax_url, {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                showSuccessMessage(form, data.data.message || 'Mesajınız başarıyla gönderildi! Size en kısa sürede dönüş yapılacaktır.');
+                form.reset();
+            } else {
+                showErrorMessage(form, data.data.message || 'Bir hata oluştu. Lütfen tekrar deneyin.');
+            }
             submitBtn.textContent = originalText;
             submitBtn.disabled = false;
-        }, 2000);
+        })
+        .catch(error => {
+            console.error('Contact form error:', error);
+            showErrorMessage(form, 'Bir hata oluştu. Lütfen tekrar deneyin.');
+            submitBtn.textContent = originalText;
+            submitBtn.disabled = false;
+        });
     }
 }
 
@@ -372,6 +393,26 @@ function showSuccessMessage(form, message) {
     // Auto-hide success message
     setTimeout(() => {
         successElement.style.display = 'none';
+    }, 5000);
+}
+
+function showErrorMessage(form, message) {
+    // Remove existing error message
+    const existingError = form.querySelector('.error-message');
+    if (existingError) {
+        existingError.remove();
+    }
+    
+    // Create and show error message
+    const errorElement = document.createElement('div');
+    errorElement.className = 'error-message';
+    errorElement.textContent = message;
+    errorElement.style.display = 'block';
+    form.appendChild(errorElement);
+    
+    // Auto-hide error message
+    setTimeout(() => {
+        errorElement.style.display = 'none';
     }, 5000);
 }
 
@@ -606,6 +647,86 @@ if ('serviceWorker' in navigator) {
             .then(registration => console.log('SW registered'))
             .catch(registrationError => console.log('SW registration failed'));
     });
+}
+
+// Partners Slider
+function initializePartnersSlider() {
+    const partnersSlider = document.querySelector('.partners-slider');
+    if (!partnersSlider) return;
+    
+    const partnersTrack = partnersSlider.querySelector('.partners-track');
+    const prevBtn = partnersSlider.querySelector('.partners-prev');
+    const nextBtn = partnersSlider.querySelector('.partners-next');
+    const partnerItems = partnersSlider.querySelectorAll('.partner-item');
+    
+    // Get partner count from PHP
+    const partnerCount = typeof safwa_ajax !== 'undefined' ? safwa_ajax.partner_count : partnerItems.length;
+    
+    // Only initialize slider if there are more than 5 partners
+    if (partnerCount <= 5) {
+        return; // No slider needed, centered display
+    }
+    
+    // Clone items for infinite scroll effect
+    const itemsToClone = Array.from(partnerItems);
+    itemsToClone.forEach(item => {
+        const clone = item.cloneNode(true);
+        partnersTrack.appendChild(clone);
+    });
+    
+    let currentIndex = 0;
+    const itemWidth = 170; // 150px width + 20px gap
+    const visibleItems = Math.min(5, partnerCount);
+    
+    // Manual navigation
+    if (nextBtn) {
+        nextBtn.addEventListener('click', () => {
+            currentIndex++;
+            if (currentIndex >= partnerCount) {
+                currentIndex = 0;
+            }
+            updateSliderPosition();
+        });
+    }
+    
+    if (prevBtn) {
+        prevBtn.addEventListener('click', () => {
+            currentIndex--;
+            if (currentIndex < 0) {
+                currentIndex = partnerCount - 1;
+            }
+            updateSliderPosition();
+        });
+    }
+    
+    function updateSliderPosition() {
+        const offset = -currentIndex * itemWidth;
+        partnersTrack.style.transform = `translateX(${offset}px)`;
+    }
+    
+    // Auto-scroll (optional)
+    let autoScrollInterval;
+    
+    function startAutoScroll() {
+        autoScrollInterval = setInterval(() => {
+            currentIndex++;
+            if (currentIndex >= partnerCount) {
+                currentIndex = 0;
+            }
+            updateSliderPosition();
+        }, 3000);
+    }
+    
+    function stopAutoScroll() {
+        clearInterval(autoScrollInterval);
+    }
+    
+    // Pause on hover
+    partnersSlider.addEventListener('mouseenter', stopAutoScroll);
+    partnersSlider.addEventListener('mouseleave', startAutoScroll);
+    
+    // Start auto-scroll
+    startAutoScroll();
 }
 
 // Export functions for module use (if needed)

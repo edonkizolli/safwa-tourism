@@ -5,249 +5,260 @@
 
 get_header();
 
-while (have_posts()) : the_post(); ?>
+while (have_posts()) : the_post(); 
+    $categories = get_the_category();
+    $category_name = !empty($categories) ? $categories[0]->name : 'Genel';
+    $comment_count = get_comments_number();
+    $content = get_post_field('post_content', get_the_ID());
+    $word_count = str_word_count(strip_tags($content));
+    $reading_time = ceil($word_count / 200);
+    $author_name = get_the_author();
+?>
 
-    <div class="page-header">
+    <!-- Article Header -->
+    <section class="article-header">
         <div class="container">
-            <div class="breadcrumb">
+            <nav class="breadcrumb">
                 <a href="<?php echo home_url(); ?>">Ana Sayfa</a>
-                <i class="fas fa-chevron-right"></i>
+                <span>/</span>
                 <a href="<?php echo get_permalink(get_option('page_for_posts')); ?>">Blog</a>
-                <i class="fas fa-chevron-right"></i>
+                <span>/</span>
                 <span><?php the_title(); ?></span>
+            </nav>
+            
+            <div class="article-meta">
+                <div class="article-category">
+                    <span class="category-tag"><?php echo esc_html($category_name); ?></span>
+                </div>
+                
+                <h1><?php the_title(); ?></h1>
+                
+                <div class="article-info">
+                    <div class="author-info">
+                        <?php echo get_avatar(get_the_author_meta('ID'), 64, '', '', array('class' => 'author-avatar')); ?>
+                        <div class="author-details">
+                            <span class="author-name"><?php echo esc_html($author_name); ?></span>
+                            <span class="author-title"><?php echo get_the_author_meta('description') ? esc_html(get_the_author_meta('description')) : 'Yazar'; ?></span>
+                        </div>
+                    </div>
+                    
+                    <div class="article-stats">
+                        <span class="publish-date"><i class="fas fa-calendar"></i> <?php echo get_the_date('d F Y'); ?></span>
+                        <span class="reading-time"><i class="fas fa-clock"></i> <?php echo $reading_time; ?> dk okuma</span>
+                        <span class="views"><i class="fas fa-eye"></i> <?php echo get_post_meta(get_the_ID(), 'post_views_count', true) ?: '0'; ?> görüntüleme</span>
+                    </div>
+                </div>
+                
+                <?php if (has_post_thumbnail()) : ?>
+                    <div class="article-image">
+                        <?php the_post_thumbnail('large'); ?>
+                    </div>
+                <?php endif; ?>
             </div>
         </div>
-    </div>
+    </section>
 
-    <section class="blog-detail">
+    <!-- Article Content -->
+    <section class="article-section">
         <div class="container">
-            <div class="blog-content-wrapper">
-                <article class="blog-main">
-                    <?php if (has_post_thumbnail()) : ?>
-                        <div class="post-featured-image">
-                            <?php the_post_thumbnail('large'); ?>
+            <div class="article-layout">
+                <!-- Main Content -->
+                <main class="article-content">
+                    <div class="content-wrapper">
+                        <div class="article-text">
+                            <?php the_content(); ?>
                         </div>
-                    <?php endif; ?>
 
-                    <div class="post-header">
-                        <h1><?php the_title(); ?></h1>
-                        
-                        <div class="post-meta">
-                            <span class="author">
-                                <?php echo get_avatar(get_the_author_meta('ID'), 32); ?>
-                                <a href="<?php echo get_author_posts_url(get_the_author_meta('ID')); ?>">
-                                    <?php the_author(); ?>
-                                </a>
-                            </span>
-                            <span class="date">
-                                <i class="fas fa-calendar"></i>
-                                <?php echo get_the_date(); ?>
-                            </span>
-                            <span class="category">
-                                <i class="fas fa-folder"></i>
-                                <?php the_category(', '); ?>
-                            </span>
-                            <span class="comments">
-                                <i class="fas fa-comments"></i>
-                                <?php comments_number('0 Yorum', '1 Yorum', '% Yorum'); ?>
-                            </span>
-                        </div>
-                    </div>
-
-                    <div class="post-content">
-                        <?php the_content(); ?>
-                        
-                        <?php
-                        wp_link_pages(array(
-                            'before' => '<div class="page-links">' . esc_html__('Sayfalar:', 'safwa-tourism'),
-                            'after' => '</div>',
-                        ));
-                        ?>
-                    </div>
-
-                    <?php if (get_the_tags()) : ?>
-                        <div class="post-tags">
-                            <i class="fas fa-tags"></i>
-                            <?php the_tags('', ', ', ''); ?>
-                        </div>
-                    <?php endif; ?>
-
-                    <!-- Share Buttons -->
-                    <div class="share-section">
-                        <h4>Bu yazıyı paylaş:</h4>
-                        <div class="share-buttons">
-                            <a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode(get_permalink()); ?>" 
-                               target="_blank" class="share-btn facebook">
-                                <i class="fab fa-facebook-f"></i> Facebook
-                            </a>
-                            <a href="https://twitter.com/intent/tweet?url=<?php echo urlencode(get_permalink()); ?>&text=<?php echo urlencode(get_the_title()); ?>" 
-                               target="_blank" class="share-btn twitter">
-                                <i class="fab fa-twitter"></i> Twitter
-                            </a>
-                            <a href="https://api.whatsapp.com/send?text=<?php echo urlencode(get_the_title() . ' ' . get_permalink()); ?>" 
-                               target="_blank" class="share-btn whatsapp">
-                                <i class="fab fa-whatsapp"></i> WhatsApp
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- Author Bio -->
-                    <div class="author-bio">
-                        <div class="author-avatar">
-                            <?php echo get_avatar(get_the_author_meta('ID'), 80); ?>
-                        </div>
-                        <div class="author-info">
-                            <h4><?php the_author(); ?></h4>
-                            <p><?php the_author_meta('description'); ?></p>
-                            <a href="<?php echo get_author_posts_url(get_the_author_meta('ID')); ?>" class="btn btn-sm">
-                                Yazarın Tüm Yazıları
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- Comments -->
-                    <?php
-                    if (comments_open() || get_comments_number()) :
-                        comments_template();
-                    endif;
-                    ?>
-
-                    <!-- Navigation -->
-                    <div class="post-navigation">
-                        <?php
-                        $prev_post = get_previous_post();
-                        $next_post = get_next_post();
-                        ?>
-                        
-                        <?php if ($prev_post) : ?>
-                            <div class="nav-previous">
-                                <a href="<?php echo get_permalink($prev_post); ?>">
-                                    <i class="fas fa-chevron-left"></i>
-                                    <div class="nav-content">
-                                        <span class="nav-label">Önceki Yazı</span>
-                                        <span class="nav-title"><?php echo get_the_title($prev_post); ?></span>
-                                    </div>
-                                </a>
-                            </div>
-                        <?php endif; ?>
-                        
-                        <?php if ($next_post) : ?>
-                            <div class="nav-next">
-                                <a href="<?php echo get_permalink($next_post); ?>">
-                                    <div class="nav-content">
-                                        <span class="nav-label">Sonraki Yazı</span>
-                                        <span class="nav-title"><?php echo get_the_title($next_post); ?></span>
-                                    </div>
-                                    <i class="fas fa-chevron-right"></i>
-                                </a>
+                        <!-- Article Tags -->
+                        <?php if (get_the_tags()) : ?>
+                            <div class="article-tags">
+                                <h4>Etiketler:</h4>
+                                <div class="tags">
+                                    <?php
+                                    $tags = get_the_tags();
+                                    foreach ($tags as $tag) {
+                                        echo '<span class="tag">' . esc_html($tag->name) . '</span>';
+                                    }
+                                    ?>
+                                </div>
                             </div>
                         <?php endif; ?>
                     </div>
-                </article>
+
+                    <!-- Comments Section -->
+                    <div class="comments-section">
+                        <h3>Yorumlar (<?php echo get_comments_number(); ?>)</h3>
+                        
+                        <!-- Comment Form -->
+                        <div class="comment-form">
+                            <?php
+                            $commenter = wp_get_current_commenter();
+                            $comment_form_args = array(
+                                'title_reply' => 'Yorum Yapın',
+                                'title_reply_before' => '<h4>',
+                                'title_reply_after' => '</h4>',
+                                'class_form' => '',
+                                'logged_in_as' => '',
+                                'comment_field' => '<div class="form-group"><textarea name="comment" id="comment" placeholder="Yorumunuzu yazın..." rows="4" required></textarea></div>',
+                                'must_log_in' => '',
+                                'fields' => array(
+                                    'author' => '<div class="form-row"><div class="form-group"><input type="text" name="author" id="author" value="' . esc_attr($commenter['comment_author']) . '" placeholder="Adınız" required></div>',
+                                    'email' => '<div class="form-group"><input type="email" name="email" id="email" value="' . esc_attr($commenter['comment_author_email']) . '" placeholder="E-posta adresiniz" required></div></div>',
+                                ),
+                                'submit_button' => '<button type="submit" name="submit" class="submit-btn">Yorum Gönder</button>',
+                                'submit_field' => '<div class="form-submit">%1$s %2$s</div>',
+                                'comment_notes_before' => '',
+                                'comment_notes_after' => '',
+                            );
+                            comment_form($comment_form_args);
+                            ?>
+                        </div>
+
+                        <!-- Comments List -->
+                        <?php if (have_comments()) : ?>
+                            <div class="comments-list">
+                                <?php
+                                wp_list_comments(array(
+                                    'style' => 'div',
+                                    'callback' => 'safwa_custom_comment',
+                                    'avatar_size' => 60,
+                                    'type' => 'comment',
+                                ));
+                                ?>
+                            </div>
+                            
+                            <?php if (get_comment_pages_count() > 1) : ?>
+                                <button class="load-more-comments" onclick="window.location.href='<?php echo get_comments_pagenum_link(2); ?>'">Daha Fazla Yorum Göster</button>
+                            <?php endif; ?>
+                        <?php else : ?>
+                            <p class="no-comments">Henüz yorum yapılmamış. İlk yorumu siz yapın!</p>
+                        <?php endif; ?>
+                    </div>
+                </main>
 
                 <!-- Sidebar -->
-                <aside class="blog-sidebar">
-                    <!-- Search -->
-                    <div class="sidebar-widget">
-                        <h3>Ara</h3>
-                        <form role="search" method="get" class="search-form" action="<?php echo home_url('/'); ?>">
-                            <input type="search" class="search-field" placeholder="Ara..." value="<?php echo get_search_query(); ?>" name="s">
-                            <button type="submit" class="search-submit"><i class="fas fa-search"></i></button>
-                        </form>
-                    </div>
-
-                    <!-- Recent Posts -->
-                    <div class="sidebar-widget">
-                        <h3>Son Yazılar</h3>
-                        <ul class="recent-posts">
-                            <?php
-                            $recent_posts = new WP_Query(array(
-                                'posts_per_page' => 5,
-                                'post_status' => 'publish',
-                                'post__not_in' => array(get_the_ID())
-                            ));
-                            
-                            if ($recent_posts->have_posts()) :
-                                while ($recent_posts->have_posts()) : $recent_posts->the_post();
-                                    ?>
-                                    <li>
-                                        <?php if (has_post_thumbnail()) : ?>
-                                            <div class="recent-post-thumb">
-                                                <a href="<?php the_permalink(); ?>">
-                                                    <?php the_post_thumbnail('thumbnail'); ?>
-                                                </a>
-                                            </div>
-                                        <?php endif; ?>
-                                        <div class="recent-post-content">
-                                            <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
-                                            <span class="post-date"><?php echo get_the_date(); ?></span>
-                                        </div>
-                                    </li>
-                                <?php endwhile; wp_reset_postdata(); ?>
-                            <?php endif; ?>
-                        </ul>
-                    </div>
-
-                    <!-- Categories -->
-                    <div class="sidebar-widget">
-                        <h3>Kategoriler</h3>
-                        <ul class="category-list">
-                            <?php
-                            $categories = get_categories(array(
-                                'orderby' => 'count',
-                                'order' => 'DESC',
-                                'hide_empty' => true,
-                            ));
-                            
-                            foreach ($categories as $category) :
-                                ?>
-                                <li>
-                                    <a href="<?php echo get_category_link($category->term_id); ?>">
-                                        <i class="fas fa-folder"></i>
-                                        <?php echo esc_html($category->name); ?>
-                                        <span class="count">(<?php echo $category->count; ?>)</span>
-                                    </a>
-                                </li>
-                            <?php endforeach; ?>
-                        </ul>
-                    </div>
-
-                    <!-- Related Posts -->
+                <aside class="article-sidebar">
+                    <!-- Related Tours Widget -->
                     <?php
-                    $categories = wp_get_post_categories(get_the_ID());
-                    $related_posts = new WP_Query(array(
-                        'category__in' => $categories,
-                        'post__not_in' => array(get_the_ID()),
-                        'posts_per_page' => 3,
-                    ));
+                    $tour_args = array(
+                        'post_type' => 'tour',
+                        'posts_per_page' => 2,
+                        'orderby' => 'rand',
+                    );
+                    $related_tours = new WP_Query($tour_args);
                     
-                    if ($related_posts->have_posts()) :
-                        ?>
+                    if ($related_tours->have_posts()) :
+                    ?>
                         <div class="sidebar-widget">
-                            <h3>İlgili Yazılar</h3>
-                            <ul class="related-posts">
-                                <?php while ($related_posts->have_posts()) : $related_posts->the_post(); ?>
-                                    <li>
+                            <h3>🎯 İlgili Turlar</h3>
+                            <div class="related-tours">
+                                <?php while ($related_tours->have_posts()) : $related_tours->the_post(); 
+                                    $sale_price = get_post_meta(get_the_ID(), '_tour_sale_price', true);
+                                    $regular_price = get_post_meta(get_the_ID(), '_tour_regular_price', true);
+                                    $price = $sale_price ?: $regular_price;
+                                ?>
+                                    <div class="tour-item">
                                         <?php if (has_post_thumbnail()) : ?>
-                                            <div class="related-post-thumb">
-                                                <a href="<?php the_permalink(); ?>">
-                                                    <?php the_post_thumbnail('thumbnail'); ?>
-                                                </a>
-                                            </div>
+                                            <?php the_post_thumbnail('thumbnail'); ?>
                                         <?php endif; ?>
-                                        <div class="related-post-content">
-                                            <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
-                                            <span class="post-date"><?php echo get_the_date(); ?></span>
+                                        <div class="tour-info">
+                                            <h4><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h4>
+                                            <?php if ($price) : ?>
+                                                <p class="tour-price">$<?php echo number_format($price, 0); ?></p>
+                                            <?php endif; ?>
                                         </div>
-                                    </li>
+                                    </div>
                                 <?php endwhile; wp_reset_postdata(); ?>
-                            </ul>
+                            </div>
                         </div>
                     <?php endif; ?>
+
+                    <!-- Popular Posts Widget -->
+                    <div class="sidebar-widget">
+                        <h3>📌 Popüler Yazılar</h3>
+                        <div class="popular-posts">
+                            <?php
+                            $popular_posts = new WP_Query(array(
+                                'posts_per_page' => 3,
+                                'post_status' => 'publish',
+                                'post__not_in' => array(get_the_ID()),
+                                'orderby' => 'comment_count',
+                                'order' => 'DESC',
+                            ));
+                            
+                            if ($popular_posts->have_posts()) :
+                                while ($popular_posts->have_posts()) : $popular_posts->the_post();
+                                    ?>
+                                    <article class="popular-post">
+                                        <?php if (has_post_thumbnail()) : ?>
+                                            <div class="post-thumb">
+                                                <a href="<?php the_permalink(); ?>">
+                                                    <?php the_post_thumbnail('thumbnail'); ?>
+                                                </a>
+                                            </div>
+                                        <?php endif; ?>
+                                        <div class="post-info">
+                                            <h4><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h4>
+                                            <span class="post-date"><?php echo get_the_date('d F Y'); ?></span>
+                                            <div class="post-stats">
+                                                <span class="read-count">⭐ <?php echo get_post_meta(get_the_ID(), 'post_views_count', true) ?: '0'; ?> görüntülenme</span>
+                                            </div>
+                                        </div>
+                                    </article>
+                                <?php endwhile; wp_reset_postdata(); ?>
+                            <?php endif; ?>
+                        </div>
+                    </div>
                 </aside>
             </div>
         </div>
     </section>
+
+    <!-- Related Articles -->
+    <?php
+    $categories = wp_get_post_categories(get_the_ID());
+    $related_posts = new WP_Query(array(
+        'category__in' => $categories,
+        'post__not_in' => array(get_the_ID()),
+        'posts_per_page' => 3,
+    ));
+    
+    if ($related_posts->have_posts()) :
+    ?>
+        <section class="related-articles">
+            <div class="container">
+                <h3>📚 Benzer Yazılar</h3>
+                <div class="articles-grid">
+                    <?php while ($related_posts->have_posts()) : $related_posts->the_post(); 
+                        $post_categories = get_the_category();
+                        $post_category = !empty($post_categories) ? $post_categories[0]->name : 'Genel';
+                        $post_content = get_post_field('post_content', get_the_ID());
+                        $post_word_count = str_word_count(strip_tags($post_content));
+                        $post_reading_time = ceil($post_word_count / 200);
+                    ?>
+                        <article class="article-card">
+                            <?php if (has_post_thumbnail()) : ?>
+                                <div class="article-image">
+                                    <a href="<?php the_permalink(); ?>">
+                                        <?php the_post_thumbnail('medium'); ?>
+                                    </a>
+                                    <div class="article-category">✨ <?php echo esc_html($post_category); ?></div>
+                                </div>
+                            <?php endif; ?>
+                            <div class="article-content">
+                                <h4><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h4>
+                                <p><?php echo wp_trim_words(get_the_excerpt(), 20, '...'); ?></p>
+                                <div class="article-meta">
+                                    <span class="date">📅 <?php echo get_the_date('d F Y'); ?></span>
+                                    <span class="reading-time">⏱️ <?php echo $post_reading_time; ?> dk okuma</span>
+                                </div>
+                            </div>
+                        </article>
+                    <?php endwhile; wp_reset_postdata(); ?>
+                </div>
+            </div>
+        </section>
+    <?php endif; ?>
 
 <?php endwhile; ?>
 

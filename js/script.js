@@ -599,6 +599,61 @@ window.addEventListener('error', function(e) {
     // Could send error to analytics service
 });
 
+// Partners Slider
+function initializePartnersSlider() {
+    const partnersSlider = document.querySelector('.partners-slider');
+    if (!partnersSlider) return;
+    
+    const track = document.querySelector('.partners-track');
+    const prevBtn = document.querySelector('.partners-prev');
+    const nextBtn = document.querySelector('.partners-next');
+    
+    if (!track) return;
+    
+    // Get all items
+    const items = track.querySelectorAll('.partner-item');
+    
+    // Only clone if we have items (for infinite loop with many partners)
+    if (items.length >= 5) {
+        items.forEach(item => {
+            const clone = item.cloneNode(true);
+            track.appendChild(clone);
+        });
+    }
+    
+    // Manual navigation
+    if (prevBtn) {
+        prevBtn.addEventListener('click', () => {
+            const scrollAmount = 190; // item width + gap
+            track.scrollBy({
+                left: -scrollAmount,
+                behavior: 'smooth'
+            });
+        });
+    }
+    
+    if (nextBtn) {
+        nextBtn.addEventListener('click', () => {
+            const scrollAmount = 190;
+            track.scrollBy({
+                left: scrollAmount,
+                behavior: 'smooth'
+            });
+        });
+    }
+}
+
+// Initialize partners slider on page load
+document.addEventListener('DOMContentLoaded', function() {
+    if (slides.length > 0) initializeSlider();
+    initializeNavigation();
+    if (categoryTabs.length > 0) initializeTourCategories();
+    initializeForms();
+    initializeScrollEffects();
+    initializeAnimations();
+    initializePartnersSlider();
+});
+
 // Service Worker Registration (for PWA)
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {

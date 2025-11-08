@@ -156,11 +156,13 @@ get_header(); ?>
                                     <span><i class="fas fa-check"></i> Haram'a Yakın Konaklama</span>
                                 </div>
                                 <div class="tour-price">
-                                    <?php if ($sale_price && $regular_price && $sale_price < $regular_price) : ?>
-                                        <span class="old-price">$<?php echo number_format($regular_price, 0); ?></span>
-                                        <span class="current-price">$<?php echo number_format($sale_price, 0); ?></span>
-                                    <?php else : ?>
-                                        <span class="current-price">$<?php echo number_format($sale_price ?: $regular_price, 0); ?></span>
+                                    <?php if ($sale_price && $regular_price && floatval($sale_price) < floatval($regular_price)) : ?>
+                                        <span class="old-price">$<?php echo number_format(floatval($regular_price), 0); ?></span>
+                                        <span class="current-price">$<?php echo number_format(floatval($sale_price), 0); ?></span>
+                                    <?php elseif ($sale_price) : ?>
+                                        <span class="current-price">$<?php echo number_format(floatval($sale_price), 0); ?></span>
+                                    <?php elseif ($regular_price) : ?>
+                                        <span class="current-price">$<?php echo number_format(floatval($regular_price), 0); ?></span>
                                     <?php endif; ?>
                                     <span class="price-note">Kişi başı</span>
                                 </div>

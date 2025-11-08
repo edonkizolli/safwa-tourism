@@ -804,11 +804,13 @@ while (have_posts()) : the_post();
                                     <?php endif; ?>
                                 </div>
                                 <div class="tour-price">
-                                    <?php if ($s_price && $s_price < $reg_price) : ?>
-                                        <span class="old-price">$<?php echo number_format($reg_price, 0); ?></span>
+                                    <?php if ($s_price && $reg_price && floatval($s_price) < floatval($reg_price)) : ?>
+                                        <span class="old-price">$<?php echo number_format(floatval($reg_price), 0); ?></span>
                                     <?php endif; ?>
-                                    <span class="current-price">$<?php echo number_format($s_price ?: $reg_price, 0); ?></span>
-                                    <span class="per-person">kişi başı</span>
+                                    <?php if ($s_price || $reg_price) : ?>
+                                        <span class="current-price">$<?php echo number_format(floatval($s_price ?: $reg_price), 0); ?></span>
+                                        <span class="per-person">kişi başı</span>
+                                    <?php endif; ?>
                                 </div>
                                 <a href="<?php the_permalink(); ?>" class="btn btn-outline">Detayları Gör</a>
                             </div>

@@ -115,7 +115,7 @@ get_header(); ?>
                 foreach ($tour_terms as $term) :
                     $tours = new WP_Query(array(
                         'post_type' => 'tour',
-                        'posts_per_page' => 6,
+                        'posts_per_page' => 3, // Show only 3 tours
                         'tax_query' => array(
                             array(
                                 'taxonomy' => 'tour_category',
@@ -163,11 +163,13 @@ get_header(); ?>
                                         </div>
                                         <p class="tour-description-2lines"><?php echo wp_trim_words(get_the_excerpt() ?: get_the_content(), 15, '...'); ?></p>
                                         <div class="tour-price">
-                                            <?php if ($sale_price && $regular_price && $sale_price < $regular_price) : ?>
-                                                <span class="old-price">$<?php echo number_format($regular_price, 0); ?></span>
-                                                <span class="current-price">$<?php echo number_format($sale_price, 0); ?></span>
-                                            <?php else : ?>
-                                                <span class="current-price">$<?php echo number_format($sale_price ?: $regular_price, 0); ?></span>
+                                            <?php if ($sale_price && $regular_price && floatval($sale_price) < floatval($regular_price)) : ?>
+                                                <span class="old-price">$<?php echo number_format(floatval($regular_price), 0); ?></span>
+                                                <span class="current-price">$<?php echo number_format(floatval($sale_price), 0); ?></span>
+                                            <?php elseif ($sale_price) : ?>
+                                                <span class="current-price">$<?php echo number_format(floatval($sale_price), 0); ?></span>
+                                            <?php elseif ($regular_price) : ?>
+                                                <span class="current-price">$<?php echo number_format(floatval($regular_price), 0); ?></span>
                                             <?php endif; ?>
                                         </div>
                                         <a href="<?php the_permalink(); ?>" class="btn btn-outline">Detayları Gör</a>
@@ -191,34 +193,54 @@ get_header(); ?>
             <div class="about-content">
                 <div class="about-text">
                     <h2>Safwa Tourism Hakkında</h2>
-                    <p>2010 yılından beri turizm sektöründe hizmet veren Safwa Tourism, müşterilerinin güvenli ve konforlu seyahat deneyimi yaşaması için çalışmaktadır.</p>
+                    <p>Safwa Tourism olarak, turizm sektöründe yeni ve dinamik bir yaklaşımla hizmet veriyoruz. Müşterilerimize güvenli, konforlu ve unutulmaz seyahat deneyimleri sunmak için modern teknoloji ve profesyonel ekibimizle çalışıyoruz.</p>
                     <div class="features">
                         <div class="feature">
-                            <i class="fas fa-award"></i>
+                            <i class="fas fa-rocket"></i>
                             <div>
-                                <h4>15+ Yıl Tecrübe</h4>
-                                <p>Sektörde uzun yıllara dayanan deneyim</p>
+                                <h4>Yenilikçi Yaklaşım</h4>
+                                <p>Modern ve dinamik turizm hizmetleri</p>
                             </div>
                         </div>
                         <div class="feature">
-                            <i class="fas fa-users"></i>
+                            <i class="fas fa-heart"></i>
                             <div>
-                                <h4>10,000+ Mutlu Müşteri</h4>
-                                <p>Binlerce müşterimizin güvenini kazandık</p>
+                                <h4>Müşteri Memnuniyeti</h4>
+                                <p>Her müşterimize özel ilgi ve kaliteli hizmet</p>
                             </div>
                         </div>
                         <div class="feature">
-                            <i class="fas fa-globe"></i>
+                            <i class="fas fa-shield-alt"></i>
                             <div>
-                                <h4>50+ Destinasyon</h4>
-                                <p>Dünyanın dört bir yanına turlar</p>
+                                <h4>Güvenilir Hizmet</h4>
+                                <p>Lisanslı ve profesyonel turizm danışmanlığı</p>
                             </div>
                         </div>
                     </div>
-                    <a href="#contact" class="btn btn-primary">Bizimle İletişime Geçin</a>
                 </div>
                 <div class="about-image">
-                    <img src="<?php echo get_template_directory_uri(); ?>/images/2.jpg" alt="Safwa Tourism">
+                    <?php
+                    // Get the image by filename from media library
+                    $about_image = get_posts(array(
+                        'post_type' => 'attachment',
+                        'posts_per_page' => 1,
+                        'post_status' => 'inherit',
+                        'meta_query' => array(
+                            array(
+                                'key' => '_wp_attached_file',
+                                'value' => '2025/10/1Çalişma-Yüzeyi-1-1.png',
+                                'compare' => 'LIKE'
+                            )
+                        )
+                    ));
+                    
+                    if ($about_image) {
+                        echo wp_get_attachment_image($about_image[0]->ID, 'large', false, array('alt' => 'Safwa Tourism'));
+                    } else {
+                        // Fallback to direct URL
+                        echo '<img src="' . esc_url(wp_upload_dir()['baseurl'] . '/2025/10/1Çalişma-Yüzeyi-1-1.png') . '" alt="Safwa Tourism">';
+                    }
+                    ?>
                 </div>
             </div>
         </div>
@@ -295,6 +317,65 @@ get_header(); ?>
             </div>
         </div>
     </section>
+
+    <!-- Partners Section -->
+    <?php
+    $partners = new WP_Query(array(
+        'post_type' => 'partner',
+        'posts_per_page' => -1,
+        'meta_key' => '_partner_order',
+        'orderby' => 'meta_value_num',
+        'order' => 'ASC'
+    ));
+    
+    if ($partners->have_posts()) :
+        $partner_count = $partners->found_posts;
+        $show_slider = $partner_count > 5; // Show slider only if more than 5 partners
+    ?>
+        <section class="partners-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Partnerlerimiz</h2>
+                    <p>Güvenilir iş ortaklarımız</p>
+                </div>
+                
+                <div class="partners-slider <?php echo $show_slider ? 'has-navigation' : 'centered'; ?>">
+                    <div class="partners-track">
+                        <?php while ($partners->have_posts()) : $partners->the_post(); 
+                            $website_url = get_post_meta(get_the_ID(), '_partner_website_url', true);
+                            $partner_logo = get_the_post_thumbnail_url(get_the_ID(), 'medium');
+                            
+                            if ($partner_logo) :
+                        ?>
+                            <div class="partner-item">
+                                <?php if ($website_url) : ?>
+                                    <a href="<?php echo esc_url($website_url); ?>" target="_blank" rel="noopener noreferrer" title="<?php the_title(); ?>">
+                                        <img src="<?php echo esc_url($partner_logo); ?>" alt="<?php the_title(); ?>">
+                                    </a>
+                                <?php else : ?>
+                                    <img src="<?php echo esc_url($partner_logo); ?>" alt="<?php the_title(); ?>">
+                                <?php endif; ?>
+                            </div>
+                        <?php 
+                            endif;
+                        endwhile; 
+                        wp_reset_postdata(); 
+                        ?>
+                    </div>
+                    
+                    <!-- Navigation Arrows (only if more than 5 partners) -->
+                    <?php if ($show_slider) : ?>
+                        <button class="partners-nav partners-prev" aria-label="Önceki">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <button class="partners-nav partners-next" aria-label="Sonraki">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    <?php endif; ?>
+                </div>
+            </div>
+        </section>
+    <?php endif; ?>
 
     <!-- Contact Section -->
     <section id="contact" class="contact-section">
