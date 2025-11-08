@@ -318,65 +318,6 @@ get_header(); ?>
         </div>
     </section>
 
-    <!-- Partners Section -->
-    <?php
-    $partners = new WP_Query(array(
-        'post_type' => 'partner',
-        'posts_per_page' => -1,
-        'meta_key' => '_partner_order',
-        'orderby' => 'meta_value_num',
-        'order' => 'ASC'
-    ));
-    
-    if ($partners->have_posts()) :
-        $partner_count = $partners->found_posts;
-        $show_slider = $partner_count > 5; // Show slider only if more than 5 partners
-    ?>
-        <section class="partners-section">
-            <div class="container">
-                <div class="section-header">
-                    <h2>Partnerlerimiz</h2>
-                    <p>Güvenilir iş ortaklarımız</p>
-                </div>
-                
-                <div class="partners-slider <?php echo $show_slider ? 'has-navigation' : 'centered'; ?>">
-                    <div class="partners-track">
-                        <?php while ($partners->have_posts()) : $partners->the_post(); 
-                            $website_url = get_post_meta(get_the_ID(), '_partner_website_url', true);
-                            $partner_logo = get_the_post_thumbnail_url(get_the_ID(), 'medium');
-                            
-                            if ($partner_logo) :
-                        ?>
-                            <div class="partner-item">
-                                <?php if ($website_url) : ?>
-                                    <a href="<?php echo esc_url($website_url); ?>" target="_blank" rel="noopener noreferrer" title="<?php the_title(); ?>">
-                                        <img src="<?php echo esc_url($partner_logo); ?>" alt="<?php the_title(); ?>">
-                                    </a>
-                                <?php else : ?>
-                                    <img src="<?php echo esc_url($partner_logo); ?>" alt="<?php the_title(); ?>">
-                                <?php endif; ?>
-                            </div>
-                        <?php 
-                            endif;
-                        endwhile; 
-                        wp_reset_postdata(); 
-                        ?>
-                    </div>
-                    
-                    <!-- Navigation Arrows (only if more than 5 partners) -->
-                    <?php if ($show_slider) : ?>
-                        <button class="partners-nav partners-prev" aria-label="Önceki">
-                            <i class="fas fa-chevron-left"></i>
-                        </button>
-                        <button class="partners-nav partners-next" aria-label="Sonraki">
-                            <i class="fas fa-chevron-right"></i>
-                        </button>
-                    <?php endif; ?>
-                </div>
-            </div>
-        </section>
-    <?php endif; ?>
-
     <!-- Contact Section -->
     <section id="contact" class="contact-section">
         <div class="container">
