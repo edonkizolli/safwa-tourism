@@ -112,9 +112,6 @@ get_header(); ?>
                                 <?php if ($badge) : ?>
                                     <div class="tour-badge"><?php echo esc_html(ucfirst($badge)); ?></div>
                                 <?php endif; ?>
-                                <div class="tour-wishlist">
-                                    <i class="far fa-heart"></i>
-                                </div>
                             </div>
                             <div class="tour-content">
                                 <div class="tour-meta">
@@ -126,16 +123,6 @@ get_header(); ?>
                                         }
                                         ?>
                                     </span>
-                                    <div class="tour-rating">
-                                        <div class="stars">
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                        </div>
-                                        <span>(<?php echo rand(20, 100); ?> değerlendirme)</span>
-                                    </div>
                                 </div>
                                 <h3><?php the_title(); ?></h3>
                                 <div class="tour-details">
@@ -150,11 +137,6 @@ get_header(); ?>
                                     <?php endif; ?>
                                 </div>
                                 <p><?php echo wp_trim_words(get_the_excerpt(), 20); ?></p>
-                                <div class="tour-highlights">
-                                    <span><i class="fas fa-check"></i> 5 Yıldızlı Otel</span>
-                                    <span><i class="fas fa-check"></i> Özel Rehber</span>
-                                    <span><i class="fas fa-check"></i> Haram'a Yakın Konaklama</span>
-                                </div>
                                 <div class="tour-price">
                                     <?php if ($sale_price && $regular_price && floatval($sale_price) < floatval($regular_price)) : ?>
                                         <span class="old-price">$<?php echo number_format(floatval($regular_price), 0); ?></span>
@@ -168,7 +150,6 @@ get_header(); ?>
                                 </div>
                                 <div class="tour-actions">
                                     <a href="<?php the_permalink(); ?>" class="btn btn-outline">Detayları Gör</a>
-                                    <button class="btn btn-primary quick-book" data-tour="<?php echo esc_attr(get_the_ID()); ?>">Hemen Rezerve Et</button>
                                 </div>
                             </div>
                         </div>

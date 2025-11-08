@@ -87,52 +87,96 @@ while (have_posts()) : the_post();
 
                     <!-- Comments Section -->
                     <div class="comments-section">
-                        <h3>Yorumlar (<?php echo get_comments_number(); ?>)</h3>
+                        <div class="section-header-center">
+                            <h2>Yorumlar</h2>
+                            <p>Okuyucu yorumları (<?php echo get_comments_number(); ?>)</p>
+                        </div>
+                        
+                        <!-- Comments Slider -->
+                        <?php
+                        $comments = get_comments(array(
+                            'post_id' => get_the_ID(),
+                            'status' => 'approve',
+                            'type' => 'comment'
+                        ));
+                        
+                        if (!empty($comments)) : ?>
+                            <div class="reviews-slider-wrapper">
+                                <button class="reviews-prev" aria-label="Önceki yorum">‹</button>
+                                <div class="reviews-slider-track">
+                                    <?php
+                                    foreach ($comments as $comment) :
+                                        $author_name = get_comment_author($comment);
+                                        // Get initials
+                                        $name_parts = explode(' ', trim($author_name));
+                                        if (count($name_parts) >= 2) {
+                                            $initial = strtoupper(substr($name_parts[0], 0, 1) . substr($name_parts[1], 0, 1));
+                                        } else {
+                                            $initial = strtoupper(substr($author_name, 0, 1));
+                                        }
+                                        
+                                        // Format relative time
+                                        $comment_time = strtotime($comment->comment_date);
+                                        $current_time = current_time('timestamp');
+                                        $time_diff = $current_time - $comment_time;
+                                        
+                                        if ($time_diff < 3600) {
+                                            $time_text = ceil($time_diff / 60) . ' dakika önce';
+                                        } elseif ($time_diff < 86400) {
+                                            $time_text = ceil($time_diff / 3600) . ' saat önce';
+                                        } elseif ($time_diff < 604800) {
+                                            $time_text = ceil($time_diff / 86400) . ' gün önce';
+                                        } elseif ($time_diff < 2592000) {
+                                            $time_text = ceil($time_diff / 604800) . ' hafta önce';
+                                        } elseif ($time_diff < 31536000) {
+                                            $time_text = ceil($time_diff / 2592000) . ' ay önce';
+                                        } else {
+                                            $time_text = get_comment_date('j F Y', $comment);
+                                        }
+                                        ?>
+                                        <div class="review-card">
+                                            <div class="review-card-header">
+                                                <div class="reviewer-avatar"><?php echo $initial; ?></div>
+                                                <div class="reviewer-info-new">
+                                                    <h4><?php echo get_comment_author($comment); ?></h4>
+                                                    <div class="review-meta">
+                                                        <span class="date"><?php echo $time_text; ?></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <p class="review-text"><?php echo get_comment_text($comment); ?></p>
+                                        </div>
+                                        <?php
+                                    endforeach;
+                                    ?>
+                                </div>
+                                <button class="reviews-next" aria-label="Sonraki yorum">›</button>
+                            </div>
+                        <?php else : ?>
+                            <div class="no-comments-msg">Henüz yorum yapılmamış. İlk yorumu siz yapın!</div>
+                        <?php endif; ?>
                         
                         <!-- Comment Form -->
-                        <div class="comment-form">
+                        <div class="comment-form-wrapper">
+                            <h3>Yorum Yapın</h3>
                             <?php
                             $commenter = wp_get_current_commenter();
                             $comment_form_args = array(
-                                'title_reply' => 'Yorum Yapın',
-                                'title_reply_before' => '<h4>',
-                                'title_reply_after' => '</h4>',
-                                'class_form' => '',
-                                'logged_in_as' => '',
-                                'comment_field' => '<div class="form-group"><textarea name="comment" id="comment" placeholder="Yorumunuzu yazın..." rows="4" required></textarea></div>',
-                                'must_log_in' => '',
+                                'title_reply' => '',
+                                'comment_field' => '<div class="form-group"><label for="comment">Yorumunuz *</label><textarea id="comment" name="comment" rows="5" required placeholder="Yorumunuzu yazın..."></textarea></div>',
                                 'fields' => array(
-                                    'author' => '<div class="form-row"><div class="form-group"><input type="text" name="author" id="author" value="' . esc_attr($commenter['comment_author']) . '" placeholder="Adınız" required></div>',
-                                    'email' => '<div class="form-group"><input type="email" name="email" id="email" value="' . esc_attr($commenter['comment_author_email']) . '" placeholder="E-posta adresiniz" required></div></div>',
+                                    'author' => '<div class="form-row"><div class="form-group"><label for="author">Ad Soyad *</label><input id="author" name="author" type="text" value="' . esc_attr($commenter['comment_author']) . '" required placeholder="Adınız ve Soyadınız" /></div>',
+                                    'email' => '<div class="form-group"><label for="email">E-posta *</label><input id="email" name="email" type="email" value="' . esc_attr($commenter['comment_author_email']) . '" required placeholder="ornek@email.com" /></div></div>',
                                 ),
-                                'submit_button' => '<button type="submit" name="submit" class="submit-btn">Yorum Gönder</button>',
-                                'submit_field' => '<div class="form-submit">%1$s %2$s</div>',
+                                'class_submit' => 'btn btn-primary',
+                                'label_submit' => 'Yorumu Gönder',
+                                'logged_in_as' => '',
                                 'comment_notes_before' => '',
-                                'comment_notes_after' => '',
+                                'comment_notes_after' => ''
                             );
                             comment_form($comment_form_args);
                             ?>
                         </div>
-
-                        <!-- Comments List -->
-                        <?php if (have_comments()) : ?>
-                            <div class="comments-list">
-                                <?php
-                                wp_list_comments(array(
-                                    'style' => 'div',
-                                    'callback' => 'safwa_custom_comment',
-                                    'avatar_size' => 60,
-                                    'type' => 'comment',
-                                ));
-                                ?>
-                            </div>
-                            
-                            <?php if (get_comment_pages_count() > 1) : ?>
-                                <button class="load-more-comments" onclick="window.location.href='<?php echo get_comments_pagenum_link(2); ?>'">Daha Fazla Yorum Göster</button>
-                            <?php endif; ?>
-                        <?php else : ?>
-                            <p class="no-comments">Henüz yorum yapılmamış. İlk yorumu siz yapın!</p>
-                        <?php endif; ?>
                     </div>
                 </main>
 

@@ -2,16 +2,87 @@
 
 document.addEventListener('DOMContentLoaded', function() {
     initializeTourDetail();
+    initializeTabs();
+    initializeMobileMenu(); // Add mobile menu for tour pages
 });
 
+// Mobile Menu for Tour Detail Pages
+function initializeMobileMenu() {
+    console.log('=== INITIALIZING MOBILE MENU (TOUR DETAIL) ===');
+    const menuBtn = document.querySelector('.menu-btn');
+    const mainNav = document.querySelector('.main-nav');
+    
+    console.log('Menu button:', menuBtn);
+    console.log('Main nav:', mainNav);
+    
+    if (menuBtn && mainNav) {
+        console.log('Setting up mobile menu...');
+        menuBtn.addEventListener('click', function(e) {
+            console.log('MENU CLICKED!');
+            e.preventDefault();
+            e.stopPropagation();
+            
+            mainNav.classList.toggle('active');
+            this.classList.toggle('active');
+            
+            console.log('Menu is now:', mainNav.classList.contains('active') ? 'OPEN' : 'CLOSED');
+        });
+        
+        // Close menu when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.main-header') && mainNav.classList.contains('active')) {
+                mainNav.classList.remove('active');
+                menuBtn.classList.remove('active');
+            }
+        });
+    } else {
+        console.log('ERROR: Menu elements not found!');
+    }
+}
+
 function initializeTourDetail() {
-    initializeNavigation();
     initializeGallery();
     initializeBookingForm();
     initializePriceCalculation();
     initializeStickyElements();
     initializeReviews();
     initializeShareButtons();
+}
+
+// Tab Switching Functionality
+function initializeTabs() {
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    const contentSections = document.querySelectorAll('.content-section');
+    
+    if (tabBtns.length === 0 || contentSections.length === 0) {
+        console.log('No tabs found - might be using inline script instead');
+        return;
+    }
+    
+    tabBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            const targetTab = this.getAttribute('data-tab');
+            
+            // Remove active class from all tabs and sections
+            tabBtns.forEach(b => b.classList.remove('active'));
+            contentSections.forEach(section => section.classList.remove('active'));
+            
+            // Add active class to clicked tab and corresponding section
+            this.classList.add('active');
+            const targetSection = document.getElementById(targetTab);
+            if (targetSection) {
+                targetSection.classList.add('active');
+                
+                // Smooth scroll to section
+                const offset = 150;
+                const targetPosition = targetSection.offsetTop - offset;
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
 }
 
 // Navigation
@@ -284,7 +355,7 @@ function handleStickyElements() {
     const tourNavigation = document.querySelector('.tour-navigation');
     const tourContent = document.querySelector('.tour-content');
     
-    if (tourContent) {
+    if (tourContent && tourNavigation) {
         const rect = tourContent.getBoundingClientRect();
         
         if (rect.top <= 120) {

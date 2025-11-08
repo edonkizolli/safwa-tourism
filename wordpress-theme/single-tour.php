@@ -31,6 +31,11 @@ while (have_posts()) : the_post();
     $tour_dates = get_post_meta(get_the_ID(), '_tour_dates', true);
     
     $current_price = $sale_price ?: $regular_price;
+    
+    // Ensure price is a valid number
+    if (empty($current_price) || !is_numeric($current_price)) {
+        $current_price = 0;
+    }
     ?>
 
     <!-- Tour Detail Header -->
@@ -998,11 +1003,31 @@ while (have_posts()) : the_post();
     <script>
     // Tab switching
     document.addEventListener('DOMContentLoaded', function() {
+        console.log('Tab script loaded');
+        
         const tabBtns = document.querySelectorAll('.tab-btn');
         const contentSections = document.querySelectorAll('.content-section');
         
-        tabBtns.forEach(btn => {
-            btn.addEventListener('click', function() {
+        console.log('Found tab buttons:', tabBtns.length);
+        console.log('Found content sections:', contentSections.length);
+        
+        if (tabBtns.length === 0) {
+            console.error('No tab buttons found!');
+            return;
+        }
+        
+        if (contentSections.length === 0) {
+            console.error('No content sections found!');
+            return;
+        }
+        
+        tabBtns.forEach((btn, index) => {
+            console.log('Setting up tab button', index, 'with data-tab:', btn.getAttribute('data-tab'));
+            
+            btn.addEventListener('click', function(e) {
+                console.log('Tab clicked:', this.getAttribute('data-tab'));
+                e.preventDefault();
+                
                 const targetTab = this.getAttribute('data-tab');
                 
                 // Remove active class from all tabs and sections
@@ -1012,6 +1037,9 @@ while (have_posts()) : the_post();
                 // Add active class to clicked tab and corresponding section
                 this.classList.add('active');
                 const targetSection = document.getElementById(targetTab);
+                
+                console.log('Target section:', targetSection);
+                
                 if (targetSection) {
                     targetSection.classList.add('active');
                     
@@ -1022,6 +1050,8 @@ while (have_posts()) : the_post();
                         top: targetPosition,
                         behavior: 'smooth'
                     });
+                } else {
+                    console.error('Target section not found:', targetTab);
                 }
             });
         });
@@ -1032,7 +1062,7 @@ while (have_posts()) : the_post();
             // Update totals when adults/children change
             const adultsSelect = document.getElementById('adults');
             const childrenSelect = document.getElementById('children');
-            const pricePerPerson = <?php echo $current_price; ?>;
+            const pricePerPerson = <?php echo floatval($current_price) ?: 0; ?>;
             
             function updateTotals() {
                 const adults = parseInt(adultsSelect.value) || 2;
@@ -1366,6 +1396,94 @@ while (have_posts()) : the_post();
         }
     });
     </script>
+
+<script>
+// Simple tab switching - No dependencies
+(function() {
+    'use strict';
+    
+    function initTabs() {
+        console.log('=== INITIALIZING TABS ===');
+        
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const contentSections = document.querySelectorAll('.content-section');
+        
+        console.log('Tab buttons found:', tabBtns.length);
+        console.log('Content sections found:', contentSections.length);
+        
+        if (tabBtns.length === 0) {
+            console.error('ERROR: No .tab-btn elements found');
+            return;
+        }
+        
+        if (contentSections.length === 0) {
+            console.error('ERROR: No .content-section elements found');
+            return;
+        }
+        
+        // Log all tabs
+        tabBtns.forEach((btn, i) => {
+            console.log('Tab ' + i + ':', btn.getAttribute('data-tab'));
+        });
+        
+        // Log all sections
+        contentSections.forEach((section, i) => {
+            console.log('Section ' + i + ':', section.id);
+        });
+        
+        // Add click handlers
+        tabBtns.forEach(function(btn) {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                const targetTab = this.getAttribute('data-tab');
+                console.log('=== TAB CLICKED:', targetTab, '===');
+                
+                // Remove active from all
+                tabBtns.forEach(function(b) {
+                    b.classList.remove('active');
+                });
+                
+                contentSections.forEach(function(section) {
+                    section.classList.remove('active');
+                });
+                
+                // Add active to clicked
+                this.classList.add('active');
+                
+                // Show target section
+                const targetSection = document.getElementById(targetTab);
+                if (targetSection) {
+                    targetSection.classList.add('active');
+                    console.log('Section activated:', targetTab);
+                    
+                    // Scroll to section
+                    setTimeout(function() {
+                        const offset = 200;
+                        const top = targetSection.offsetTop - offset;
+                        window.scrollTo({
+                            top: top,
+                            behavior: 'smooth'
+                        });
+                    }, 100);
+                } else {
+                    console.error('Section not found:', targetTab);
+                }
+            });
+        });
+        
+        console.log('=== TABS INITIALIZED SUCCESSFULLY ===');
+    }
+    
+    // Wait for DOM
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initTabs);
+    } else {
+        initTabs();
+    }
+})();
+</script>
 
 <?php endwhile; ?>
 

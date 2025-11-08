@@ -11,7 +11,25 @@ function initializeBlogDetail() {
     initializeNewsletterForm();
     initializeShareButtons();
     initializeSmoothScrolling();
+    initializeCommentsSlider();
     trackReadingTime();
+}
+
+// Comments Slider Navigation
+function initializeCommentsSlider() {
+    const prevBtn = document.querySelector('.reviews-prev');
+    const nextBtn = document.querySelector('.reviews-next');
+    const track = document.querySelector('.reviews-slider-track');
+    
+    if (!prevBtn || !nextBtn || !track) return;
+    
+    prevBtn.addEventListener('click', function() {
+        track.scrollBy({ left: -340, behavior: 'smooth' });
+    });
+    
+    nextBtn.addEventListener('click', function() {
+        track.scrollBy({ left: 340, behavior: 'smooth' });
+    });
 }
 
 // Table of Contents Navigation

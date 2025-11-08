@@ -33,30 +33,30 @@ function safwa_enqueue_scripts() {
     wp_enqueue_style('google-fonts', 'https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap', array(), null);
     
     // Main CSS Files (in correct order) - with cache busting
-    wp_enqueue_style('safwa-main-style', get_template_directory_uri() . '/css/style.css', array(), '2.3.0');
-    wp_enqueue_style('safwa-pages-style', get_template_directory_uri() . '/css/pages.css', array('safwa-main-style'), '2.1.0');
+    wp_enqueue_style('safwa-main-style', get_template_directory_uri() . '/css/style.css', array(), '2.3.5');
+    wp_enqueue_style('safwa-pages-style', get_template_directory_uri() . '/css/pages.css', array('safwa-main-style'), '2.1.3');
+    
+    // Main JavaScript - Load first with higher priority (no jQuery dependency)
+    wp_enqueue_script('safwa-main-script', get_template_directory_uri() . '/js/script.js', array(), '2.2.8', true);
     
     // Conditional CSS for specific pages
     if (is_singular('tour')) {
-        wp_enqueue_style('safwa-tour-detail', get_template_directory_uri() . '/css/tour-detail.css', array('safwa-pages-style'), '1.0.0');
-        wp_enqueue_script('safwa-tour-detail-js', get_template_directory_uri() . '/js/tour-detail.js', array('jquery'), '1.0.0', true);
+        wp_enqueue_style('safwa-tour-detail', get_template_directory_uri() . '/css/tour-detail.css', array('safwa-pages-style'), '2.0.5');
+        wp_enqueue_script('safwa-tour-detail-js', get_template_directory_uri() . '/js/tour-detail.js', array('jquery', 'safwa-main-script'), '2.0.2', true);
     }
     
     if (is_post_type_archive('tour') || is_tax('tour_category')) {
-        wp_enqueue_script('safwa-tours-js', get_template_directory_uri() . '/js/tours.js', array('jquery'), '1.0.0', true);
+        wp_enqueue_script('safwa-tours-js', get_template_directory_uri() . '/js/tours.js', array('jquery', 'safwa-main-script'), '1.0.0', true);
     }
     
     if (is_singular('post')) {
-        wp_enqueue_style('safwa-blog-detail', get_template_directory_uri() . '/css/blog-detail.css', array('safwa-pages-style'), '1.0.0');
-        wp_enqueue_script('safwa-blog-detail-js', get_template_directory_uri() . '/js/blog-detail.js', array('jquery'), '1.0.0', true);
+        wp_enqueue_style('safwa-blog-detail', get_template_directory_uri() . '/css/blog-detail.css', array('safwa-pages-style'), '1.0.1');
+        wp_enqueue_script('safwa-blog-detail-js', get_template_directory_uri() . '/js/blog-detail.js', array('jquery', 'safwa-main-script'), '1.0.0', true);
     }
     
     if (is_home() || (is_archive() && !is_post_type_archive('tour'))) {
-        wp_enqueue_script('safwa-blog-js', get_template_directory_uri() . '/js/blog.js', array('jquery'), '2.1.0', true);
+        wp_enqueue_script('safwa-blog-js', get_template_directory_uri() . '/js/blog.js', array('jquery', 'safwa-main-script'), '2.1.2', true);
     }
-    
-    // Main JavaScript
-    wp_enqueue_script('safwa-main-script', get_template_directory_uri() . '/js/script.js', array('jquery'), '2.2.0', true);
     
     // Get partner count for JavaScript
     $partner_count = 0;

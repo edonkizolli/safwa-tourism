@@ -383,20 +383,7 @@ document.querySelectorAll('.popular-post a').forEach(link => {
     });
 });
 
-// Responsive Menu for Blog (if needed)
-function initializeResponsiveMenu() {
-    const menuBtn = document.querySelector('.menu-btn');
-    const mainNav = document.querySelector('.main-nav');
-    
-    if (menuBtn && mainNav) {
-        menuBtn.addEventListener('click', function() {
-            mainNav.classList.toggle('active');
-            this.classList.toggle('active');
-        });
-    }
-}
-
-initializeResponsiveMenu();
+// Responsive Menu is handled by main script.js - no need for duplicate here
 
 // Lazy Loading for Blog Images (Performance Enhancement)
 function initializeLazyLoading() {

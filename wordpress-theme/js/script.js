@@ -1,3 +1,16 @@
+// Disable service worker that's causing issues
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.getRegistrations().then(function(registrations) {
+        for(let registration of registrations) {
+            registration.unregister();
+            console.log('Service worker unregistered');
+        }
+    });
+}
+
+console.log('===== SCRIPT.JS VERSION 2.2.8 LOADED =====');
+console.log('Script is running!');
+
 // DOM Elements
 const slides = document.querySelectorAll('.slide');
 const dots = document.querySelectorAll('.dot');
@@ -10,12 +23,24 @@ const navMenu = document.querySelector('.nav-menu');
 const tourApplicationForm = document.getElementById('tourApplicationForm');
 const contactForm = document.getElementById('contact-form');
 
+console.log('DOM Elements loaded');
+
 // Global Variables
 let currentSlide = 0;
 const totalSlides = slides.length;
 
 // Initialize Website
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('=== DOCUMENT READY ===');
+    console.log('URL:', window.location.href);
+    
+    // Check if elements exist
+    console.log('Checking for elements...');
+    console.log('.slide elements:', document.querySelectorAll('.slide').length);
+    console.log('.category-tab elements:', document.querySelectorAll('.category-tab').length);
+    console.log('.menu-btn:', document.querySelector('.menu-btn'));
+    console.log('.main-nav:', document.querySelector('.main-nav'));
+    
     if (slides.length > 0) initializeSlider();
     initializeNavigation();
     if (categoryTabs.length > 0) initializeTourCategories();
@@ -71,16 +96,47 @@ function goToSlide(index) {
 
 // Navigation Functionality
 function initializeNavigation() {
+    console.log('=== INITIALIZING NAVIGATION ===');
+    
     // Mobile menu toggle for both old and new header
     const menuBtn = document.querySelector('.menu-btn');
     const mainNav = document.querySelector('.main-nav');
     
+    console.log('Menu button found:', menuBtn);
+    console.log('Main nav found:', mainNav);
+    
     if (menuBtn && mainNav) {
+        console.log('Adding click listener to menu button');
+        console.log('Menu button classes:', menuBtn.className);
+        console.log('Main nav classes:', mainNav.className);
+        
         menuBtn.addEventListener('click', function(e) {
+            console.log('===== MENU BUTTON CLICKED =====');
+            console.log('Event:', e);
+            console.log('Button element:', this);
+            console.log('Button classes before:', this.className);
+            console.log('Nav classes before:', mainNav.className);
+            
+            e.preventDefault();
             e.stopPropagation(); // Prevent event from bubbling
+            
+            const isActive = mainNav.classList.contains('active');
+            console.log('Current state before toggle:', isActive);
+            
             mainNav.classList.toggle('active');
             this.classList.toggle('active');
-        });
+            
+            console.log('Button classes after:', this.className);
+            console.log('Nav classes after:', mainNav.className);
+            console.log('Menu active state after toggle:', mainNav.classList.contains('active'));
+            console.log('===== END MENU CLICK =====');
+        }, true); // Use capture phase
+        
+        console.log('Click listener added successfully');
+    } else {
+        console.log('ERROR: Menu button or nav not found!');
+        if (!menuBtn) console.log('Menu button is missing from DOM');
+        if (!mainNav) console.log('Main nav is missing from DOM');
     }
     
     // Legacy mobile menu toggle
@@ -97,11 +153,15 @@ function initializeNavigation() {
     // Header scroll effect
     window.addEventListener('scroll', handleHeaderScroll);
     
-    // Close mobile menu when clicking outside
+    // Close mobile menu when clicking outside (but not on the button itself)
     document.addEventListener('click', function(e) {
-        if (mainNav && menuBtn && !e.target.closest('.main-header')) {
-            mainNav.classList.remove('active');
-            menuBtn.classList.remove('active');
+        if (mainNav && menuBtn) {
+            // Only close if clicking outside header AND menu is open
+            if (!e.target.closest('.main-header') && mainNav.classList.contains('active')) {
+                console.log('Closing menu - clicked outside header');
+                mainNav.classList.remove('active');
+                menuBtn.classList.remove('active');
+            }
         }
     });
     
@@ -110,11 +170,14 @@ function initializeNavigation() {
         const menuLinks = mainNav.querySelectorAll('a');
         menuLinks.forEach(link => {
             link.addEventListener('click', function() {
+                console.log('Menu link clicked - closing menu');
                 mainNav.classList.remove('active');
                 if (menuBtn) menuBtn.classList.remove('active');
             });
         });
     }
+    
+    console.log('=== NAVIGATION INITIALIZED ===');
 }
 
 function toggleMobileMenu() {
